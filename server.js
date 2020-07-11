@@ -1,9 +1,16 @@
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
+const dotenv = require('dotenv');
 
-const httpPort = 8000
+
 
 const app = express()
+
+
+dotenv.config();
+
+httpPort = process.env.APP_PORT;
+
 
 app.use(express.static(path.join(__dirname, 'www')))
 
