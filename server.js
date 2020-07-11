@@ -35,7 +35,8 @@ const app = express();
 		let data = await db.get(client, database, collection, null);
 		console.log('hola');
 		console.log(req.query.h);
-		res.end('hello there')
+		res.send(data);
+		res.end('hello there');
 	})
 
 	// app.route('/api/users').get(async (req, res) => {
