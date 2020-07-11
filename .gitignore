@@ -3,6 +3,7 @@
 /www/storage
 /storage/*.key
 /vendor
+.env
 .env.backup
 npm-debug.log
 yarn-error.log
