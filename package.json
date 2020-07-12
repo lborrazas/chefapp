@@ -1,12 +1,12 @@
 {
   "name": "newpwa",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --mode=development --config webpack.config.js",
-    "watch": "webpack --mode=development --config webpack.config.js --watch"
+    "watch": "webpack --mode=development --config webpack.config.js --watch",
+    "start": "node server.js"
   },
   "author": "lborrazas",
   "license": "ISC",
@@ -23,5 +23,14 @@
   },
   "devDependencies": {
     "webpack-cli": "^3.3.12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lborrazas/chefapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lborrazas/chefapp/issues"
+  },
+  "homepage": "https://github.com/lborrazas/chefapp#readme",
+  "description": ""
 }

@@ -55,7 +55,15 @@ function installEvents() {
 			id: '#delete-me',
 			ev: 'click',	//If not, it assumes click
 			fn: () => {
-				mui.viewport.showPage("template-page", "DEF");
+				mui.viewport.showPage("login-page", "NONE");
+				return false;
+			}
+		},
+		{
+			id: '#forgot-btn',
+			ev: 'click',	//If not, it assumes click
+			fn: () => {
+				mui.viewport.showPage("forgot-page", "NONE");
 				return false;
 			}
 		},
