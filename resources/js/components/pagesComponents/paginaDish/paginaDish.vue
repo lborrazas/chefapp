@@ -2,8 +2,8 @@
     <page-templates page_identification="dish-page">
 
         <template slot="page-title"> La Pagina Del palto
-            <button id="micarrito" @click="abrircarro">
-            </button></template>
+            <button-keen @click="$refs['modal'].open()"id="micarrito">
+            </button-keen></template>
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
@@ -56,7 +56,9 @@
                 </div>
             </div>
             <recomended-dish></recomended-dish>
-
+            <modal-two  ref="modal" title="Ui como estas">
+                <h1>JUAN ES EL PROPIO</h1>
+            </modal-two>
 
 
         </template>
@@ -68,11 +70,15 @@
 <script>
     import pageComponent from "../../pageComponent.vue";
     import recomendedDishes from "./recomendedDishes.vue";
+    import {UiModal, UiButton} from "keen-ui";
+    import 'keen-ui/dist/keen-ui.css';
     export default {
         name: "dishPage",
         components:{
             'page-templates':pageComponent,
             'recomended-dish':recomendedDishes,
+            'modal-two': UiModal,
+            'button-keen':UiButton,
         },
         data(){
             return{

@@ -94,7 +94,7 @@
     right:50px;
     top: 10px;
     height: 30px;
-    width: 30px;
+    max-width: 30px;
     background-size:contain;
     background-repeat: no-repeat;
     background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
