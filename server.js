@@ -85,13 +85,32 @@ const app = express();
 	});
 
 	app.route('/platos').get(async (req, res) => {
+		let queryParams = req.query;
+
 		let collection = 'platos';
-		let resultado = await db.get(client,database,collection,null);
+		let filters = {};
+
+		if (queryParams.esDeSemana) {
+			filters.esDeSemana = queryParams.esDeSemana;
+		}
+		if (queryParams.paraCeliacos) {
+			filters.paraCeliacos = queryParams.paraCeliacos;
+		}
+		if (queryParams.paraVeganos) {
+			filters.paraVeganos = queryParams.paraVeganos;
+		}
+		if (queryParams.paraVegetarianos) {
+			filters.paraVegetarianos = queryParams.paraVegetarianos;
+		}
+
+		filters.isDeleted = false;
+
+		let resultado = await db.get(client, database, collection, filters);
 		res.send(resultado);
 		res.end();
 	}).post(async (req, res) => {
 		let collection = 'platos';
-		await db.insertOne(client,database,collection,req.body);
+		await db.insertOne(client, database, collection, req.body);
 		res.status(200).end();
 	}).delete(async (req, res) => {
 		let collection = 'platos';
@@ -103,7 +122,7 @@ const app = express();
 	app.route('/api/platos/destacados/').get(async (req, res) => {
 		let collection = 'destacados';
 		let array_destacados = await db.get(client, database, collection, null);
-		collection = '';
+		collection = 'platos';
 		let data = await db.getAllIn(client, database, collection, array_destacados);
 	})
 
