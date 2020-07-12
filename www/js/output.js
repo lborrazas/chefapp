@@ -196,7 +196,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("window.Vue = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.common.js\")\r\n\r\nVue.component('first-component', __webpack_require__(/*! ./components/firstComponent.vue */ \"./resources/js/components/firstComponent.vue\").default);\r\n\r\n\r\nconst app = new Vue({\r\n    el: '#app',\r\n    data: {\r\n        simple: '',\r\n    },\r\n    methods: {},\r\n    mounted() {\r\n    },\r\n})\r\n\r\n\n\n//# sourceURL=webpack:///./resources/js/app.js?");
+eval("window.Vue = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.common.js\")\r\n\r\nVue.component('first-component', __webpack_require__(/*! ./components/firstComponent.vue */ \"./resources/js/components/firstComponent.vue\").default);\r\nVue.component()\r\n\r\nconst app = new Vue({\r\n    el: '#app',\r\n    data: {\r\n        simple: '',\r\n    },\r\n    methods: {},\r\n    mounted() {\r\n    },\r\n})\r\n\r\n\n\n//# sourceURL=webpack:///./resources/js/app.js?");
 
 /***/ }),
 
