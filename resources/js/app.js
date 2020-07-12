@@ -1,4 +1,5 @@
 window.Vue = require('vue')
+window.Vue =require('axios')
 
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);
