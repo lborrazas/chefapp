@@ -60,14 +60,6 @@ function installEvents() {
 			}
 		},
 		{
-			id: '#forgot-btn',
-			ev: 'click',	//If not, it assumes click
-			fn: () => {
-				mui.viewport.showPage("forgot-page", "NONE");
-				return false;
-			}
-		},
-		{
 			id: '#option1',
 			fn: () => {
 				mui.screen.closePanel(function() {
@@ -81,6 +73,51 @@ function installEvents() {
 			fn: () => {
 				mui.screen.closePanel(function() {
 					mui.viewport.showPage("template-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option3',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("new-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option4',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("chef-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option100',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("login-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option-forgot',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("forgot-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option-register',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("register-page", "DEF");
 				});
 				return false;
 			}
