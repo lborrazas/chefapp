@@ -102,6 +102,14 @@ function installEvents() {
 				});
 				return false;
 			}
+		},{
+			id: '#option6',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("create-dish", "DEF");
+				});
+				return false;
+			}
 		},
 		//Toolbar options ------------------------------------------
 		{

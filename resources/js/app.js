@@ -16,6 +16,8 @@ Vue.component('mui-page-component', require('./components/pageComponent.vue').de
 Vue.component('chef-page-component', require('./components/pagesComponents/paginaDelChef/chefPage.vue').default);
 Vue.component('profile-page-component', require('./components/pagesComponents/ProfilePage/profilePage.vue').default);
 Vue.component('dish-page-component', require('./components/pagesComponents/paginaDish/paginaDish.vue').default);
+Vue.component('createdish-page-component', require('./components/pagesComponents/crearPlato/createDish.vue').default);
+
 const app = new Vue({
     el: '#app',
     data: {
