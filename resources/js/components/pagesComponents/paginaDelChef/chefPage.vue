@@ -23,6 +23,7 @@
         methods:{
             llamarGrande($nombre){
                 alert('estamos en el padre de ' + $nombre);
+                axios.get('/hello/world');
             }
         }
     }
