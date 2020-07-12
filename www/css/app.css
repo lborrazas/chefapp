@@ -135,3 +135,19 @@ unsus{
     content: '\f105';
 
 }
+#creationHolder{
+    height: 80%;
+    margin-left:7%;
+    margin-right:7%;
+    margin-top: 5%;
+}
+#creationHolder div{
+    margin: 5px;
+}
+#creationHolder input{
+    margin: 5px;
+    border: 0;
+}#creationHolder span{
+    margin: 15px;
+    border: 0;
+}

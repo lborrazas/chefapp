@@ -41,30 +41,14 @@
 					<div class="mui-page-body mui-scrollable" id="home-body">
 						<div> <!-- important for scroll! -->
 							<div id='delete-me' style="margin: 50px; text-align: center; text-decoration: underline">
-								<!-- inline style only for demo -->
-								Touch to go to page 2 (demo to show page change)
 							</div>
-
-							<div><h1>Hello</h1></div>
-
-							<first-component></first-component>
-							<first-component></first-component>
-
 						</div>
 					</div>
 				</div>
-
-				<mui-page-component page_identification="template-page">
-					<template slot="page-title">Hello world</template>
-					<template slot="page-body">
-						<div style="margin: 50px; text-align: center;"> <!-- inline style only for demo -->
-							Press back arrow or swipe to the rightss
-						</div>
-					</template>
-				</mui-page-component>
-
 				<dish-page-component v-on:addcarrito="agregaracarrito"></dish-page-component>
 				<profile-page-component></profile-page-component>
+				<createdish-page-component></createdish-page-component>
+
 
 
 
@@ -91,3 +75,5 @@
 
 <script type="text/javascript" src="js/output.js"></script>
 </html>
+<script>
+</script>

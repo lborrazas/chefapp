@@ -5,6 +5,14 @@
            <complejito v-on:juanito-evento="llamarGrande"></complejito>
 
 
+           <button-keen @click="$refs['modal'].open()" >ABRIR</button-keen>
+
+
+           <modal-two  ref="modal" title="Ui como estas">
+               <h1>JUAN ES EL PROPIO</h1>
+           </modal-two>
+           <h1>HELO</h1>
+
        </template>
    </page-template>
 
@@ -13,12 +21,16 @@
 <script>
     import pageComponent from "../../pageComponent.vue";
     import complejito from "./complejito.vue";
+    import {UiModal, UiButton} from "keen-ui";
+    import 'keen-ui/dist/keen-ui.css';
 
     export default {
         name: "chefPage",
         components:{
-            'page-template1': pageComponent,
+            'page-template': pageComponent,
             'complejito':complejito,
+            'modal-two': UiModal,
+            'button-keen':UiButton,
         },
         methods:{
             llamarGrande($nombre){
@@ -30,5 +42,6 @@
 </script>
 
 <style scoped>
+
 
 </style>
