@@ -1,0 +1,70 @@
+.flex-container {
+    display: flex;
+}
+.img-container{
+    background-repeat: no-repeat;
+    height:100%;
+    display: inline-block;
+    overflow: hidden;
+    width:32%;
+    background-size: cover;
+    margin: 1px;
+
+}
+.flex-container{
+    height: 25%;
+}
+
+.img-container img {
+    width: 100%;
+    vertical-align: middle;
+    height: auto;
+    width: auto;
+
+
+}
+.profile-1half{
+    width: 49%;
+    height:100% ;
+
+}
+.profile-2half{
+    width: 49%;
+    height:100% ;
+
+}
+#profile-photo{
+    border-radius: 25%;
+    background:none;
+    background-size:70px;
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    margin-left: fill;
+
+    margin-top: 15px;
+    width: 70px;
+    height: 70px;
+}
+#subsHolder {
+    height: 5%;
+}
+.sus{
+    border: #999999;
+    background-color: darkred;
+}
+unsus{
+    border: #FAFAF9;
+    background-color: #575757;
+}
+.review{
+    display: block;
+    height: 30px;
+    margin: 1px;
+
+}
+#reviews{
+    height: 30%;
+    overflow: auto;
+}

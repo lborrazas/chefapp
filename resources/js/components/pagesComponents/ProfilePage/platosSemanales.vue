@@ -1,7 +1,7 @@
-<template class="mui-page-body-content">
+<template >
 
     <div id="dish-wrapper" class="flex-container">
-        <span class="img-container" v-for="dish in featuredDishes" ><img :src="dish.imgurl"></span>
+        <span class="img-container" v-for="dish in featuredDishes"  :style="'background-image:url('+dish.imgurl+')'" ></span>
     </div>
 </template>
 

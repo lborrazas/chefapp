@@ -77,6 +77,32 @@ function installEvents() {
 				return false;
 			}
 		},
+		{
+			id: '#option3',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("new-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option4',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("profile-page", "DEF");
+				});
+				return false;
+			}
+		},{
+			id: '#option5',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("dish-page", "DEF");
+				});
+				return false;
+			}
+		},
 		//Toolbar options ------------------------------------------
 		{
 			id: '#tabbar-button1',
