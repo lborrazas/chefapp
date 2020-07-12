@@ -8,4 +8,5 @@
 npm-debug.log
 yarn-error.log
 /.idea
-
+redis.conf
+/www/js/output.js
