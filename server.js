@@ -3,7 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const redis = require('redis');
-const redisClient = redis.createClient();
+const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 const redisStore = require('connect-redis')(session);
 var bodyParser = require('body-parser')
 
