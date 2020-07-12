@@ -1,6 +1,9 @@
 <template>
     <page-templates page_identification="dish-page">
-        <template slot="page-title"> La Pagina Del palto </template>
+
+        <template slot="page-title"> La Pagina Del palto
+            <button id="micarrito" @click="abrircarro">
+            </button></template>
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
@@ -8,13 +11,38 @@
                     <span class="profile-1half" style="width: 70%">
                         <div class="item-header-main">
                             <div>Platos reservados hoy:{{reserved}} / {{total}}</div>
-                            <div style="border-radius: 10px; border: black" ><span :style="'width:'+carga+'%'"></span></div>
+                            <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
+                        " ><div style="background-color:darkred;border-radius: 10px; height:100%" :style="'width:'+pintar+'%'"></div></div>
                         </div>
                         <div class="item-header-main"> {{dishName}}</div>
                         <div class="item-header-secondary">{{description}}
                     </div></span>
-                    <span class="profile-2half"><div id="profile-photo" :style="'background-image:url('+dishPic+')'"></div>
-                        <div id="popularity" style="height: 100%"><div id="subsHolder"><button @click="changeSubButton" id="subscrito" style="min-width: 70%;height: 100%"></button></div>{{subscriptores}}</div>
+                    <span class="profile-2half">
+                        <div id="profile-photo" :style="'background-image:url('+dishPic+')'"></div>
+                        <div id="price" class="flex-container">
+                            <div id="coinimage" class="img-container">
+                            </div>
+                            <div>
+                                {{price}}$
+                            </div>
+
+                        </div>
+                        <div id="cart" class="flex-container">
+                            <div id="cartimage" class="img-container">
+                            </div>
+                            <div><button @click="add">
+                                Add
+                            </button>
+
+                            </div>
+
+                        </div>
+                        <div id="popularity" class="flex-container" style="height: 15%">
+                            <div class="popuHold" ><button id="likes" style="min-width: 50%;height: 100%">👍</button>{{popularity.likes}}</div>
+                            <div class="popuHold"><button id="dislikes" style="min-width: 50%;height: 100%">👎</button>{{popularity.dislikes}}</div>
+                        </div>
+
+
 
                     </span>
 
@@ -27,6 +55,7 @@
                 </div>
                 </div>
             </div>
+            <recomended-dish></recomended-dish>
 
 
 
@@ -38,18 +67,21 @@
 
 <script>
     import pageComponent from "../../pageComponent.vue";
+    import recomendedDishes from "./recomendedDishes.vue";
     export default {
         name: "dishPage",
         components:{
             'page-templates':pageComponent,
-
+            'recomended-dish':recomendedDishes,
         },
         data(){
             return{
+                price:250,
                 carga:0,
+                id:"",
                 description:"texto",
                 total:15,
-                reserved:1,
+                reserved:5,
                 dishName:"Arroz con tuco",
                 dishPic:"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRf0UjX6SbDijhHx2UuZ_1SvHB3MGKS5ywLlQ&usqp=CAUca",
                 subscriptores:0,
@@ -57,10 +89,11 @@
                     likes:0,
                     dislikes:0
                 },
-
+                alreadyVoted:false,
                 reviews:{
                     review1:{
                         text:"estaba muy ruco",
+                        img:""
                     },
                     review2:{
                         text:"estaba muy ruco",
@@ -84,21 +117,20 @@
                 }
             }
         },
-        methods:{  changeSubButton(){
-                this.subscibed=!this.subscibed
-                if(this.subscibed){
-                    document.getElementById("subscrito").classList.remove("unsus")
-                    document.getElementById("subscrito").classList.add("sus")
+        methods:{
+
+                add(){
+                this.$emit('addcarrito',[this.dishName,this.id,this.price])
+                },
+                abrircarro(){
+
                 }
-                else {
-                    document.getElementById("subscrito").classList.remove("sus")
-                    document.getElementById("subscrito").classList.add("unsus")
-                }
-            }
+
         },
         computed:{
-            pintar(){+
-                this.carga=(100*this.reserved.number)/this.total.number
+            pintar(){
+
+                return this.carga=(100*this.reserved)/this.total
 
             }
 

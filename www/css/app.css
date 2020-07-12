@@ -7,7 +7,7 @@
     display: inline-block;
     overflow: hidden;
     width:32%;
-    background-size: cover;
+    background-size: contain;
     margin: 1px;
 
 }
@@ -34,21 +34,81 @@
 
 }
 #profile-photo{
-    border-radius: 25%;
+    border-radius: 50%;
     background:none;
-    background-size:70px;
+    background-size:cover;
     background-repeat: no-repeat;
     margin: 0px;
     padding:0px;
     border: 0px;
-    margin-left: fill;
+    margin-left:24% ;
+    margin-right:24%;
 
     margin-top: 15px;
     width: 70px;
     height: 70px;
+    margin-bottom: 15px;
 }
 #subsHolder {
     height: 5%;
+}
+#subsHolder {
+    height: 5%;
+}
+#price{
+    height: 15%;
+}
+.profile-2half div{
+    margin-right: 5%;
+    margin-left: 5%;
+}
+#coinimage{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/kissclipart-coin-icon-dollar-icon-finance-icon-de4a854fbfa89ef5.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    margin-left:20%;
+    height: 70%;
+
+}
+#cart{
+
+
+}
+#cartimage{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    height: 30px;
+    margin-left:20%;
+    max-height: 50%;
+}
+#micarrito{
+    background-color: coral;
+    position: absolute;
+    right:50px;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    border-radius: 5px;
+}
+.popuHold{
+    height:95%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 .sus{
     border: #999999;
@@ -67,4 +127,11 @@ unsus{
 #reviews{
     height: 30%;
     overflow: auto;
+}
+
+.more{
+    border: 0px;
+    font-family: FontAwesome;
+    content: '\f105';
+
 }
