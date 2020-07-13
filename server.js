@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'www')))
 
 app.use(session({
     secret: 'ThisIsHowYouUseRedisSessionStorage',
-    name: '_redisPractice',
+    name: 'REDIS-SESSION',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }, // Note that the cookie-parser module is no longer needed

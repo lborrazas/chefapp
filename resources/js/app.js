@@ -1,7 +1,5 @@
 window.Vue = require('vue')
-window.axios =require('axios')
-//window.mui = require('mui')
-//window.mui = require('../../www/mobileui/mui.min')
+window.axios = require('axios')
 
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);
@@ -19,6 +17,7 @@ Vue.component('createdish-page-component', require('./components/pagesComponents
 
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
+import authMixin from './mixins/auth.js'
 
 const app = new Vue({
 
@@ -60,7 +59,8 @@ const app = new Vue({
     components:{
         'modal-two': UiModal,
         'button-keen':UiButton,
-    }
+    },
+    mixins: [authMixin],
 
 })
 
