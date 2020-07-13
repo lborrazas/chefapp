@@ -8,6 +8,8 @@ Vue.component('chef-page-component', require('./components/pagesComponents/pagin
 Vue.component('login-page-component', require('./components/pagesComponents/login/loginPage.vue').default);
 Vue.component('forgot-page-component', require('./components/pagesComponents/login/forgotPage.vue').default);
 Vue.component('register-page-component', require('./components/pagesComponents/login/registerPage.vue').default);
+Vue.component('home-page-component', require('./components/pagesComponents/home/homePage.vue').default);
+Vue.component('product-page-component', require('./components/pagesComponents/home/homePage.vue').default);
 
 
 

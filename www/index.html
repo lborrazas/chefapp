@@ -9,6 +9,23 @@
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="format-detection" content="telephone=no"/>
 
+
+    <!--HomeView Links Meta Script-->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../custom/view/js/skel.min.js"></script>
+    <script src="../custom/view/js/skel-panels.min.js"></script>
+    <script src="../custom/view/js/init.js"></script>
+        <link rel="stylesheet" href="../custom/view/css/skel-noscript.css" />
+        <link rel="stylesheet" href="../custom/view/css/style.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="../custom/view/css/ie/v8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="../custom/view/css/ie/v9.css" /><![endif]-->
+    <!--End-->
+
 	<!--view links-->
 	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="../custom/view/images/icons/favicon.ico"/>
@@ -39,6 +56,9 @@
     <link rel="stylesheet" href="custom/custom.css" type="text/css">
 
     <script src="cordova.js"></script>
+
+    <!--Boostrap links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
 
 	<!--view scripts-->
@@ -61,6 +81,11 @@
 
 	<!--mobile ui scripts-->
     <script src="cordova.js"></script>
+
+    <!--Boostrap scripts-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  	<!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
 
     <script src="vendors/jquery.min.js" type="text/javascript"></script>
@@ -81,23 +106,13 @@
             <!-- ViewPort por defecto. No lo elimines. Hará tu vida más simple y feliz. -->
             <div id="mui-viewport" class="mui-viewport">
 
-                <div id='home-page' class="mui-page">
-                    <div class="mui-page-header">
-                        <div class="mui-page-logo"></div>
-                        <a class="mui-headmenu" href="#"></a>
-                    </div>
-                    <div class="mui-page-body mui-scrollable" id="home-body">
-                        <div> <!-- important for scroll! -->
-                            <div id='delete-me' style="margin: 50px; text-align: center; text-decoration: underline">
-                                <!-- inline style only for demo -->
-                                Touch to go to page 2 (demo to show page change)
-                            </div>
 
-                            <div><h1>Hello</h1></div>
+                <home-page-component></home-page-component>
 
-                        </div>
-                    </div>
-                </div>
+
+                <product-page-component></product-page-component>
+
+
 
                 <chef-page-component></chef-page-component>
 

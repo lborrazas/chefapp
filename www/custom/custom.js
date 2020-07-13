@@ -69,6 +69,15 @@ function installEvents() {
 			}
 		},
 		{
+			id: '#option-product',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("product-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
 			id: '#option2',
 			fn: () => {
 				mui.screen.closePanel(function() {
