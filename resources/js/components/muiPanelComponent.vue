@@ -6,14 +6,12 @@
         <div class="mui-panel-body">
             <div>
                 <ul id='menuoptions' class='mui-list'>
-                    <li><a id='option1' href="#">Go Home Page</a></li>
-                    <li><a id='option2' href="#">Go Page 2</a></li>
-                    <li><a id='option3' href="#">Go Page 3</a></li>
-                    <li><a id='option4' href="#">Go Page 4</a></li>
-                    <li><a id='option5' href="#">Go Page 5</a></li>
-                    <li><a id='option6' href="#">Go Page 6</a></li>
-                    <li><a id='option13' href="#">Go Page 13</a></li>
-                    <li><a id='option100' href="#">Go Login</a></li>
+                    <li class="centereli"><a class="centerA" id='option1' href="#">Go Home Page</a></li>
+                    <li class="centereli"><a class="centerA" id='option4' href="#">Perfil</a></li>
+                    <li class="centereli"><a class="centerA" id='option5' href="#">Plato</a></li>
+                    <li class="centereli"><a class="centerA" id='option6' href="#">Crear Plato</a></li>
+                    <li class="centereli"><a class="centerA" id='option13' href="#">Platos Semanales</a></li>
+                    <li class="centereli"><a class="centerA" id='option100' href="#">Go Login</a></li>
                 </ul>
             </div>
         </div>

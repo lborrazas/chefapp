@@ -30,7 +30,7 @@
                         <div id="cart" class="flex-container">
                             <div id="cartimage" class="img-container">
                             </div>
-                            <div><button @click="add">
+                            <div><button style="background-color: #99999924;border-radius:1%" @click="add">
                                 Add
                             </button>
 

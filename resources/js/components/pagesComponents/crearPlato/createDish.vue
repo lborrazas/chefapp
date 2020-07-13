@@ -3,9 +3,9 @@
         <template slot="page-title">Crear Plato</template>
         <template slot="page-body">
             <div id="creationHolder">
-            <div>Nombre:<input v-model="nombre"/></div>
-            <div>Precio:<input type="number" v-model="precio"/></div>
-            <div>Descripcion<input v-model="descripcion"/></div>
+            <div class="creational">Nombre:<input v-model="nombre"/></div>
+            <div class="creational">Precio:<input type="number" v-model="precio"/></div>
+            <div class="creational">Descripcion<input v-model="descripcion"/></div>
             <input type="checkbox" id="Celiaco" value="Celiaco" v-model="checkedNames" @click="one">
             <label>Celiaco</label>
             <input type="checkbox" id="Vegano" value="Vegano" v-model="checkedNames" @click="two">
@@ -13,7 +13,7 @@
             <input type="checkbox" id="Vegetariano" value="Vegetariano" v-model="checkedNames" @click="three">
             <label>Vegetariano</label>
             <br>
-            <div><span>Categorias:<span v-for="names in checkedNames">{{names}} </span></span></div>
+            <div class="creational"><span>Categorias:<span v-for="names in checkedNames">{{names}} </span></span></div>
 
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-mdb-color btn-rounded float-left">
@@ -21,6 +21,7 @@
                         <input type="file">
                     </div>
                 </div>
+             <button v-if=""></button>
 
 
 

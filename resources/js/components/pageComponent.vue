@@ -1,8 +1,8 @@
 <template>
     <div :id='page_identification' class="mui-page">
-        <div class="mui-page-header">
+        <div class="mui-page-header navbar-heder" style="background-color: #0b2e13; color:lightgoldenrodyellow">
             <a class="mui-backarrow" href="#"></a>
-            <div class='mui-page-title'><slot name="page-title"/></div>
+            <div class='mui-page-title'><img src="/custom/images/logocat.png" class="logo-cat"><slot name="page-title"/></div>
             <a class="mui-headmenu" href="#"></a>
         </div>
         <div class="mui-page-body mui-scrollable" id="second-body">

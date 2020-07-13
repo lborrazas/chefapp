@@ -31,6 +31,7 @@
 }
 .profile-2half{
     margin: 5px;
+    margin-left: 10%;
     width: 40%;
     height:100% ;
 
@@ -85,6 +86,7 @@
 
 }
 #cart{
+    height: 20%;
 
 
 }
@@ -100,7 +102,7 @@
     max-height: 50%;
 }
 #micarrito{
-    background-color: coral;
+    background-color: #ffcfc3;
     position: absolute;
     right:50px;
     top: 10px;
@@ -115,7 +117,7 @@
     border: 0px;
     border-radius: 5px;
 }
-#subirsemanales{  background-color: coral;
+#subirsemanales{  background-color: #ffcfc3;
     position: absolute;
     right:50px;
     top: 10px;
@@ -131,7 +133,7 @@
 }
 .popuHold{
     height:95%;
-    width: 50%;
+    width: 40%;
     margin: 0;
     padding: 0;
     border: 0;
@@ -191,4 +193,48 @@ unsus{
 }
 .unselec{
     background-color: #FAFAF9;
+}
+
+.logo-cat{
+    border-radius: 10%;
+    max-width: 10%;
+    max-height: 10%;
+    margin-right: 2%;
+    margin-bottom: 5%;
+}
+.review{
+    background-color: #99999924;
+    margin-bottom: 1%;
+    border-radius: 4%;
+}
+.item-header-main{
+    font-weight: bold;
+}
+.item-header-secondary{
+    background-color: #99999924;
+    border-radius: 5%;
+    border: #575757;
+
+}
+.creational{
+    background-color: #99999924;
+    border-radius:1%;
+    border:2px;
+    border: #0b2e13;
+    padding:3px;
+}
+.centereli{
+    background-color: #1b1e21;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    border:1px;
+    border: #575757;
+    height:30px;
+}
+.centerA{
+    color: darkred;
+    margin-bottom:3.4px;
+    margin-top:5.4px;
+    margin-left:25%;
+    margin-right:25%;
 }
