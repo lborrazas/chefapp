@@ -6,8 +6,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const redis = require('redis');
-const redisStore = require('connect-redis')(session);
-const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+// const redisStore = require('connect-redis')(session);
+// const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 const db = require('./database');
 
 const app = express();
@@ -19,23 +19,23 @@ const app = express();
 	let httpPort = process.env.APP_PORT;
 	let database = 'chefsapp';
 
-	redisClient.on('error', (err) => {
-		console.log('Redis error: ', err);
-	});
+	// redisClient.on('error', (err) => {
+	// 	console.log('Redis error: ', err);
+	// });
 
 	app.use(express.static(path.join(__dirname, 'www')))
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, 'www/index.html'))
 	});
 
-	app.use(session({
-		secret: 'ThisIsHowYouUseRedisSessionStorage',
-		name: '_redisPractice',
-		resave: false,
-		saveUninitialized: true,
-		cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
-		store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 }),
-	}));
+	// app.use(session({
+	// 	secret: 'ThisIsHowYouUseRedisSessionStorage',
+	// 	name: '_redisPractice',
+	// 	resave: false,
+	// 	saveUninitialized: true,
+	// 	cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+	// 	store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 }),
+	// }));
 
 	let client = await db.connect();
 	app.use(bodyParser.json());
@@ -46,32 +46,23 @@ const app = express();
 		next();
 	});
 
-	app.post('/login',jsonParser, function(req,res){
-		// when user login set the key to redis.
-		console.log(req.body.email)
-		req.session.key=req.body.email;
-		res.end('done');
-	});
-	
-	app.get('/logout',function(req,res){
-		req.session.destroy(function(err){
-			if(err){
-				console.log(err);
-			} else {
-				res.redirect('/');
-			}
-		});
-	});
-	
-	app.get('/hola', async (req, res) => {
-		let database = 'cheffapp';
-		let collection = 'chefs';
-		let data = await db.get(client, database, collection, null);
-		console.log('hola');
-		console.log(req.query.h);
-		res.send(data);
-		res.end('hello there');
-	})
+	// app.post('/login', bodyParser.json(), function (req, res) {
+	// 	// when user login set the key to redis.
+	// 	console.log(req.body.email)
+	// 	req.session.key = req.body.email;
+	// 	res.end('done');
+	// });
+
+	// app.get('/logout', function (req, res) {
+	// 	req.session.destroy(function (err) {
+	// 		if (err) {
+	// 			console.log(err);
+	// 		} else {
+	// 			res.redirect('/');
+	// 		}
+	// 	});
+	// });
+
 
 	app.route('/api/users').get(async (req, res) => {
 		let collection = 'usuarios';
@@ -82,6 +73,9 @@ const app = express();
 			};
 		}
 		let data = await db.get(client, database, collection, filters);
+		if (data === null) {
+			res.status(400).end();
+		}
 		res.send(data);
 		res.end();
 	}).post(async (req, res) => {
@@ -90,6 +84,7 @@ const app = express();
 			await db.insertOne(client, database, collection, req.body);
 			res.status(200).end();
 		} catch (err) {
+			console.log(err);
 			res.status(400).end();
 		}
 	})
@@ -101,11 +96,12 @@ const app = express();
 			res.send(data);
 			res.status(200).end();
 		} catch (err) {
+			console.log(err);
 			res.status(400).end();
 		}
 	}).put(async (req, res) => {
 		let collection = 'usuarios';
-		let result = await db.updateUser(client, database, collection, req.params.id, req.body);
+		await db.updateUser(client, database, collection, req.params.id, req.body);
 
 		if (result) {
 			res.status(200).end();
@@ -114,8 +110,13 @@ const app = express();
 
 	}).delete(async (req, res) => {
 		let collection = 'usuarios';
-		await db.delete(client, database, collection, req.params.id);
-		res.end();
+		try {
+			await db.delete(client, database, collection, req.params.id);
+			res.end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
 	});
 
 	app.route('/platos').get(async (req, res) => {
@@ -124,9 +125,6 @@ const app = express();
 		let collection = 'platos';
 		let filters = {};
 
-		if (queryParams.esDeSemana) {
-			filters.esDeSemana = queryParams.esDeSemana;
-		}
 		if (queryParams.paraCeliacos) {
 			filters.paraCeliacos = queryParams.paraCeliacos;
 		}
@@ -138,6 +136,7 @@ const app = express();
 		}
 
 		filters.isDeleted = false;
+		filters.esDeSemana = true;
 
 		let resultado = await db.get(client, database, collection, filters);
 		res.send(resultado);
@@ -148,17 +147,56 @@ const app = express();
 		res.status(200).end();
 	}).delete(async (req, res) => {
 		let collection = 'platos';
-		await db.delete(client, database, collection, req.params.id);
-		res.end();
+		let updateInfo = {
+			isDeleted: true
+		};
+		try {
+			await db.updatePlato(client, database, collection, req.query.id, updateInfo);
+			res.end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
 	});
 
 
 	app.route('/api/platos/destacados/').get(async (req, res) => {
 		let collection = 'destacados';
-		let array_destacados = await db.get(client, database, collection, null);
-		collection = 'platos';
-		let data = await db.getAllIn(client, database, collection, array_destacados);
-	})
+		try {
+			let array_destacados = await db.get(client, database, collection, null);
+			collection = 'platos';
+			let data = await db.getAllDestacados(client, database, collection, array_destacados);
+			if (data == null) {
+				res.status(400).end();
+			}
+			res.send(data);
+			res.end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
+
+	}).post(async (req, res) => {
+		try {
+			let id = {
+				id: req.body.id
+			};
+			let collection = 'destacados';
+			await db.insertOne(client, database, collection, id)
+			res.end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
+	}).delete(async (req, res) => {
+		try {
+			await db.deleteDestacado(client, database, collection, req.query.id);
+			res.end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
+	});
 
 	app.listen(httpPort, function () {
 		console.log(`Listening on port ${httpPort}!`);

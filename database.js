@@ -6,83 +6,101 @@ dotenv.config();
 const url = process.env.DB_CONNECTION;
 
 module.exports.get = async function (client, database, collection, filters) {
+	let resultado = null;
 	try {
-		let resultado = client.db(database).collection(collection).find(filters).project(
-		).toArray();
-		return resultado;
+		resultado = client.db(database).collection(collection).find(filters).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
+	return resultado;
 }
-module.exports.getAllIn = async function (client, database, collection, array) {
+module.exports.getAllDestacados = async function (client, database, collection, array) {
+	let resultado = null;
 	try {
-		let resultado = client.db(database).collection(collection).find().project(
+		array.forEach(function (element, index, array) {
+			array[index] = ObjectId(element.id);
+		});
+		resultado = client.db(database).collection(collection).find(
 			{
-				$in: array
+				_id: {
+					$in: array
+				}
 			}
-		).toArray();
-		return resultado;
+		).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
+	return resultado;
 }
 module.exports.getOne = async function (client, database, collection, id) {
+	let resultado = null;
 	try {
-		let resultado = client.db(database).collection(collection).find(
+		resultado = client.db(database).collection(collection).find(
 			{
 				_id: ObjectId(id)
 			}
-		).project().toArray();
-		return resultado;
+		).project(
+			{
+				password:0
+			}
+		).toArray();
 	} catch (err) {
 		console.log(err);
 	}
+	return resultado;
 }
 module.exports.insertOne = async function (client, database, collection, data) {
 	await client.db(database).collection(collection).insertOne(data);
 }
 
 module.exports.updateUser = async function (client, database, collection, id, data) {
-	try {
-		let newValues = null
-		if (data.type === 'chef') {
-			newValues = {
-				$set: {
-					nombre: data.nombre,
-					imagen: data.imagen,
-					bio: data.bio,
-					status: data.status,
-					ubicacion: data.ubicacion,
-				}
-			}
-		} else if (data.type === 'cliente') {
-			newValues = {
-				$set: {
-					nombre: data.nombre,
-					imagen: data.imagen,
-					carrito: data.carrito,
-					ubicacion: data.ubicacion,
-					reviews: data.reviews,
-				}
-			}
-		} else {
-			return false;
-		}
 
-		client.db(database).collection(collection).updateOne(
-			{ _id: ObjectId(id) },
-			newValues
-		);
-		return true;
-	} catch (err) {
-		console.log(err);
+	let newValues = null;
+	if (data.type === 'chef') {
+		newValues = {
+			$set: {
+				nombre: data.nombre,
+				imagen: data.imagen,
+				bio: data.bio,
+				status: data.status,
+				ubicacion: data.ubicacion,
+			}
+		}
+	} else if (data.type === 'cliente') {
+		newValues = {
+			$set: {
+				nombre: data.nombre,
+				imagen: data.imagen,
+				carrito: data.carrito,
+				ubicacion: data.ubicacion,
+				reviews: data.reviews,
+			}
+		}
 	}
+	client.db(database).collection(collection).updateOne(
+		{ _id: ObjectId(id) },
+		newValues
+	);
 }
+module.exports.updatePlato = async function (client, database, collection, id, data) {
+	client.db(database).collection(collection).updateOne(
+		{ _id: ObjectId(id) },
+		data
+	);
+}
+
 
 module.exports.delete = async function (client, database, collection, id) {
 	client.db(database).collection(collection).deleteOne(
 		{
 			_id: ObjectId(id)
+		}
+	);
+}
+module.exports.deleteDestacado = async function (client, database, collection, id) {
+	client.db(database).collection(collection).deleteOne(
+		{
+			id: id
 		}
 	);
 }
