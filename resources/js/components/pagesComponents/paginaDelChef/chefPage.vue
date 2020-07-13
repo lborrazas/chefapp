@@ -6,6 +6,9 @@
 
 
            <button-keen @click="$refs['modal'].open()" >ABRIR</button-keen>
+           <button @click="llamadaDeNacho"></button>
+
+           <h1 v-show="isLoading">ESTOY CARGANDO LA CONCHA DE TU MADRE</h1>
 
 
            <modal-two  ref="modal" title="Ui como estas">
@@ -15,7 +18,7 @@
 
        </template>
    </page-template>
-    
+
 </template>
 
 <script>
@@ -26,6 +29,12 @@
 
     export default {
         name: "chefPage",
+        data(){
+            return {
+                dishes: [],
+                isLoading : false,
+            }
+        },
         components: {
             'page-template': pageComponent,
             'complejito':complejito,
@@ -34,8 +43,20 @@
         },
         methods:{
             llamarGrande($nombre){
-                alert('estamos en el padre de ' + $nombre);
-                axios.get('/hello/world');
+
+                this.isLoading = true;
+                //alert('estamos en el padre de ' + $nombre);
+                axios.get('/hello/world/dishes').then($response => {
+                    this.dishes = $response.data
+                    this.isLoading = false;
+                }).catch(error => {
+                    alert('entre aca')
+                    sleep(2000);
+                    this.isLoading = false;
+                })
+            },
+            llamadaDeNacho(){
+                axios.post('/hola/')
             }
         }
     }
