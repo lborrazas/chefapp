@@ -222,7 +222,7 @@ function installEvents() {
 
 		{
 			id:window,
-			ev:'end-login',
+			ev:'end-page-new-page',
 			fn: ($event) => {
 					mui.viewport.showPage($event.originalEvent.page, "DEF");
 			}

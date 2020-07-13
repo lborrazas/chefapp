@@ -86,6 +86,7 @@
 
 <script>
     import pageComponent from "../../pageComponent.vue";
+    import muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
 
     export default {
         name: "loginPage.vue",
@@ -105,9 +106,7 @@
 
                 axios.post('/login', {email: this.email, password: this.password}).then(
                     $response => {
-                        let event = new Event('end-login');
-                        event.page = 'create-dish';
-                        window.dispatchEvent(event);
+                       muiChangePageEvent('home-page');
                     }
                 )
             }
