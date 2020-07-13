@@ -236,6 +236,14 @@ function installEvents() {
 				//Do something if you need
 			}
 		},
+
+		{
+			id:window,
+			ev:'end-page-new-page',
+			fn: ($event) => {
+				mui.viewport.showPage($event.originalEvent.page, "DEF");
+			}
+		}
 	]);
 }
 
