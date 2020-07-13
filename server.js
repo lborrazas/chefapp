@@ -9,6 +9,7 @@ const redis = require('redis');
 // const redisStore = require('connect-redis')(session);
 // const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 const db = require('./database');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -46,6 +47,18 @@ const app = express();
 		next();
 	});
 
+
+	app.post('/users', async (req, res) => {
+		let collection = 'usuarios';
+		try {
+			await db.insertOne(client, database, collection, req.body);
+			res.status(200).end();
+		} catch (err) {
+			console.log(err);
+			res.status(400).end();
+		}
+	});
+
 	// app.post('/login', bodyParser.json(), function (req, res) {
 	// 	// when user login set the key to redis.
 	// 	console.log(req.body.email)
@@ -62,141 +75,9 @@ const app = express();
 	// 		}
 	// 	});
 	// });
+	app.use('/api', apiRouter);
 
 
-	app.route('/api/users').get(async (req, res) => {
-		let collection = 'usuarios';
-		let filters = null;
-		if (req.query.type != null) {
-			filters = {
-				type: req.query.type
-			};
-		}
-		let data = await db.get(client, database, collection, filters);
-		if (data === null) {
-			res.status(400).end();
-		}
-		res.send(data);
-		res.end();
-	}).post(async (req, res) => {
-		let collection = 'usuarios';
-		try {
-			await db.insertOne(client, database, collection, req.body);
-			res.status(200).end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	})
-
-	app.route('/users/:id').get(async (req, res) => {
-		let collection = 'usuarios';
-		try {
-			let data = await db.getOne(client, database, collection, req.params.id);
-			res.send(data);
-			res.status(200).end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	}).put(async (req, res) => {
-		let collection = 'usuarios';
-		await db.updateUser(client, database, collection, req.params.id, req.body);
-
-		if (result) {
-			res.status(200).end();
-		}
-		res.status(400).end();
-
-	}).delete(async (req, res) => {
-		let collection = 'usuarios';
-		try {
-			await db.delete(client, database, collection, req.params.id);
-			res.end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	});
-
-	app.route('/platos').get(async (req, res) => {
-		let queryParams = req.query;
-
-		let collection = 'platos';
-		let filters = {};
-
-		if (queryParams.paraCeliacos) {
-			filters.paraCeliacos = queryParams.paraCeliacos;
-		}
-		if (queryParams.paraVeganos) {
-			filters.paraVeganos = queryParams.paraVeganos;
-		}
-		if (queryParams.paraVegetarianos) {
-			filters.paraVegetarianos = queryParams.paraVegetarianos;
-		}
-
-		filters.isDeleted = false;
-		filters.esDeSemana = true;
-
-		let resultado = await db.get(client, database, collection, filters);
-		res.send(resultado);
-		res.end();
-	}).post(async (req, res) => {
-		let collection = 'platos';
-		await db.insertOne(client, database, collection, req.body);
-		res.status(200).end();
-	}).delete(async (req, res) => {
-		let collection = 'platos';
-		let updateInfo = {
-			isDeleted: true
-		};
-		try {
-			await db.updatePlato(client, database, collection, req.query.id, updateInfo);
-			res.end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	});
-
-
-	app.route('/api/platos/destacados/').get(async (req, res) => {
-		let collection = 'destacados';
-		try {
-			let array_destacados = await db.get(client, database, collection, null);
-			collection = 'platos';
-			let data = await db.getAllDestacados(client, database, collection, array_destacados);
-			if (data == null) {
-				res.status(400).end();
-			}
-			res.send(data);
-			res.end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-
-	}).post(async (req, res) => {
-		try {
-			let id = {
-				id: req.body.id
-			};
-			let collection = 'destacados';
-			await db.insertOne(client, database, collection, id)
-			res.end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	}).delete(async (req, res) => {
-		try {
-			await db.deleteDestacado(client, database, collection, req.query.id);
-			res.end();
-		} catch (err) {
-			console.log(err);
-			res.status(400).end();
-		}
-	});
 
 	app.listen(httpPort, function () {
 		console.log(`Listening on port ${httpPort}!`);

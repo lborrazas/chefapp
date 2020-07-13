@@ -14,7 +14,7 @@ module.exports.get = async function (client, database, collection, filters) {
 	}
 	return resultado;
 }
-module.exports.getAllDestacados = async function (client, database, collection, array) {
+module.exports.getAllInById = async function (client, database, collection, array) {
 	let resultado = null;
 	try {
 		array.forEach(function (element, index, array) {
@@ -32,6 +32,31 @@ module.exports.getAllDestacados = async function (client, database, collection, 
 	}
 	return resultado;
 }
+module.exports.getPlatosDelChef = async function (client, database, collection, id) {
+	let resultado = null;
+	let platos = [];
+	try {
+		resultado = client.db(database).collection(collection).find(
+			{
+				_id: ObjectId(id)
+			}
+		);
+		if (resultado !== null) {
+			platos = resultado.platos;
+		}
+
+	} catch (err) {
+		console.log(err);
+	}
+	return platos;
+}
+module.exports.incrementarNumPedido = async function (client, database, collection, id) {
+	await client.db(database).collection(collection).updateOne(
+		{ _id: ObjectId(id) },
+		{ $inc: { reservas: 1 } }
+	);
+}
+
 module.exports.getOne = async function (client, database, collection, id) {
 	let resultado = null;
 	try {
@@ -41,7 +66,7 @@ module.exports.getOne = async function (client, database, collection, id) {
 			}
 		).project(
 			{
-				password:0
+				password: 0
 			}
 		).toArray();
 	} catch (err) {
