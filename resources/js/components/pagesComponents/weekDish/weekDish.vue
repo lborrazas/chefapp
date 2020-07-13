@@ -39,7 +39,7 @@
     import pageComponent from "../../pageComponent.vue";
     import {UiModal, UiButton} from "keen-ui";
     import 'keen-ui/dist/keen-ui.css';
-    import 
+    import muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
     export default {
         name: "weekDish",
         components:{
@@ -90,7 +90,7 @@
                         let post = {
                             id:this.platos[i][1],
                             body:cantidad,
-                            userid:
+                            userid:0
                         };
                         axios.post("/semala", post).then((result) => {
                            muiChangePageEvent('home-page')
@@ -157,7 +157,13 @@
             }
         },
         computed:{
-
+            //["nombre","id3","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"]
+            init(){
+                console.log("entra")
+                axios.get("/api/platos/"+this.id).then((result) => {
+                    this.result = result.data;
+                    console.log(result.data)
+                })}
         }
     }
 </script>

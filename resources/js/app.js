@@ -18,6 +18,7 @@ Vue.component('weekdish-page-component', require('./components/pagesComponents/w
 
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
+import authMixin from './mixins/auth.js'
 
 const app = new Vue({
 
@@ -64,7 +65,8 @@ const app = new Vue({
     components:{
         'modal-two': UiModal,
         'button-keen':UiButton,
-    }
+    },
+    mixins: [authMixin],
 
 })
 
