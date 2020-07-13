@@ -110,6 +110,14 @@ function installEvents() {
 				});
 				return false;
 			}
+		},{
+			id: '#option13',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("week-page", "DEF");
+				});
+				return false;
+			}
 		},
 		{
 			id: '#option100',

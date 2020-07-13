@@ -51,7 +51,9 @@
             }
 
         }
-    }
+    };
+
+
 </script>
 
 <style scoped>

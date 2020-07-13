@@ -2,8 +2,8 @@
     <page-templates page_identification="dish-page">
 
         <template slot="page-title"> La Pagina Del palto
-            <button-keen @click="mandar('modal')" id="micarrito">
-            </button-keen></template>
+            <button id="micarrito" @click="mandar('modal')" >
+            </button></template>
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">

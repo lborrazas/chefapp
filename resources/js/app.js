@@ -1,5 +1,5 @@
 window.Vue = require('vue')
-window.axios =require('axios')
+window.axios = require('axios')
 
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);
@@ -13,6 +13,7 @@ Vue.component('register-page-component', require('./components/pagesComponents/l
 Vue.component('profile-page-component', require('./components/pagesComponents/ProfilePage/profilePage.vue').default);
 Vue.component('dish-page-component', require('./components/pagesComponents/paginaDish/paginaDish.vue').default);
 Vue.component('createdish-page-component', require('./components/pagesComponents/crearPlato/createDish.vue').default);
+Vue.component('weekdish-page-component', require('./components/pagesComponents/weekDish/weekDish.vue').default);
 
 
 import {UiModal, UiButton} from "keen-ui";
@@ -25,8 +26,9 @@ const app = new Vue({
         simple: '',
         carrito:[],
         total:0,
-        variableFor:0,
-        auxarray:["","",]
+
+        auxarray:["","",],
+        idsolutions:0
     },
     methods: {
         agregaracarrito(args){
@@ -38,19 +40,23 @@ const app = new Vue({
         abrir(laid){
             this.$refs[laid].open()
         },
-        sacardish(laid,precio){
-            console.log(laid)
-            console.log(document.getElementById(laid))
-            this.total=this.total-precio;
-            document.getElementById(laid).parentNode.removeChild(document.getElementById(laid))
-            while (this.variableFor<this.carrito.length){
-              //  if(this.carrito[this.variableFor][1]==laid){
-              //     this.auxarray
-              //  }
-                this.variableFor++
+        sacardish(){
+            this.carrito=[]
+            this.total=0;
+        }
+    },
+    computed:{
+        idsolution(){
+            var i=0
+            var j=0
+            for(;i<this.carrito.length;i++){
+                for(;j<this.carrito.length;j++){
+                    if (this.carrito[j][1]==this.carrito[i][1]){
+                        this.carrito[j][1]=this.carrito[j][1]+this.idsolutions
+                        this.idsolutions++
+                    }
+                }
             }
-            this.variableFor=0
-            this.carrito.pop()
         }
     },
     mounted() {
