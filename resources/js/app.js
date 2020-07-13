@@ -9,22 +9,56 @@ Vue.component('chef-page-component', require('./components/pagesComponents/pagin
 Vue.component('profile-page-component', require('./components/pagesComponents/ProfilePage/profilePage.vue').default);
 Vue.component('dish-page-component', require('./components/pagesComponents/paginaDish/paginaDish.vue').default);
 Vue.component('createdish-page-component', require('./components/pagesComponents/crearPlato/createDish.vue').default);
+Vue.component('login-page-component', require('./components/pagesComponents/login/loginPage.vue').default);
+Vue.component('forgot-page-component', require('./components/pagesComponents/login/forgotPage.vue').default);
+Vue.component('register-page-component', require('./components/pagesComponents/login/registerPage.vue').default);
 
 
+
+import {UiModal, UiButton} from "keen-ui";
+import 'keen-ui/dist/keen-ui.css';
 
 const app = new Vue({
+
     el: '#app',
     data: {
         simple: '',
         carrito:[],
+        total:0,
+        variableFor:0,
+        auxarray:["","",]
     },
     methods: {
-        agregaracarrito(nombre,id,precio){
-            this.carrito.push(nombre+" - "+precio+"$")
+        agregaracarrito(args){
+            console.log(args[2])
+            this.total=this.total+args[2]
+            this.carrito.push([args[0],args[1],args[2]]) //nombre-id-precio
+
+        },
+        abrir(laid){
+            this.$refs[laid].open()
+        },
+        sacardish(laid,precio){
+            console.log(laid)
+            console.log(document.getElementById(laid))
+            this.total=this.total-precio;
+            document.getElementById(laid).parentNode.removeChild(document.getElementById(laid))
+            while (this.variableFor<this.carrito.length){
+              //  if(this.carrito[this.variableFor][1]==laid){
+              //     this.auxarray
+              //  }
+                this.variableFor++
+            }
+            this.variableFor=0
+            this.carrito.pop()
         }
     },
     mounted() {
     },
+    components:{
+        'modal-two': UiModal,
+        'button-keen':UiButton,
+    }
 
 })
 

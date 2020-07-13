@@ -55,7 +55,7 @@ function installEvents() {
 			id: '#delete-me',
 			ev: 'click',	//If not, it assumes click
 			fn: () => {
-				mui.viewport.showPage("template-page", "DEF");
+				mui.viewport.showPage("login-page", "NONE");
 				return false;
 			}
 		},
@@ -107,6 +107,33 @@ function installEvents() {
 			fn: () => {
 				mui.screen.closePanel(function() {
 					mui.viewport.showPage("create-dish", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option100',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("login-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option-forgot',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("forgot-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
+			id: '#option-register',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("register-page", "DEF");
 				});
 				return false;
 			}

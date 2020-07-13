@@ -2,7 +2,7 @@
     <page-templates page_identification="dish-page">
 
         <template slot="page-title"> La Pagina Del palto
-            <button-keen @click="$refs['modal'].open()"id="micarrito">
+            <button-keen @click="mandar('modal')" id="micarrito">
             </button-keen></template>
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
@@ -56,9 +56,6 @@
                 </div>
             </div>
             <recomended-dish></recomended-dish>
-            <modal-two  ref="modal" title="Ui como estas">
-                <h1>JUAN ES EL PROPIO</h1>
-            </modal-two>
 
 
         </template>
@@ -84,7 +81,7 @@
             return{
                 price:250,
                 carga:0,
-                id:"",
+                id:"genericid",
                 description:"texto",
                 total:15,
                 reserved:5,
@@ -128,9 +125,10 @@
                 add(){
                 this.$emit('addcarrito',[this.dishName,this.id,this.price])
                 },
-                abrircarro(){
+                mandar(laid){
+                    this.$emit('mandar',laid)
 
-                }
+                },
 
         },
         computed:{

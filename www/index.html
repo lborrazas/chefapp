@@ -14,11 +14,68 @@
 	<link rel="stylesheet" href="/css/app.css">
 	<script src="cordova.js"></script>
 	<!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
+	<!--view links-->
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="../custom/view/images/icons/favicon.ico"/>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../custom/view/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../custom/view/css/main.css">
+	<!--===============================================================================================-->
+
+	<!--mobile ui links-->
+	<link rel="stylesheet" href="mobileui/mui.min.css" type="text/css">
+    <link rel="stylesheet" href="mobileui/mui.min.css" type="text/css">
+    <link rel="stylesheet" href="custom/custom.css" type="text/css">
+
+    <script src="cordova.js"></script>
+    <!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
 
 	<script src="vendors/jquery.min.js" type="text/javascript"></script>
 	<script src="vendors/jquery.animate-enhanced.js" type="text/javascript"></script>
 	<script src="vendors/jqwait/jquery.wait.min.js" type="text/javascript"></script>
 	<!-- <script src="vendors/iscroll-min.js" type="text/javascript"></script> -->
+	<!--view scripts-->
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/bootstrap/js/popper.js"></script>
+	<script src="../custom/view/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../custom/view/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script src="../custom/view/js/main.js"></script>
+
+	<!--mobile ui scripts-->
+    <script src="cordova.js"></script>
+ 	<!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
+
+    <script src="vendors/jquery.min.js" type="text/javascript"></script>
+    <script src="vendors/jquery.animate-enhanced.js" type="text/javascript"></script>
+    <script src="vendors/jqwait/jquery.wait.min.js" type="text/javascript"></script>
+    <!-- <script src="vendors/iscroll-min.js" type="text/javascript"></script> -->
 
 	<script src="mobileui/mui.min.js" type="text/javascript"></script>
 	<script src="custom/custom.js" type="text/javascript"></script>
@@ -45,11 +102,30 @@
 						</div>
 					</div>
 				</div>
-				<dish-page-component v-on:addcarrito="agregaracarrito"></dish-page-component>
+				<dish-page-component v-on:mandar="abrir" v-on:addcarrito="agregaracarrito"></dish-page-component>
 				<profile-page-component></profile-page-component>
 				<createdish-page-component></createdish-page-component>
 
+                <login-page-component></login-page-component>
 
+
+                <forgot-page-component></forgot-page-component>
+
+                <register-page-component></register-page-component>
+
+				<modal-two  ref="modal" title="Ui como estas">
+
+					<div>
+						<div v-if="carrito.length===0">Carrito vacio</div>
+						<div v-else></div>
+						<div>
+							<div v-for="dish in carrito" :id=dish[1] > {{dish[0]}}      -{{dish[2]}} $ <button @click="sacardish(dish[1],dish[2])">Sacar</button> </div>
+						</div>
+
+					</div>
+
+
+				</modal-two>
 
 
 
@@ -75,5 +151,3 @@
 
 <script type="text/javascript" src="js/output.js"></script>
 </html>
-<script>
-</script>
