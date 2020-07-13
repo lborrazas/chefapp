@@ -14,7 +14,7 @@ export default({
             this.tokenSession = getCookie('REDIS-SESSION');
             return {
                 headers: {
-                    'X-Authorization': "Bearer " + this.tokenSession,
+                    'Cookie': "REDIS-SESSION " + this.tokenSession,
                 }
             }
         },
