@@ -55,6 +55,7 @@
                 cant1:0,
                 cant2:0,
                 main3:["empty","empty","empty"],
+                results:{},
                 platos:[
                     ["nombre","id3","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
                     ["nombre","id4","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
@@ -65,6 +66,12 @@
             }
         },
         methods:{
+            updatePlatos(){
+                axios.get("/api/platos/mios").then($response => {
+                    this.results = $response.data;
+
+                    })
+            },
             getname(clave){
                 let valorretorno =""
                 for (let i=0;i<this.platos.length;i++){

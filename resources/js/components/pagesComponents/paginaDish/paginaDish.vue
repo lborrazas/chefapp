@@ -8,7 +8,7 @@
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
 
-                    <span class="profile-1half" style="width: 70%">
+                    <span class="profile-1half" >
                         <div class="item-header-main">
                             <div>Platos reservados hoy:{{reserved}} / {{total}}</div>
                             <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px

@@ -25,6 +25,7 @@ const app = new Vue({
     el: '#app',
     data: {
         simple: '',
+        clave:"",
         carrito:[],
         total:0,
 
@@ -44,6 +45,12 @@ const app = new Vue({
         sacardish(){
             this.carrito=[]
             this.total=0;
+        },
+        comprar(){
+            for (let i=0;i<this.carrito;i++){
+                axios.post("/appi/pedido"+this.carrito[i][1],"Total:"+this.total+",Cliente:"+this.clave)
+                //
+            }
         }
     },
     computed:{

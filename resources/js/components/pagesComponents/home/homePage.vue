@@ -25,9 +25,9 @@
                     <div class="row">
                         <div class="3u flex-content-25" v-for="product in array">
                             <section>
-                                <a href="#" class="image full"><img :src="product[0]" alt="" /></a>
+                                <a  class="image full"><img :src="product[0]" alt="" /></a>
                                 <p>{{product[1]}}</p>
-                                <a href="#" class="button btn-plus">Read More</a>
+                                <a :id="product[3]" class="button btn-plus" @click="openDish(product[3])">Read More</a>
                             </section>
                         </div>
                     </div>
@@ -60,15 +60,6 @@
                     <header>
                         <h2>Quiza te guste</h2>
                     </header>
-                    <div class="row">
-                        <div class="3u flex-content-25" v-for="product in array">
-                            <section>
-                                <a href="#" class="image full"><img :src="product[0]" alt="" /></a>
-                                <p>{{product[1]}}</p>
-                                <a href="#" class="button btn-plus">Read More</a>
-                            </section>
-                        </div>
-                    </div>
                     </div>
                     </div>
             </div>
@@ -78,6 +69,7 @@
 
 <script>
     import pageComponent from "../../pageComponent.vue";
+    import muiChangePageEvent from "../../../functions/muiChangePageEvent";
 
     export default {
         name: "homePage.vue",
@@ -85,14 +77,28 @@
             return {
                 id: 'template-page',
                 array: [
-                    ['/custom/view/images/home-bg.jpg','nombre'],
-                    ['/custom/view/images/home-bg.jpg','nombre1'],
+                    ['/custom/view/images/home-bg.jpg','nombre',"genericid"],
+                    ['/custom/view/images/home-bg.jpg','nombre1',"genericid1"],
                 ]
 
             }
         },
         components: {
             'page-template': pageComponent,
+        },
+        methods:{
+            openDish(clave){
+                muiChangePageEvent("dish-page")
+                axios.get('api/dishes'+clave).then($response => {
+                    this.dish = $response.data
+                    this.isLoading = false;
+
+                }).catch(error => {
+                    alert('error')
+                    sleep(20);
+                    this.isLoading = false;
+                })
+            }
         },
         props: {
             home_page: '',

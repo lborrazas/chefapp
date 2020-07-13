@@ -125,7 +125,7 @@
 
                 <chef-page-component></chef-page-component>
 				<dish-page-component v-on:mandar="abrir" v-on:addcarrito="agregaracarrito"></dish-page-component>
-				<profile-page-component></profile-page-component>
+				<profile-page-component ></profile-page-component>
 				<createdish-page-component></createdish-page-component>
 
 
@@ -133,7 +133,7 @@
 
 
                 <forgot-page-component></forgot-page-component>
-				<weekdish-page-component></weekdish-page-component>
+				<weekdish-page-component ref="weepage"></weekdish-page-component>
                 <register-page-component></register-page-component>
 
 
@@ -149,6 +149,7 @@
 
 						<div class="flex-container"><div style="margin-right: 25%">Total: {{total}}$</div><button style="margin-left:25% " v-if="carrito.length>0" @click="sacardish">Borrar Carrito</button>
 						</div>
+						<button-keen @click="comprar">Comprar</button-keen>
 					</div>
 
 
