@@ -11,6 +11,8 @@ Vue.component('chef-page-component', require('./components/pagesComponents/pagin
 
 
 
+
+
 const app = new Vue({
     el: '#app',
     data: {
