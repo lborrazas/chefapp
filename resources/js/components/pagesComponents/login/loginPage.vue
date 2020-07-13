@@ -102,11 +102,14 @@
         },
         methods: {
             signCall() {
-               // window.dispatchEvent(new Event('uff'));
-               /* axios.post('/login', {email: this.email, password: this.password}).then(
-                   mui.viewport.showPage('home-page', "SLIDE-LEFT");
-                )*/
 
+                axios.post('/login', {email: this.email, password: this.password}).then(
+                    $response => {
+                        let event = new Event('end-login');
+                        event.page = 'create-dish';
+                        window.dispatchEvent(event);
+                    }
+                )
             }
         }
     }
