@@ -20,6 +20,7 @@ Vue.component('weekdish-page-component', require('./components/pagesComponents/w
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
 import authMixin from './mixins/auth.js'
+import muiChangePageEvent from "./functions/muiChangePageEvent.js"
 
 const app = new Vue({
     el: '#app',
@@ -67,6 +68,7 @@ const app = new Vue({
         }
     },
     mounted() {
+        muiChangePageEvent('login-page')
     },
     components:{
         'modal-two': UiModal,
