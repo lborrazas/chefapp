@@ -1,5 +1,7 @@
 window.Vue = require('vue')
 window.axios =require('axios')
+//window.mui = require('mui')
+window.mui = require('../../www/mobileui/mui.min')
 
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);
