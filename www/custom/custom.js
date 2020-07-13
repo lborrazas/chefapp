@@ -69,6 +69,15 @@ function installEvents() {
 			}
 		},
 		{
+			id: '#option-product',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("product-page", "DEF");
+				});
+				return false;
+			}
+		},
+		{
 			id: '#option2',
 			fn: () => {
 				mui.screen.closePanel(function() {
@@ -107,6 +116,14 @@ function installEvents() {
 			fn: () => {
 				mui.screen.closePanel(function() {
 					mui.viewport.showPage("create-dish", "DEF");
+				});
+				return false;
+			}
+		},{
+			id: '#option13',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("week-page", "DEF");
 				});
 				return false;
 			}
@@ -219,14 +236,6 @@ function installEvents() {
 				//Do something if you need
 			}
 		},
-
-		{
-			id:window,
-			ev:'end-page-new-page',
-			fn: ($event) => {
-					mui.viewport.showPage($event.originalEvent.page, "DEF");
-			}
-		}
 	]);
 }
 

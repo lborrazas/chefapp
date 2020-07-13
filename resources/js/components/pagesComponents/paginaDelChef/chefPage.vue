@@ -26,6 +26,7 @@
     import complejito from "./complejito.vue";
     import {UiModal, UiButton} from "keen-ui";
     import 'keen-ui/dist/keen-ui.css';
+    import  muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
 
     export default {
         name: "chefPage",
@@ -49,6 +50,7 @@
                 axios.get('/hello/world/dishes').then($response => {
                     this.dishes = $response.data
                     this.isLoading = false;
+                    muiChangePageEvent("dish-page")
                 }).catch(error => {
                     alert('entre aca')
                     sleep(2000);
