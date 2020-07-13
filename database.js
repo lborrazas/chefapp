@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 const dotenv = require('dotenv');
 dotenv.config();
 const url = process.env.DB_CONNECTION;
+var id;
 
 module.exports.get = async function (client, database, collection, filters) {
 	let resultado = null;
@@ -74,8 +75,39 @@ module.exports.getOne = async function (client, database, collection, id) {
 	}
 	return resultado;
 }
+
+module.exports.getOneByField = async function (client, database, collection, filters) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find(
+			filters
+		).project(
+			{
+				password: 0
+			}
+		).toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
 module.exports.insertOne = async function (client, database, collection, data) {
 	await client.db(database).collection(collection).insertOne(data);
+}
+
+module.exports.insertPlato = async function (client, database, collection, data, id_chef) {
+	await client.db(database).collection(collection).insertOne(data,
+		function (err, doc) {
+			let id_plato = doc.insertedId;
+			client.db(database).collection('usuarios').updateOne(
+				{ _id: ObjectId(id_chef) },
+				{
+					$push: {
+						platos:id_plato
+					}
+				}
+			);
+		});
 }
 
 module.exports.updateUser = async function (client, database, collection, id, data) {

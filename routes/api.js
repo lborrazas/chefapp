@@ -24,6 +24,14 @@ const router = express.Router();
         res.end();
     });
 
+    router.get('/mateo', async (req, res) => {
+        let collection = 'usuarios';
+        let filters = {
+            email: req.body.email
+        }
+        let user = await db.getOneByField(client, database, collection, filters);
+        res.end();
+    })
 
 
     router.get('/users/:id', async (req, res) => {
@@ -38,14 +46,14 @@ const router = express.Router();
         }
     });
     router.put('/users/:id', async (req, res) => {
-        let collection = 'usuarios';
-        await db.updateUser(client, database, collection, req.params.id, req.body);
-
-        if (result) {
+        try {
+            let collection = 'usuarios';
+            await db.updateUser(client, database, collection, req.params.id, req.body);
             res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
         }
-        res.status(400).end();
-
     });
     router.delete('/users/:id', async (req, res) => {
         let collection = 'usuarios';
@@ -92,9 +100,14 @@ const router = express.Router();
     });
 
     router.post('/platos', async (req, res) => {
-        let collection = 'platos';
-        await db.insertOne(client, database, collection, req.body);
-        res.status(200).end();
+        try {
+            let collection = 'platos';
+            await db.insertPlato(client, database, collection, req.body, req.query.id);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
     });
 
     router.delete('/platos', async (req, res) => {
