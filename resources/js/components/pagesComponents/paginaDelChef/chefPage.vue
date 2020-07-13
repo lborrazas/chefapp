@@ -18,7 +18,7 @@
 
        </template>
    </page-template>
-    
+
 </template>
 
 <script>

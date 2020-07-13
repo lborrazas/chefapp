@@ -1,0 +1,153 @@
+.flex-container {
+    display: flex;
+}
+.img-container{
+    background-repeat: no-repeat;
+    height:100%;
+    display: inline-block;
+    overflow: hidden;
+    width:32%;
+    background-size: contain;
+    margin: 1px;
+
+}
+.flex-container{
+    height: 25%;
+}
+
+.img-container img {
+    width: 100%;
+    vertical-align: middle;
+    height: auto;
+    width: auto;
+
+
+}
+.profile-1half{
+    width: 49%;
+    height:100% ;
+
+}
+.profile-2half{
+    width: 49%;
+    height:100% ;
+
+}
+#profile-photo{
+    border-radius: 50%;
+    background:none;
+    background-size:cover;
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    margin-left:24% ;
+    margin-right:24%;
+
+    margin-top: 15px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+}
+#subsHolder {
+    height: 5%;
+}
+#subsHolder {
+    height: 5%;
+}
+#price{
+    height: 15%;
+}
+.profile-2half div{
+    margin-right: 5%;
+    margin-left: 5%;
+}
+#coinimage{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/kissclipart-coin-icon-dollar-icon-finance-icon-de4a854fbfa89ef5.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    margin-left:20%;
+    height: 70%;
+
+}
+#cart{
+
+
+}
+#cartimage{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    height: 30px;
+    margin-left:20%;
+    max-height: 50%;
+}
+#micarrito{
+    background-color: coral;
+    position: absolute;
+    right:50px;
+    top: 10px;
+    height: 30px;
+    max-width: 30px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    border-radius: 5px;
+}
+.popuHold{
+    height:95%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.sus{
+    border: #999999;
+    background-color: darkred;
+}
+unsus{
+    border: #FAFAF9;
+    background-color: #575757;
+}
+.review{
+    display: block;
+    height: 30px;
+    margin: 1px;
+
+}
+#reviews{
+    height: 30%;
+    overflow: auto;
+}
+
+.more{
+    border: 0px;
+    font-family: FontAwesome;
+    content: '\f105';
+
+}
+#creationHolder{
+    height: 80%;
+    margin-left:7%;
+    margin-right:7%;
+    margin-top: 5%;
+}
+#creationHolder div{
+    margin: 5px;
+}
+#creationHolder input{
+    margin: 5px;
+    border: 0;
+}#creationHolder span{
+    margin: 15px;
+    border: 0;
+}
