@@ -98,6 +98,14 @@ const router = express.Router();
         res.send(platos);
         res.end();
     });
+    router.get('/platos/mios', async (req, res) => {
+        let collection = 'usuarios';
+        let idPlatos = await db.getPlatosDelChef(client, database, collection, req.session.user.id);
+        collection = 'platos';
+        let platos = await db.getAllInById(client, database, collection, idPlatos);
+        res.send(platos);
+        res.end();
+    });
 
     router.post('/platos', async (req, res) => {
         try {

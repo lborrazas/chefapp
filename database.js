@@ -19,7 +19,7 @@ module.exports.getAllInById = async function (client, database, collection, arra
 	let resultado = null;
 	try {
 		array.forEach(function (element, index, array) {
-			array[index] = ObjectId(element.id);
+			array[index] = ObjectId(element);
 		});
 		resultado = client.db(database).collection(collection).find(
 			{
