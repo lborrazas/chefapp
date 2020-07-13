@@ -6,9 +6,7 @@
             <a class="mui-headmenu" href="#"></a>
         </div>
         <div class="mui-page-body mui-scrollable" id="second-body">
-            <div> <!-- important for scroll! -->
                 <slot name="page-body"/>
-            </div>
         </div>
     </div>
 </template>

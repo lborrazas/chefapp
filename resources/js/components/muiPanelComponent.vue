@@ -10,6 +10,9 @@
                     <li><a id='option2' href="#">Go Page 2</a></li>
                     <li><a id='option3' href="#">Go Page 3</a></li>
                     <li><a id='option4' href="#">Go Page 4</a></li>
+                    <li><a id='option5' href="#">Go Page 5</a></li>
+                    <li><a id='option6' href="#">Go Page 6</a></li>
+                    <li><a id='option100' href="#">Go Login</a></li>
                 </ul>
             </div>
         </div>
