@@ -79,12 +79,8 @@ module.exports.getOne = async function (client, database, collection, id) {
 module.exports.getOneByField = async function (client, database, collection, filters) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find(
+		resultado = await client.db(database).collection(collection).find(
 			filters
-		).project(
-			{
-				password: 0
-			}
 		).toArray();
 	} catch (err) {
 		console.log(err);

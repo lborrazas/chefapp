@@ -87,6 +87,8 @@
 <script>
     import pageComponent from "../../pageComponent.vue";
     import muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
+    //import authMixin from "../../../mixins/auth.js"
+
 
     export default {
         name: "loginPage.vue",
@@ -101,10 +103,11 @@
         props: {
             login_page: '',
         },
+ //       mixins: [authMixin],
         methods: {
             signCall() {
 
-                axios.post('/login', {email: this.email, password: this.password}).then(
+                axios.post('/login', {email: this.user.email, password: this.user.password}).then(
                     $response => {
                        muiChangePageEvent('home-page');
                     }
