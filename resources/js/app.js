@@ -7,11 +7,7 @@ Vue.component('mui-panel-component', require('./components/muiPanelComponent.vue
 Vue.component('mui-page-component', require('./components/pageComponent.vue').default);
 Vue.component('chef-page-component', require('./components/pagesComponents/paginaDelChef/chefPage.vue').default);
 
-
-
-
-
-
+import authMixin from './mixins/auth.js'
 
 const app = new Vue({
     el: '#app',
@@ -21,6 +17,7 @@ const app = new Vue({
     methods: {},
     mounted() {
     },
+    mixins: [authMixin],
 
 })
 
