@@ -37,7 +37,6 @@ const app = new Vue({
             console.log(args[2])
             this.total=this.total+args[2]
             this.carrito.push([args[0],args[1],args[2]]) //nombre-id-precio
-
         },
         abrir(laid){
             this.$refs[laid].open()

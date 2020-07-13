@@ -14,7 +14,15 @@
             <label>Vegetariano</label>
             <br>
             <div><span>Categorias:<span v-for="names in checkedNames">{{names}} </span></span></div>
-            <div></div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="btn btn-mdb-color btn-rounded float-left">
+                        <span>Eliga una foto</span>
+                        <input type="file">
+                    </div>
+                </div>
+
+
 
             </div>
 
@@ -32,6 +40,7 @@
         },
         data(){
             return{
+                imagen:"",
                 types:[false,false,false],
                 checkedNames: [],
                 precio:0,

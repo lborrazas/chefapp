@@ -1,6 +1,6 @@
 <template>
     <page-template page_identification="profile-page">
-        <template slot="page-title"> La Pag </template>
+        <template slot="page-title"> Perfil </template>
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">

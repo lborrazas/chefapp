@@ -1,7 +1,7 @@
 <template>
     <page-templates page_identification="dish-page">
 
-        <template slot="page-title"> La Pagina Del palto
+        <template slot="page-title"> Pagina de Plato
             <button id="micarrito" @click="mandar('modal')" >
             </button></template>
         <template slot="page-body">
