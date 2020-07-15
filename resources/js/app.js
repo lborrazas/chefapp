@@ -47,7 +47,7 @@ const app = new Vue({
         },
         comprar(){
             for (let i=0;i<this.carrito;i++){
-                axios.post("/appi/pedido"+this.carrito[i][1],"Total:"+this.total+",Cliente:"+this.clave)
+              //  axios.post("/appi/pedido"+this.carrito[i][1],"Total:"+this.total+",Cliente:"+this.clave)
                 //
             }
         }

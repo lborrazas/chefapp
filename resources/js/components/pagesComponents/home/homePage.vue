@@ -96,7 +96,7 @@
                 }).catch(error => {
                     alert('error')
                     sleep(20);
-                    this.isLoading = false;
+                   this.isLoading = false;
                 })
             }
         },

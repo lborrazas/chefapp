@@ -179,6 +179,7 @@ unsus{
     width: 100%;
     height:360px;
     background-size:cover;
+    border-radius: 5%;
 
  }
 .dishCheck{
@@ -232,9 +233,13 @@ unsus{
     height:30px;
 }
 .centerA{
-    color: darkred;
     margin-bottom:3.4px;
     margin-top:5.4px;
     margin-left:25%;
     margin-right:25%;
+}
+.weekdish{
+    background-color: #99999924;
+    border-radius: 5%;
+    height:30px;
 }

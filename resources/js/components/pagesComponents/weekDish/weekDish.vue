@@ -7,8 +7,8 @@
         </template>
         <template slot="page-body">
             <div style="margin:10px" v-for="dishes in platos">
-               <div class="disheselector img-container" :id="dishes[1]" :style="'background-image: url('+ dishes[2]+ ')'">
-                   <div class="flex-container" style="height:5%; margin: 5px;"><span>{{dishes[0]}}</span><div style=" margin-left: 75%;width:20px"><button :id="dishes[1]+'1'" class ="dishCheck" @click="pinch(dishes[1]+'1')" ></button></div></div>
+                <div class="flex-container weekdish" style="height:5%; margin: 5px;"><span>{{dishes[0]}}</span><div style=" margin-left: 75%;width:20px"><button :id="dishes[1]+'1'" class ="dishCheck" @click="pinch(dishes[1]+'1')" >✓</button></div></div>
+                <div class="disheselector img-container" :id="dishes[1]" :style="'background-image: url('+ dishes[2]+ ')'">
                 </div>
             </div>
 
