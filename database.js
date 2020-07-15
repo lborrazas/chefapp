@@ -37,7 +37,7 @@ module.exports.getPlatosDelChef = async function (client, database, collection, 
 	let resultado = null;
 	let platos = [];
 	try {
-		resultado = client.db(database).collection(collection).find(
+		resultado = await client.db(database).collection(collection).findOne(
 			{
 				_id: ObjectId(id)
 			}
