@@ -244,7 +244,7 @@ function installEvents() {
 				mui.viewport.showPage($event.originalEvent.page, "DEF");
 			}
 		}
-	]);
+	]);a
 }
 
 /**
@@ -265,10 +265,10 @@ function installEvents2() {
 	}, false);
 	
 	//Back button.
-	$(".mui-backarrow").click(function() {
+/*	$(".mui-backarrow").click(function() {
 		mui.history.back();
 		return false;
-	});
+	});*/
 	
 	//Open menu.
 	$(".mui-headmenu").click(function() {

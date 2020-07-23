@@ -13,6 +13,8 @@
 
                         <div class="flex-container-login">
 
+                            <animated-logo></animated-logo>
+
                             <div class="flex-content-50">
                                 <span>
                                     <a href="#" class="btn-face m-b-20">
@@ -88,6 +90,7 @@
     import pageComponent from "../../pageComponent.vue";
     import muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
     //import authMixin from "../../../mixins/auth.js"
+    import animatedCheffLogo from "../../resourcesComponents/animatedCheffLogo.vue";
 
 
     export default {
@@ -99,17 +102,19 @@
         },
         components: {
             'page-template': pageComponent,
+            'animated-logo': animatedCheffLogo,
         },
         props: {
             login_page: '',
         },
- //       mixins: [authMixin],
+        //       mixins: [authMixin],
         methods: {
             signCall() {
 
                 axios.post('/login', {email: this.user.email, password: this.user.password}).then(
                     $response => {
-                       muiChangePageEvent('home-page');
+                        mui.viewport.changeOa
+                        muiChangePageEvent('home-page');
                     }
                 )
             }
@@ -131,13 +136,15 @@
         margin-top: 20px;
     }
 
-    .flex-content-33{
+    .flex-content-33 {
         flex: 1 0 32%;
         padding-left: 2%;
         padding-right: 2%;
         min-width: 230px;
         margin-top: 20px;
     }
+
+
 
 
 </style>
