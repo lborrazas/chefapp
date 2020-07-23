@@ -1,6 +1,8 @@
 <template>
     <page-template page_identification="home-page">
-        <template slot="page-title">Home page</template>
+        <template slot="page-title">
+            <button id="chefoption" @click="change" ></button>
+                Home page</template>
         <template slot="page-body">
 
             <!-- Search form -->
@@ -23,11 +25,11 @@
                         <h2>Más pedidos</h2>
                     </header>
                     <div class="row">
-                        <div class="3u flex-content-25" v-for="product in array">
-                            <section>
-                                <a  class="image full"><img :src="product[0]" alt="" /></a>
-                                <p>{{product[1]}}</p>
-                                <a :id="product[3]" class="button btn-plus" @click="openDish(product[3])">Read More</a>
+                        <div class="3u flex-content-25" style=" border-bottom: 1px solid rgba(139,139,139,0.42);" v-for="product in array">
+                            <section >
+                                <p>{{product.name}}</p>
+                                <a  class="image full"><img :src="product.photo" alt="" /></a>
+                                <a :id="product._id" class="button btn-plus" @click="openDish(product._id)">Read More</a>
                             </section>
                         </div>
                     </div>
@@ -69,35 +71,36 @@
 
 <script>
     import pageComponent from "../../pageComponent.vue";
-    import muiChangePageEvent from "../../../functions/muiChangePageEvent";
-
+    import muiChangePageEvent from "../../../functions/muiChangePageEvent.js";
     export default {
         name: "homePage.vue",
         data() {
             return {
                 id: 'template-page',
-                array: [
-                    ['/custom/view/images/home-bg.jpg','nombre',"genericid"],
-                    ['/custom/view/images/home-bg.jpg','nombre1',"genericid1"],
-                ]
+                array:{},
 
             }
         },
         components: {
             'page-template': pageComponent,
         },
-        methods:{
-            openDish(clave){
-                muiChangePageEvent("dish-page")
-                axios.get('api/dishes'+clave).then($response => {
-                    this.dish = $response.data
-                    this.isLoading = false;
+        created() {
+            console.log("entro a crear")
+            axios.get("/api/platosparapedir/").then(response =>{
+                console.log(response.data)
+                this.array=response.data
+            })
 
-                }).catch(error => {
-                    alert('error')
-                    sleep(20);
-                   this.isLoading = false;
-                })
+        },
+        methods:{
+            change(){
+                muiChangePageEvent("option-chef-page")
+            },
+            openDish(clave){
+                console.log(clave)
+                this.$emit("cargar-plato",clave)
+                muiChangePageEvent("dish-page")
+
             }
         },
         props: {

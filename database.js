@@ -33,13 +33,80 @@ module.exports.getAllInById = async function (client, database, collection, arra
 	}
 	return resultado;
 }
+module.exports.getbyIdChef = async function (client, database, collection, idchef) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find({"chef":""+idchef}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getbyIdPlato = async function (client, database, collection, idplato) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find({"_id":ObjectId(idplato)}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getSemanales = async function (client, database, collection) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find({"esDeSemanal":true},{"name":1,"photo":1,"paraCeliacos":1,"paraVeganos":1,"paraVegetarianos":1}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getuserByID = async function (client, database, collection,id) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find(
+			{"_id":ObjectId(id)},{"user":1}).project().toArray();  // TODO tira error aca
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getAllReviewsByIDperfil = async function (client, database, collection,id) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find(
+			{"idperfil":id}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getAllReviewsByIDplato = async function (client, database, collection,id) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find(
+			{"idplato":id}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.getOneById = async function (client, database, collection,id) {
+	let resultado = null;
+	try {
+		resultado = client.db(database).collection(collection).find(
+			{"_id":ObjectId(id)}).project().toArray();
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
 module.exports.getPlatosDelChef = async function (client, database, collection, id) {
 	let resultado = null;
 	let platos = [];
 	try {
 		resultado = await client.db(database).collection(collection).findOne(
 			{
-				_id: ObjectId(id)
+			//	_id: ObjectId(id) TODO
 			}
 		);
 		if (resultado !== null) {
@@ -91,7 +158,8 @@ module.exports.insertOne = async function (client, database, collection, data) {
 	await client.db(database).collection(collection).insertOne(data);
 }
 
-module.exports.insertPlato = async function (client, database, collection, data, id_chef) {
+
+module.exports.insertPlato = async function (client, database, collection, data, id_chef) {//TODo no la uso
 	await client.db(database).collection(collection).insertOne(data,
 		function (err, doc) {
 			let id_plato = doc.insertedId;
@@ -137,8 +205,9 @@ module.exports.updateUser = async function (client, database, collection, id, da
 }
 module.exports.updatePlato = async function (client, database, collection, id, data) {
 	client.db(database).collection(collection).updateOne(
-		{ _id: ObjectId(id) },
-		data
+		{ _id:ObjectId(id)},
+		{$set:data}
+
 	);
 }
 

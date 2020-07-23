@@ -4,23 +4,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
-
+/*
 const session = require('express-session');
 const redis = require('redis');
 const redisStore = require('connect-redis')(session);
-const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);*/
 const db = require('./database');
 const apiRouter = require('./routes/api');
-var urlencodedParser = bodyParser.urlencoded({extended: false})
+var urlencodedParser = bodyParser.urlencoded({extended:false,limit:'100mb'})
 
 dotenv.config();
 
-const app = express()
-redisClient.on('error', (err) => {
-    console.log('Redis error: ', err);
-});
+const app = express();
+    /*redisClient.on('error', (err) => {
+        console.log('Redis error: ', err);
+    });*/
 
-
+;
 (async function () {
     let httpPort = process.env.APP_PORT;
     let database = 'chefsapp';
@@ -30,14 +30,14 @@ redisClient.on('error', (err) => {
 
     app.use(express.static(path.join(__dirname, 'www')))
 
-    app.use(session({
+   /* app.use(session({
         secret: 'ThisIsHowYouUseRedisSessionStorage',
         name: 'REDIS-SESSION',
         resave: false,
         saveUninitialized: true,
         cookie: {secure: false}, // Note that the cookie-parser module is no longer needed
         store: new redisStore({host: 'localhost', port: 6379, client: redisClient, ttl: 86400}),
-    }));
+    }));*/
 
     app.get('/', function (req, res) {
         res.sendFile(path.join(__dirname, 'www/index.html'))
@@ -88,6 +88,16 @@ redisClient.on('error', (err) => {
         let collection = 'usuarios';
         try {
             await db.insertOne(client, database, collection, req.body);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });   app.get('/users/:id', async (req, res) => {
+        let collection = 'usuarios';
+        try {
+            let goback= await db.getOneById(client, database, collection, req.params.id);
+            res.send(goback)
             res.status(200).end();
         } catch (err) {
             console.log(err);

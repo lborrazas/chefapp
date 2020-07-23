@@ -1,14 +1,14 @@
 <template>
     <page-templates page_identification="week-page">
-        <template slot="page-title"> Definir Platos Semanales
+        <template slot="page-title">Semanales
             <button v-if="auxiliarbool" id="subirsemanales" @click="$refs['modal2'].open()" >Ok
             </button>
             <button v-else></button>
         </template>
         <template slot="page-body">
-            <div style="margin:10px" v-for="dishes in platos">
-                <div class="flex-container weekdish" style="height:5%; margin: 5px;"><span>{{dishes[0]}}</span><div style=" margin-left: 75%;width:20px"><button :id="dishes[1]+'1'" class ="dishCheck" @click="pinch(dishes[1]+'1')" >✓</button></div></div>
-                <div class="disheselector img-container" :id="dishes[1]" :style="'background-image: url('+ dishes[2]+ ')'">
+            <div style="margin:10px" v-for="dishes in platoides">
+                <div class="flex-container weekdish" style="height:5%; margin: 5px;"><span>{{dishes.name}}</span><div style=" margin-left: 75%;width:20px"><button :id="dishes._id" class ="dishCheck" @click="pinch(dishes._id);setnames();" >✓</button></div></div>
+                <div class="disheselector img-container" :id="dishes[1]" :style="'background-image: url('+ dishes.photo+')'">
                 </div>
             </div>
 
@@ -16,10 +16,10 @@
 
                 <div>
 
-                    <div style="overflow: auto">
-                        <div  > {{getname(main3[0])}} <span>Cantidades:<input type="number" v-model="cant0"></span></div>
-                        <div  > {{getname(main3[1])}} <span>Cantidades:<input type="number" v-model="cant1"></span></div>
-                        <div  > {{getname(main3[2])}} <span>Cantidades:<input type="number" v-model="cant2"></span></div>
+                    <div :key="componentKey" style="overflow: auto">
+                        <div > {{names[0]}} <span>Cantidad:<input type="number" v-model="cant0"></span></div>
+                        <div > {{names[1]}} <span>Cantidad:<input type="number" v-model="cant1"></span></div>
+                        <div > {{names[2]}} <span>Cantidad:<input type="number" v-model="cant2"></span></div>
                     </div>
 
 
@@ -27,6 +27,7 @@
                     </div>
                     <div v-else>Cantidades no admitidas</div>
                 </div>
+            <span id="datos" style="visibility: hidden;max-height: 0px;max-width: 0px"></span>
 
 
             </modal-two>
@@ -55,56 +56,40 @@
                 cant1:0,
                 cant2:0,
                 main3:["empty","empty","empty"],
-                results:{},
-                platos:[
-                    ["nombre","id3","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
-                    ["nombre","id4","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
-                    ["nombre","id1","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
-                    ["nombre","id2","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"],
-
-            ]
+                results:["",],
+                platos:[],
+                names:["","",""],
+                componentKey: 0,
             }
         },
+        props:{
+            idchef:'',
+            platoides:{}
+        },
         methods:{
-            updatePlatos(){
-                axios.get("/api/platos/mios").then($response => {
-                    this.results = $response.data;
-
-                    })
-            },
-            getname(clave){
-                let valorretorno =""
-                for (let i=0;i<this.platos.length;i++){
-
-
-                    if ((this.platos[i][1]+'1')==clave){
-
-                        valorretorno=this.platos[i][0]
-                    }
-                }
-
-                return valorretorno
+            setnames(){
+                this.names[0]=this.getname(this.main3[0])
+                this.names[1]=this.getname(this.main3[1])
+                this.names[2]=this.getname(this.main3[2])
+                this.forceRerender()
             },
             mandar(){
                 this.mandarOne(this.main3[0],this.cant0)
                 this.mandarOne(this.main3[1],this.cant1)
                 this.mandarOne(this.main3[2],this.cant2)
+                muiChangePageEvent("home-page")
+            },
+            forceRerender() {
+                this.componentKey += 1;
             },
             mandarOne(clave,cantidad){
-                for (let i=0;i<this.platos.length;i++){
-                    if ((this.platos[i][1]+'1')==clave){
-
-                        let post = {
-                            id:this.platos[i][1],
-                            body:cantidad,
-                            userid:0
-                        };
-                        axios.post("/semala", post).then((result) => {
-                           muiChangePageEvent('home-page')
-                        });
-                    }
+                let data2send={
+                    "id":clave,
+                    "cantidad":cantidad,
                 }
 
+                axios.post("/api/semala",data2send).then((result) => {
+               });
             },
             pinch(clave){
 
@@ -130,7 +115,6 @@
                         }
                     }
                      if (booltemp){
-                         console.log("ndeh")
                          this.unselected(this.main3[0]+"")
                          this.selected(clave)
                          this.main3[0]=""+this.main3[1]
@@ -157,20 +141,22 @@
                     this.auxiliarbool=true
                 }
             },
+            getname(clave){
 
-            llamarGrande($nombre){
+                let valorretorno =""
+                for (let i=0;i<this.platoides.length;i++){
+                    if ((this.platoides[i]._id)==clave){
 
-                axios.get('/hello/world');
+                        valorretorno=this.platoides[i].name
+                    }
+                }
+
+                return valorretorno
             }
         },
         computed:{
-            //["nombre","id3","https://img-global.cpcdn.com/recipes/fe5f1314c9c8da7e/400x400cq70/photo.jpg"]
-            init(){
-                console.log("entra")
-                axios.get("/api/platos/"+this.id).then((result) => {
-                    this.result = result.data;
-                    console.log(result.data)
-                })}
+
+
         }
     }
 </script>

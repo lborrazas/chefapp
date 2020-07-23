@@ -2,12 +2,13 @@ const express = require('express');
 const db = require('../database');
 const router = express.Router();
 
-router.use(function timeLog(req, res, next) {
+/*router.use(function timeLog(req, res, next) {
     if(req.session.user == undefined){
+        res.status(400)
         res.end('CUAL HACE')
     }
     next();
-});
+});*/
 
 
 
@@ -106,7 +107,7 @@ router.use(function timeLog(req, res, next) {
         res.send(platos);
         res.end();
     });
-    router.get('/platos/mios', async (req, res) => {
+    router.get('/platos/mios/:id', async (req, res) => { //TODO nunca la uso
         let collection = 'usuarios';
         let idPlatos = await db.getPlatosDelChef(client, database, collection, req.session.user.id);
         collection = 'platos';
@@ -114,9 +115,113 @@ router.use(function timeLog(req, res, next) {
         res.send(platos);
         res.end();
     });
+    router.get('/platosporidchef/:id', async (req, res) => {
+        let collection = 'platos';
+
+        let platos = await db.getbyIdChef(client, database, collection, req.params.id);
+
+        res.send(platos);
+        res.end();
+    });
+    router.get('/dishes/:id', async (req, res) => {
+        let collection = 'platos';
+
+        let platos = await db.getbyIdPlato(client, database, collection, req.params.id);
+
+        res.send(platos);
+        res.end();
+    });
+    router.get('/platosparapedir/', async (req, res) => {
+        let collection = 'platos';
+
+        let platos = await db.getSemanales(client, database, collection);
+
+        res.send(platos);
+        res.end();
+    });
+
+    router.post('/semala', async (req, res) => {
+        try { let collection = 'platos'
+        let updateInfo={
+            "esDeSemanal":true,
+            "cantidad":req.body.cantidad
+        }
+        await  db.updatePlato(client, database, collection, req.body.id, updateInfo)
+    } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });
+    router.put('/resena/perfil', async (req, res) => {
+        try {
+            let collection = 'chef-review'
+            console.log(req)
+            await  db.insertOne(client, database, collection, req.body,)
+    } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });
+    router.put('/resena/plato', async (req, res) => {
+        try {
+            let collection = 'platos-review'
+            console.log(req)
+            await  db.insertOne(client, database, collection, req.body,)
+    } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });
+    router.get('/usuarios/name/:id',async (req,res)=>{
+            try{
+                let collection = 'usuarios';
+            let nombre=await db.getuserByID(client, database, collection,req.params.id);
+            res.send(nombre)
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(420).end();
+        }
+    })
+    router.get('/profile/:id',async (req,res)=>{
+            try{
+                let collection = 'usuarios';
+            let nombre=await db.getuserByID(client, database, collection,req.params.id);
+            res.send(nombre)
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(420).end();
+        }
+    })
+    router.get('/profile/review/:id',async (req,res)=>{
+            try{
+                let collection = 'chef-review';
+            let nombre=await db.getAllReviewsByIDperfil(client, database, collection,req.params.id);
+            res.send(nombre)
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(420).end();
+        }
+    })
+    router.get('/plato/review/:id',async (req,res)=>{
+            try{
+                let collection = 'platos-review';
+            let nombre=await db.getAllReviewsByIDplato(client, database, collection,req.params.id);
+            console.log(nombre)
+            res.send(nombre)
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(420).end();
+        }
+    })
+
 
     router.post('/platos', async (req, res) => {
         try {
+            console.log(req)
             let collection = 'platos';
             await db.insertPlato(client, database, collection, req.body, req.query.id);
             res.status(200).end();

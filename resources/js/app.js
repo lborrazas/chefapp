@@ -1,3 +1,5 @@
+
+
 window.Vue = require('vue')
 window.axios = require('axios')
 
@@ -11,30 +13,38 @@ Vue.component('forgot-page-component', require('./components/pagesComponents/log
 Vue.component('register-page-component', require('./components/pagesComponents/login/registerPage.vue').default);
 Vue.component('home-page-component', require('./components/pagesComponents/home/homePage.vue').default);
 Vue.component('product-page-component', require('./components/pagesComponents/home/homePage.vue').default);
-Vue.component('profile-page-component', require('./components/pagesComponents/ProfilePage/profilePage.vue').default);
+Vue.component('profile-page-component', require('./components/pagesComponents/profilePage/profilePage.vue').default);
 Vue.component('dish-page-component', require('./components/pagesComponents/paginaDish/paginaDish.vue').default);
 Vue.component('createdish-page-component', require('./components/pagesComponents/crearPlato/createDish.vue').default);
 Vue.component('weekdish-page-component', require('./components/pagesComponents/weekDish/weekDish.vue').default);
+Vue.component('chef-option-page-component', require('./components/pagesComponents/chefOptions/chefOptions.vue').default);
 
-
+import weekDish from "../../resources/js/components/pagesComponents/weekDish/weekDish.vue";
+import paginaDish from "./components/pagesComponents/paginaDish/paginaDish.vue";
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
-import authMixin from './mixins/auth.js'
+import authMixin from './mixins/auth.js';
 
 const app = new Vue({
     el: '#app',
     data: {
+        idUsuario:"5f18f8671172609418e3ff9f",
         simple: '',
         clave:"",
         carrito:[],
         total:0,
-
+        platoide:[],
         auxarray:["","",],
-        idsolutions:0
+        idsolutions:0,
+        elplato:[],
+        nombrechef:[],
+        leprofile:[],
+        leprofilereviews:[],
+        elplatoreviews:[]
     },
     methods: {
         agregaracarrito(args){
-            console.log(args[2])
+
             this.total=this.total+args[2]
             this.carrito.push([args[0],args[1],args[2]]) //nombre-id-precio
         },
@@ -50,6 +60,42 @@ const app = new Vue({
               //  axios.post("/appi/pedido"+this.carrito[i][1],"Total:"+this.total+",Cliente:"+this.clave)
                 //
             }
+        },
+        goprofile(calveChef){
+
+            axios.get('api/profile/review/'+calveChef).then($response => {
+                    console.log($response.data)
+                    this.leprofilereviews=$response.data
+                 })
+            axios.get('api/profile/'+calveChef).then($response => {
+                this.leprofile=$response.data[0]
+            })
+        },
+        cargarDish(clave){
+            axios.get('api/dishes/'+clave).then($response => {
+                this.elplato=$response.data[0]
+
+                axios.get("/api/usuarios/name/"+this.elplato.chef).then(response =>{
+                    this.nombrechef = response.data[0].user
+                })
+               axios.get("/api/plato/review/"+this.elplato._id).then(response =>{
+                   console.log(response.data)
+                   console.log(this.elplato._id)
+                    this.elplatoreviews = response.data
+                })
+            })
+
+
+
+            //paginaDish.methods.cargar()
+
+        },
+        cargarforweek(args){
+
+            let auxiliar =null
+            axios.get("/api/platosporidchef/"+args).then(response =>{
+                this.platoide=response.data
+            })
         }
     },
     computed:{

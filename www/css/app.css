@@ -14,6 +14,12 @@
 .flex-container{
     height: 25%;
 }
+.profilecont{
+ background-color: rgba(239, 171, 77, 0.87);
+    border-radius: 4%;
+
+    margin : 2px;
+}
 
 .img-container img {
     width: 100%;
@@ -112,6 +118,22 @@
     background-size:contain;
     background-repeat: no-repeat;
     background-image: url("/../css/img/FAVPNG_shopping-cart-shopping-bags-trolleys-healthy-route-66-kendall-grocery-store_5HpkpgJw.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    border-radius: 5px;
+}
+#chefoption{
+    background-color: #ffcfc3;
+    position: absolute;
+    left:50px;
+    top: 10px;
+    height: 30px;
+    max-width: 30.5px;
+    min-width: 30.5px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/chefIcon.png");
     margin: 0px;
     padding:0px;
     border: 0px;
