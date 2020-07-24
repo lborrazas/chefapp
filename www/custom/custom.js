@@ -191,7 +191,7 @@ function installEvents() {
 				return false;
 			}
 		},
-		//MobileUI viewport specific event.
+/*		//MobileUI viewport specific event.
 		{
 			vp: mui.viewport,
 			ev: 'swiperight',
@@ -210,7 +210,7 @@ function installEvents() {
 					return false;
 				}
 			}
-		},
+		},*/
 		//It's a good idea to consider what happens when the device is switched on and off the internet.
 		//Es buena idea considerar que pasa cuando el dispositivo se conecta y desconecta a Internet.
 		{
@@ -305,14 +305,14 @@ function installEvents2() {
 		return false;
 	});
 	
-	/*******************************************************************************/
-	/*Swipe Test --------------------------------------------------------------------*/
-	/*******************************************************************************/	
+/*	/!*******************************************************************************!/
+	/!*Swipe Test --------------------------------------------------------------------*!/
+	/!*******************************************************************************!/
 	//Swipe touch events. Cool for best App user experience!
 	//Evento de desplazamiento tactil. Buenisimo para una óptima experiencia de usuario en App!
 	mui.viewport.on("swiperight", function(currentPageId, originalTarget, event, startX, startY, endX, endY) {
 		if (!mui.viewport.panelIsOpen()) {
 			mui.history.back();
 		}
-	});
+	});*/
 }

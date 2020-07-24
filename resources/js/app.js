@@ -1,5 +1,9 @@
 window.Vue = require('vue')
 window.axios = require('axios')
+window.Noty = require('noty');
+
+import 'noty/lib/noty.css';
+import 'noty/lib/themes/mint.css';
 
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);

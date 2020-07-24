@@ -24,10 +24,11 @@
         top: 0px;
         left: 0px;
         width: 100%;
-        height: 50px;
+        height: 55px;
         position: absolute;
         background-color: black;
         color: #e5bf32;
+        border-bottom: #e5bf32 5px solid;
     }
 
 

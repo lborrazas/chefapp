@@ -58,19 +58,24 @@ redisClient.on('error', (err) => {
         }
         let user = await db.getOneByField(client, database, collection, filters);
 	    user = user[0];
-	    console.log(req.body.password);
-	    console.log(user.password)
-	    console.log((String(req.body.password)));
-        if (user.password == req.body.password) {
-            req.session.key = req.body.email;
-            req.session.user = user;
-            console.log(req.session);
-            res.end('done');
-        } else {
-            req.session.key = req.body.email;
-            console.log(req.session);
-            res.end('failure');
+	    if(user){
+            console.log(req.body.password);
+            console.log(user.password)
+            console.log((String(req.body.password)));
+            if (user.password == req.body.password) {
+                req.session.key = req.body.email;
+                req.session.user = user;
+                console.log(req.session);
+                res.end('done');
+            } else {
+                req.session.key = req.body.email;
+                console.log(req.session);
+                res.end('failure');
+            }
+        }else{
+	        res.status(401).json({message: 'que te pasa'});
         }
+
     });
 
     app.get('/logout', function (req, res) {

@@ -13,7 +13,7 @@
 
                         <div class="flex-container-login">
 
-                            <animated-logo></animated-logo>
+                           <!-- <animated-logo></animated-logo>-->
 
                             <div class="flex-content-50">
                                 <span>
@@ -90,8 +90,9 @@
     import pageComponent from "../../pageComponent.vue";
     import muiChangePageEvent from "../../../functions/muiChangePageEvent.js"
     //import authMixin from "../../../mixins/auth.js"
-    import animatedCheffLogo from "../../resourcesComponents/animatedCheffLogo.vue";
+  /*  import animatedCheffLogo from "../../resourcesComponents/animatedCheffLogo.vue";*/
 
+    import displayMessage from  "../../../functions/message.js"
 
     export default {
         name: "loginPage.vue",
@@ -102,7 +103,7 @@
         },
         components: {
             'page-template': pageComponent,
-            'animated-logo': animatedCheffLogo,
+           /* 'animated-logo': animatedCheffLogo,*/
         },
         props: {
             login_page: '',
@@ -113,10 +114,12 @@
 
                 axios.post('/login', {email: this.user.email, password: this.user.password}).then(
                     $response => {
-                        mui.viewport.changeOa
+                        mui.viewport.change
                         muiChangePageEvent('home-page');
                     }
-                )
+                ).catch($error => {
+                    displayMessage($error.response, true);
+                })
             }
         }
     }
