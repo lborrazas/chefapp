@@ -88,7 +88,8 @@
                     "cantidad":cantidad,
                 }
 
-                axios.post("/api/semala",data2send).then((result) => {
+                axios.post("/api/semala"+this.idchef,data2send).then((result) => {
+                    this.$emit("subio-semanales")
                });
             },
             pinch(clave){

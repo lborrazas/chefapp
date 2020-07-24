@@ -24,12 +24,16 @@
             }
         },
         methods:{
-            cargarPlatos(){
+            cargarPlatos(){if(this.semanalBool){
                 this.$emit("cargar-plato-week",this.idchef)
+                }else{
+                alert("Ya se han declarado los platos semanales")
+            }
             },
         },
         props:{
-            'idchef':''
+            'idchef':'',
+            'semanalBool':""
         },
         components:{
             "page-template":pageComponent

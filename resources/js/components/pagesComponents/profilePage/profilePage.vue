@@ -63,13 +63,14 @@
                 auxbool:true,
                 subscribirse:"Subscribirse",
                 reseña:"",
-                subscibed:false,
+
             }
         },
         props:{
             visita:{},
             datosprofile:{},
-            reviewsprofile:{}
+            reviewsprofile:{},
+            subscibed:{}
         },
         methods:{
             mandarResena(){
@@ -84,33 +85,90 @@
                     "nombre":response.data[0].user
                 }
                 axios.put('/api/resena/perfil',contenido)
+                    this.$refs['modal-add-reseña-profile'].close()
                 })
             },
-
-            changeSubButton(){
-                this.subscibed=!this.subscibed
-                if(this.subscibed){
+            funcion(){
+                if(this.subscibed) {
                     document.getElementById("subscrito").classList.remove("unsus")
                     document.getElementById("subscrito").classList.add("sus")
-                    this.subscribirse="Subscrito"
-                }
-                else {
+                    this.subscribirse = "Subscrito"
+                }else {
                     document.getElementById("subscrito").classList.remove("sus")
                     document.getElementById("subscrito").classList.add("unsus")
                     this.subscribirse="Subscribirse"
                 }
             },
-            doit(){
-                this.reviewes=this.reviewsprofile
-                console.log("aca estoy")
-                console.log(this.reviewes)
-                console.log(this.reviewsprofile)
-                this.auxbool=false;
-            }
+
+            changeSubButton(){
+                this.subscibed=!this.subscibed
+                let envio={
+                    iduser:this.datosprofile._id,
+                    idchef:this.visita
+                }
+                if(this.subscibed){
+                    axios.post("api/subscribe/"+this.datosprofile._id,envio).then(respons =>{
+                        document.getElementById("subscrito").classList.remove("unsus")
+                        document.getElementById("subscrito").classList.add("sus")
+                        this.subscribirse="Subscrito"
+                        this.datosprofile.subscriptores=this.datosprofile.subscriptores+1
+                    })
+                }
+                else {   axios.post("api/unsubscribe/"+this.datosprofile._id,envio).then(response =>{
+                    document.getElementById("subscrito").classList.remove("sus")
+                    document.getElementById("subscrito").classList.add("unsus")
+                    this.subscribirse="Subscribirse"
+                    this.datosprofile.subscriptores=this.datosprofile.subscriptores-1
+
+                })
+
+                }
+            },
+
 
                 },
+        beupdated() {
+            {
+                console(this.subscibed)
+                if(this.subscibed) {
+                    document.getElementById("subscrito").classList.remove("unsus")
+                    document.getElementById("subscrito").classList.add("sus")
+                    this.subscribirse = "Subscrito"
+                }else {
+                    document.getElementById("subscrito").classList.remove("sus")
+                    document.getElementById("subscrito").classList.add("unsus")
+                    this.subscribirse="Subscribirse"
+                }
+            }
+        },
+        created() {
+            console.log(this.subscibed)
+            {
+                if(this.subscibed) {
+                    document.getElementById("subscrito").classList.remove("unsus")
+                    document.getElementById("subscrito").classList.add("sus")
+                    this.subscribirse = "Subscrito"
+                }else {
+                    document.getElementById("subscrito").classList.remove("sus")
+                    document.getElementById("subscrito").classList.add("unsus")
+                    this.subscribirse="Subscribirse"
+                }
+            }
+        },
+
         computed:{
 
+             funcion(){
+                 if(this.subscibed) {
+                    document.getElementById("subscrito").classList.remove("unsus")
+                    document.getElementById("subscrito").classList.add("sus")
+                    this.subscribirse = "Subscrito"
+                 }else {
+                     document.getElementById("subscrito").classList.remove("sus")
+                     document.getElementById("subscrito").classList.add("unsus")
+                     this.subscribirse="Subscribirse"
+                 }
+             }
         }
 
     }

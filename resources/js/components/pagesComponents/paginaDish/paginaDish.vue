@@ -49,7 +49,7 @@
 
 
             <div id="reviews" >
-                <div style="text-decoration-line: underline;color:#adadad" @click="$refs['modal-add-reseña-plato'].open()"><a style="font-size: smaller;">Agregar reseña</a></div>
+                <div style="text-decoration-line: underline;color:#adadad" @click="openModel"><a style="font-size: smaller;">Agregar reseña</a></div>
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
                     <div v-for="reviw in this.reviewsdish" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
@@ -106,6 +106,11 @@
             }
         },
         methods:{
+                openModel(){
+                    if(this.visitante!=this.elplatito.chef){
+                        this.$refs['modal-add-reseña-plato'].open()
+                    }
+                },
                 mandarResenaPlato(){
                     axios.get("/api/usuarios/name/"+this.visitante).then(response =>{
                         response.data[0].user
@@ -117,20 +122,27 @@
                             "rese":this.resenia,
                             "nombre":response.data[0].user
                         }
+                        this.$refs['modal-add-reseña-plato'].close()
                         axios.put('/api/resena/plato',contenido)
                     })
 
 
                 },
                 irperfil(){
+                    if(this.visitante!=this.elplatito.chef){
                     this.$emit('irperfil',this.elplatito.chef)
                     muiChangePageEvent('profile-page')
+                    }
                 },
                 add(){
+                    if(this.visitante!=this.elplatito.chef){
                 this.$emit('addcarrito',[this.elplatito.name,this.elplatito._id,parseInt(this.elplatito.precio)])
+                    }
                 },
                 mandar(laid){
+
                     this.$emit('mandar',laid)
+
 
                 },
                 forceRerender() {

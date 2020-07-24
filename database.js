@@ -9,7 +9,7 @@ var id;
 module.exports.get = async function (client, database, collection, filters) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find(filters).project().toArray();
+		resultado = await client.db(database).collection(collection).find(filters).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
@@ -21,7 +21,7 @@ module.exports.getAllInById = async function (client, database, collection, arra
 		array.forEach(function (element, index, array) {
 			array[index] = ObjectId(element);
 		});
-		resultado = client.db(database).collection(collection).find(
+		resultado = await client.db(database).collection(collection).find(
 			{
 				_id: {
 					$in: array
@@ -36,7 +36,7 @@ module.exports.getAllInById = async function (client, database, collection, arra
 module.exports.getbyIdChef = async function (client, database, collection, idchef) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find({"chef":""+idchef}).project().toArray();
+		resultado = await client.db(database).collection(collection).find({"chef":""+idchef}).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
@@ -45,7 +45,7 @@ module.exports.getbyIdChef = async function (client, database, collection, idche
 module.exports.getbyIdPlato = async function (client, database, collection, idplato) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find({"_id":ObjectId(idplato)}).project().toArray();
+		resultado = await client.db(database).collection(collection).find({"_id":ObjectId(idplato)}).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
@@ -54,7 +54,7 @@ module.exports.getbyIdPlato = async function (client, database, collection, idpl
 module.exports.getSemanales = async function (client, database, collection) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find({"esDeSemanal":true},{"name":1,"photo":1,"paraCeliacos":1,"paraVeganos":1,"paraVegetarianos":1}).project().toArray();
+		resultado = await client.db(database).collection(collection).find({"esDeSemanal":true},{"name":1,"photo":1,"paraCeliacos":1,"paraVeganos":1,"paraVegetarianos":1}).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
@@ -63,8 +63,21 @@ module.exports.getSemanales = async function (client, database, collection) {
 module.exports.getuserByID = async function (client, database, collection,id) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find(
+		resultado = await client.db(database).collection(collection).find(
 			{"_id":ObjectId(id)},{"user":1}).project().toArray();  // TODO tira error aca
+	} catch (err) {
+		console.log(err);
+	}
+	return resultado;
+}
+module.exports.isSubscribed = async function (client, database, collection,idchef,iduser) {
+	let resultado = null;
+	console.log(iduser)
+	console.log(idchef)
+	try {
+		resultado = await client.db(database).collection(collection).find(
+			{"iduser":idchef, "idchef":iduser},{id:1}).project().toArray();
+
 	} catch (err) {
 		console.log(err);
 	}
@@ -118,17 +131,24 @@ module.exports.getPlatosDelChef = async function (client, database, collection, 
 	}
 	return platos;
 }
-module.exports.incrementarNumPedido = async function (client, database, collection, id) {
-	await client.db(database).collection(collection).updateOne(
-		{ _id: ObjectId(id) },
-		{ $inc: { reservas: 1 } }
+module.exports.incrementarPedido = async function (client, database, collection, filteres) {
+	let auxfilter=[]
+	for(let i=0;i<filteres.length;i++){
+		auxfilter.push(
+			ObjectId(filteres[i][1])
+		)
+	}
+	console.log(auxfilter)
+	await client.db(database).collection(collection).updateMany(
+		{ _id:{$in:auxfilter }},
+		{ $inc: { reserved: 1} },
 	);
 }
 
 module.exports.getOne = async function (client, database, collection, id) {
 	let resultado = null;
 	try {
-		resultado = client.db(database).collection(collection).find(
+		resultado = await client.db(database).collection(collection).find(
 			{
 				_id: ObjectId(id)
 			}
@@ -157,6 +177,9 @@ module.exports.getOneByField = async function (client, database, collection, fil
 module.exports.insertOne = async function (client, database, collection, data) {
 	await client.db(database).collection(collection).insertOne(data);
 }
+module.exports.insertMany = async function (client, database, collection, data) {
+	await client.db(database).collection(collection).insertMany(data);
+}
 
 
 module.exports.insertPlato = async function (client, database, collection, data, id_chef) {//TODo no la uso
@@ -172,6 +195,19 @@ module.exports.insertPlato = async function (client, database, collection, data,
 				}
 			);
 		});
+}
+module.exports.insertSubscripcion = async function (client, database, collection, data,id) {
+	console.log(id)
+	await client.db(database).collection(collection).insertOne(data)
+	collection='usuarios'
+	await client.db(database).collection(collection).updateMany({_id:ObjectId(id)},{$inc:{subscriptores:1}},)
+
+}
+module.exports.delateSubscripcion = async function (client, database, collection, data,id) {
+
+	await client.db(database).collection(collection).remove(data)
+	collection='usuarios'
+	await client.db(database).collection(collection).update({_id:ObjectId(id)},{$inc:{subscriptores:-1}},)
 }
 
 module.exports.updateUser = async function (client, database, collection, id, data) {
@@ -198,29 +234,36 @@ module.exports.updateUser = async function (client, database, collection, id, da
 			}
 		}
 	}
-	client.db(database).collection(collection).updateOne(
+	await client.db(database).collection(collection).updateOne(
 		{ _id: ObjectId(id) },
 		newValues
 	);
 }
 module.exports.updatePlato = async function (client, database, collection, id, data) {
-	client.db(database).collection(collection).updateOne(
+	await client.db(database).collection(collection).updateOne(
 		{ _id:ObjectId(id)},
 		{$set:data}
+
+	);
+}
+module.exports.updateUserSem = async function (client, database, collection, id) {
+	await client.db(database).collection(collection).updateOne(
+		{ _id:ObjectId(id)},
+		{$set:{"subioSemanal":true}}
 
 	);
 }
 
 
 module.exports.delete = async function (client, database, collection, id) {
-	client.db(database).collection(collection).deleteOne(
+	await client.db(database).collection(collection).deleteOne(
 		{
 			_id: ObjectId(id)
 		}
 	);
 }
 module.exports.deleteDestacado = async function (client, database, collection, id) {
-	client.db(database).collection(collection).deleteOne(
+	await client.db(database).collection(collection).deleteOne(
 		{
 			id: id
 		}

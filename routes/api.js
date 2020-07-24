@@ -140,14 +140,19 @@ const router = express.Router();
         res.end();
     });
 
-    router.post('/semala', async (req, res) => {
-        try { let collection = 'platos'
+
+
+    router.post('/semala:id', async (req, res) => {
+        try {
+        let collection = 'platos'
         let updateInfo={
             "esDeSemanal":true,
             "cantidad":req.body.cantidad
         }
         await  db.updatePlato(client, database, collection, req.body.id, updateInfo)
-    } catch (err) {
+        collection ='usuarios'
+            await db.updateUserSem(client, database, collection, req.params.id)
+        } catch (err) {
             console.log(err);
             res.status(400).end();
         }
@@ -157,6 +162,7 @@ const router = express.Router();
             let collection = 'chef-review'
             console.log(req)
             await  db.insertOne(client, database, collection, req.body,)
+
     } catch (err) {
             console.log(err);
             res.status(400).end();
@@ -177,6 +183,25 @@ const router = express.Router();
                 let collection = 'usuarios';
             let nombre=await db.getuserByID(client, database, collection,req.params.id);
             res.send(nombre)
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(420).end();
+        }
+    })
+    router.get('/issubscibed/:idchef/:iduser',async (req,res)=>{
+            let varbool = false;
+            try{
+                let collection = 'subscipciones';
+            let retorno=await db.isSubscribed(client, database, collection,req.params.idchef,req.params.iduser);
+            console.log()
+            if(!retorno[0]){
+                varbool=false;
+            }else {
+                varbool=true;
+                }
+            console.log(varbool)
+            res.send(varbool)
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -209,7 +234,6 @@ const router = express.Router();
             try{
                 let collection = 'platos-review';
             let nombre=await db.getAllReviewsByIDplato(client, database, collection,req.params.id);
-            console.log(nombre)
             res.send(nombre)
             res.status(200).end();
         } catch (err) {
@@ -224,6 +248,28 @@ const router = express.Router();
             console.log(req)
             let collection = 'platos';
             await db.insertPlato(client, database, collection, req.body, req.query.id);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });
+    router.post('/subscribe/:id', async (req, res) => {
+        try {
+            let collection = 'subscipciones';
+            await db.insertSubscripcion(client, database, collection, req.body,req.params.id);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });
+
+    router.post('/unsubscribe/:id', async (req, res) => {
+        try {
+            console.log(req)
+            let collection = 'subscipciones';
+            await db.delateSubscripcion(client, database, collection, req.body,req.params.id);
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -289,16 +335,29 @@ const router = express.Router();
         }
     });
 
-    router.post('/pedido', async (req, res) => {
-        let collection = 'pedidos';
-        try {
-            await db.insertOne(client, database, collection, req.body);
-            collection = 'platos';
-            await db.incrementarNumPedido(client, database, collection, req.query.id);
-            res.status(200).end();
-        } catch (err) {
-            console.log(err);
-            res.status(400).end();
+    router.post('/pedido/:id', async (req, res) => {
+            try {
+            let collection = 'platos';
+            let arrayaux=[]
+            let arrayauxid=[]
+                for(let i=0;i<req.body.length;i++){
+                    arrayaux.push({
+                        "platoName":req.body[i][0],
+                        "idplato":req.body[i][1],
+                        "precio":req.body[i][2],
+                        "iduser":req.params.id
+                    })
+                }
+
+                await db.incrementarPedido(client, database, collection,req.body);
+                collection = 'pedidos';
+
+                await db.insertMany(client, database, collection, arrayaux);
+                res.status(200).end();
+
+            } catch (err) {
+                console.log(err);
+                res.status(400).end();
         }
     });
 

@@ -28,19 +28,18 @@ import authMixin from './mixins/auth.js';
 const app = new Vue({
     el: '#app',
     data: {
-        idUsuario:"5f18f8671172609418e3ff9f",
-        simple: '',
-        clave:"",
+        idUsuario:"5f19e5a4deef0b6cd06b117b",//--
+        esChef:true,//--
         carrito:[],
         total:0,
         platoide:[],
-        auxarray:["","",],
-        idsolutions:0,
         elplato:[],
         nombrechef:[],
         leprofile:[],
         leprofilereviews:[],
-        elplatoreviews:[]
+        elplatoreviews:[],
+        subioSemanal:false, //--
+        estasubscrito:false,
     },
     methods: {
         agregaracarrito(args){
@@ -56,19 +55,29 @@ const app = new Vue({
             this.total=0;
         },
         comprar(){
-            for (let i=0;i<this.carrito;i++){
-              //  axios.post("/appi/pedido"+this.carrito[i][1],"Total:"+this.total+",Cliente:"+this.clave)
+            console.log(this.carrito)
+                let data=this.carrito
+                axios.post("/api/pedido/"+this.idUsuario,data).then(response =>{
+                    this.carrito=[]
+                    this.total=0;
+                    this.$refs['modal'].close()
+                })
                 //
             }
-        },
+            ,
         goprofile(calveChef){
 
             axios.get('api/profile/review/'+calveChef).then($response => {
                     console.log($response.data)
                     this.leprofilereviews=$response.data
-                 })
+            })
             axios.get('api/profile/'+calveChef).then($response => {
                 this.leprofile=$response.data[0]
+                axios.get('api/issubscibed/'+this.leprofile._id+"/"+this.idUsuario).then($response => {
+                    console.log($response)
+                    this.estasubscrito=$response.data
+
+                })
             })
         },
         cargarDish(clave){
@@ -84,11 +93,6 @@ const app = new Vue({
                     this.elplatoreviews = response.data
                 })
             })
-
-
-
-            //paginaDish.methods.cargar()
-
         },
         cargarforweek(args){
 
@@ -99,18 +103,7 @@ const app = new Vue({
         }
     },
     computed:{
-        idsolution(){
-            var i=0
-            var j=0
-            for(;i<this.carrito.length;i++){
-                for(;j<this.carrito.length;j++){
-                    if (this.carrito[j][1]==this.carrito[i][1]){
-                        this.carrito[j][1]=this.carrito[j][1]+this.idsolutions
-                        this.idsolutions++
-                    }
-                }
-            }
-        }
+
     },
     mounted() {
     },
