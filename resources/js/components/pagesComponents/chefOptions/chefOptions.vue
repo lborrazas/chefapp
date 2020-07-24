@@ -24,7 +24,7 @@
             }
         },
         methods:{
-            cargarPlatos(){if(this.semanalBool){
+            cargarPlatos(){if(!this.semanalbool){
                 this.$emit("cargar-plato-week",this.idchef)
                 }else{
                 alert("Ya se han declarado los platos semanales")
@@ -33,7 +33,7 @@
         },
         props:{
             'idchef':'',
-            'semanalBool':""
+            'semanalbool':""
         },
         components:{
             "page-template":pageComponent

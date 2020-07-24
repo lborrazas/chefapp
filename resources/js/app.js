@@ -28,7 +28,7 @@ import authMixin from './mixins/auth.js';
 const app = new Vue({
     el: '#app',
     data: {
-        idUsuario:"5f19e5a4deef0b6cd06b117b",//--
+        idUsuario:"5f1a45e1142ba0d5fd62eb58",//--
         esChef:true,//--
         carrito:[],
         total:0,
