@@ -113,7 +113,7 @@ module.exports.getOneById = async function (client, database, collection,id) {
 	}
 	return resultado;
 }
-module.exports.getPlatosDelChef = async function (client, database, collection, id) {
+module.exports.getPlatosDelChef = async function (client, database, collection, id) { // uso otro
 	let resultado = null;
 	let platos = [];
 	try {

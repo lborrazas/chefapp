@@ -2,13 +2,13 @@ const express = require('express');
 const db = require('../database');
 const router = express.Router();
 
-/*router.use(function timeLog(req, res, next) {
+router.use(function timeLog(req, res, next) {
     if(req.session.user == undefined){
         res.status(400)
         res.end('CUAL HACE')
     }
     next();
-});*/
+});
 
 
 
