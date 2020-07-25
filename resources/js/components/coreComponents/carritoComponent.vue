@@ -37,8 +37,7 @@
         props: {
             carrito: {
                 type: Array,
-                default: () => ([
-                ])
+                default: () => ([])
             },
             total: {
                 type: Number,

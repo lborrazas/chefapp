@@ -76,6 +76,7 @@
                 this.descripcion=null
                 reader.readAsDataURL(this.selectedfile)
                 reader.onloadend = function(){
+                    console.log(reader.result)
                     axios.post('/api/platos', {
                         "name":this.nombre,
                         "precio":this.precio,

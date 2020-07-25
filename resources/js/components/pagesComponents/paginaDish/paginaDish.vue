@@ -19,13 +19,7 @@
                     </div></span>
                     <span class="profile-2half">
                         <div class="flex-container profilecont" @click="irperfil"><div class="item-header-main">Perfil del chef:<div>{{this.chefname}}</div></div></div>
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--ARREGLA ESTO JUAN!!!-->
-                        <!--<div id="profile-photo" :style="'background-image:url('+elplatito.photo+')'"></div>-->
+                        <div id="profile-photo" :style="'background-image:url('+elplatito.photo+')'"></div>
                         <div id="price" class="flex-container">
                             <div id="coinimage" class="img-container">
                             </div>

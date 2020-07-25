@@ -58,6 +58,7 @@ const app = express();
         }
         let user = await db.getOneByField(client, database, collection, filters);
 	    user = user[0];
+	    console.log(user)
 	    if(user){
             console.log(req.body.password);
             console.log(user.password)

@@ -140,33 +140,33 @@
             }
         },
         created() {
-          /*  console.log(this.subscibed)
-            {
-                if (this.subscibed) {
-                    document.getElementById("subscrito").classList.remove("unsus")
-                    document.getElementById("subscrito").classList.add("sus")
-                    this.subscribirse = "Subscrito"
-                } else {
-                    document.getElementById("subscrito").classList.remove("sus")
-                    document.getElementById("subscrito").classList.add("unsus")
-                    this.subscribirse = "Subscribirse"
-                }
-            }*/
+            /*  console.log(this.subscibed)
+              {
+                  if (this.subscibed) {
+                      document.getElementById("subscrito").classList.remove("unsus")
+                      document.getElementById("subscrito").classList.add("sus")
+                      this.subscribirse = "Subscrito"
+                  } else {
+                      document.getElementById("subscrito").classList.remove("sus")
+                      document.getElementById("subscrito").classList.add("unsus")
+                      this.subscribirse = "Subscribirse"
+                  }
+              }*/
         },
 
         computed: {
 
-           /* funcion() {
-                if (this.subscibed) {
-                    document.getElementById("subscrito").classList.remove("unsus")
-                    document.getElementById("subscrito").classList.add("sus")
-                    this.subscribirse = "Subscrito"
-                } else {
-                    document.getElementById("subscrito").classList.remove("sus")
-                    document.getElementById("subscrito").classList.add("unsus")
-                    this.subscribirse = "Subscribirse"
-                }
-            }*/
+            /* funcion() {
+                 if (this.subscibed) {
+                     document.getElementById("subscrito").classList.remove("unsus")
+                     document.getElementById("subscrito").classList.add("sus")
+                     this.subscribirse = "Subscrito"
+                 } else {
+                     document.getElementById("subscrito").classList.remove("sus")
+                     document.getElementById("subscrito").classList.add("unsus")
+                     this.subscribirse = "Subscribirse"
+                 }
+             }*/
         }
 
     }
