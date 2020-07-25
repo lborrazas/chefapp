@@ -1,4 +1,3 @@
-
 .flex-container {
     display: flex;
 }
@@ -14,6 +13,12 @@
 }
 .flex-container{
     height: 25%;
+}
+.profilecont{
+ background-color: rgba(239, 171, 77, 0.87);
+    border-radius: 4%;
+
+    margin : 2px;
 }
 
 .img-container img {
@@ -118,6 +123,22 @@
     border: 0px;
     border-radius: 5px;
 }
+#chefoption{
+    background-color: #ffcfc3;
+    position: absolute;
+    left:50px;
+    top: 10px;
+    height: 30px;
+    max-width: 30.5px;
+    min-width: 30.5px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("/../css/img/chefIcon.png");
+    margin: 0px;
+    padding:0px;
+    border: 0px;
+    border-radius: 5px;
+}
 #subirsemanales{  background-color: #ffcfc3;
     position: absolute;
     right:50px;
@@ -180,6 +201,7 @@ unsus{
     width: 100%;
     height:360px;
     background-size:cover;
+    border-radius: 5%;
 
  }
 .dishCheck{
@@ -224,13 +246,36 @@ unsus{
     border: #0b2e13;
     padding:3px;
 }
+.dotType{
+    border-radius: 100%;
+    max-height: 6px;
+    min-width: 6px;
+    margin: 5px;
+}
 
-
-
+.centereli{
+    background-color: #1b1e21;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    border:1px;
+    border: #575757;
+    height:30px;
+}
+.centerA {
+    margin-bottom: 3.4px;
+    margin-top: 5.4px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
 
 
 .noty_theme__mint.noty_type__error {
     background-color: #a70c02  !important;
     border-bottom: 1px solid #b8180d !important;
     color: #fff;
+}
+.weekdish{
+    background-color: #99999924;
+    border-radius: 5%;
+    height:30px;
 }

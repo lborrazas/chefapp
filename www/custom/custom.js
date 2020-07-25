@@ -67,6 +67,22 @@ function installEvents() {
 				});
 				return false;
 			}
+		},	{
+			id: '#crearPlato',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("create-dish", "DEF");
+				});
+				return false;
+			}
+		},{
+			id: '#definirSemanales',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("week-page", "DEF");
+				});
+				return false;
+			}
 		},
 		{
 			id: '#option-product',
@@ -236,7 +252,6 @@ function installEvents() {
 				//Do something if you need
 			}
 		},
-
 		{
 			id:window,
 			ev:'end-page-new-page',

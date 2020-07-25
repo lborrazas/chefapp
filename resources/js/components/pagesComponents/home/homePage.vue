@@ -10,7 +10,7 @@
                         <div class="horizontal-content">
                             <div class="circle"></div>
                         </div>
-                        <div class="horizontal-content">
+      app                  <div class="horizontal-content">
                             <div class="circle"></div>
                         </div>
                         <div class="horizontal-content">
@@ -133,11 +133,23 @@
                         <h2>Más pedidos</h2>
                     </header>
                     <div class="row">
-                        <div class="3u flex-content-25" v-for="product in array">
-                            <section>
-                                <a class="image full"><img :src="product[0]" alt=""/></a>
-                                <p>{{product[1]}}</p>
-                                <a :id="product[3]" class="button btn-plus" @click="openDish(product[3])">Read More</a>
+                        <div class="3u flex-content-25" style=" border-bottom: 1px solid rgba(139,139,139,0.42);" v-for="product in array">
+                            <section >
+                                <p>{{product.name}}</p>
+                                <a  class="image full"><img :src="product.photo" alt="" /></a>
+                                <span class="flex-container" style="min-height: 30px" >
+                                    <div class="dotType" style="background-color: #efbd59 ;border: 20px solid rgba(255,232,192,0.85); border-left:25px;border-right:25px; " v-if="product.paraCeliacos">
+                                        <div style="border: 5px solid #efbd59;border-radius: 100%"></div>
+                                    </div>
+                                    <div class="dotType" style="background-color: #339dee ;border: 5px solid rgba(142,203,250,0.63)" v-if="product.paraVegetarianos">
+                                        <div style="border: 5px solid #339dee;border-radius: 100%"></div>
+                                    </div>
+                                    <div class="dotType" style="background-color: #1f9a05 ;border: 5px solid rgba(133,250,87,0.63)" v-if="product.paraVeganos">
+                                        <div style="border: 5px solid #1f9a05;border-radius: 100%"></div>
+                                    </div>
+                                </span>
+                                <a :id="product._id" class="button btn-plus" @click="openDish(product._id)">Read More</a>
+
                             </section>
                         </div>
                     </div>
@@ -201,22 +213,27 @@
         components: {
             'page-template': pageComponent,
         },
-        methods: {
-            openDish(clave) {
-                muiChangePageEvent("dish-page")
-                axios.get('api/dishes' + clave).then($response => {
-                    this.dish = $response.data
-                    this.isLoading = false;
+        created() {
+            console.log("entro a crear")
+            axios.get("/api/platosparapedir/").then(response =>{
+                console.log(response.data)
+                this.array=response.data
+            })
 
-                }).catch(error => {
-                    alert('error')
-                    sleep(20);
-                    this.isLoading = false;
-                })
+        },
+        methods:{
+            change(){
+                muiChangePageEvent("option-chef-page")
+            },
+            openDish(clave){
+                console.log(clave)
+                this.$emit("cargar-plato",clave)
+                muiChangePageEvent("dish-page")
+
             }
         },
         props: {
-            home_page: '',
+            chefboolean:"",
         }
     }
 

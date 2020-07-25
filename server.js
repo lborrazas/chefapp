@@ -11,16 +11,16 @@ const redisStore = require('connect-redis')(session);
 const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 const db = require('./database');
 const apiRouter = require('./routes/api');
-var urlencodedParser = bodyParser.urlencoded({extended: false})
+var urlencodedParser = bodyParser.urlencoded({extended:false,limit:'100mb'})
 
 dotenv.config();
 
-const app = express()
-redisClient.on('error', (err) => {
-    console.log('Redis error: ', err);
-});
+const app = express();
+    redisClient.on('error', (err) => {
+        console.log('Redis error: ', err);
+    });
 
-
+;
 (async function () {
     let httpPort = process.env.APP_PORT;
     let database = 'chefsapp';
@@ -93,6 +93,16 @@ redisClient.on('error', (err) => {
         let collection = 'usuarios';
         try {
             await db.insertOne(client, database, collection, req.body);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+    });   app.get('/users/:id', async (req, res) => {
+        let collection = 'usuarios';
+        try {
+            let goback= await db.getOneById(client, database, collection, req.params.id);
+            res.send(goback)
             res.status(200).end();
         } catch (err) {
             console.log(err);

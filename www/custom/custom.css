@@ -41,6 +41,7 @@ a {
     text-align: center;
     font-size: 20px;
     padding-top: 12px;
+	margin-bottom: 10px;
 }
 #mui-viewport > .mui-page > .mui-page-body {
 	top: 55px !important;

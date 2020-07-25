@@ -3,9 +3,9 @@
         <template slot="page-title">Crear Plato</template>
         <template slot="page-body">
             <div id="creationHolder">
-            <div class="creational">Nombre:<input v-model="nombre"/></div>
-            <div class="creational">Precio:<input type="number" v-model="precio"/></div>
-            <div class="creational">Descripcion<input v-model="descripcion"/></div>
+            <div class="creational">Nombre:<input v-model="nombre" @change="check" /></div>
+            <div class="creational">Precio:<input type="number" v-model="precio" @change="check" /></div>
+            <div class="creational">Descripcion<input v-model="descripcion" @change="check"/></div>
             <input type="checkbox" id="Celiaco" value="Celiaco" v-model="checkedNames" @click="one">
             <label>Celiaco</label>
             <input type="checkbox" id="Vegano" value="Vegano" v-model="checkedNames" @click="two">
@@ -18,10 +18,12 @@
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-mdb-color btn-rounded float-left">
                         <span>Eliga una foto</span>
-                        <input type="file">
+                        <br>
+                        <input   style=" margin-top: 20px" type="file" @change="savefile" accept="image/*" capture>
                     </div>
                 </div>
-             <button v-if=""></button>
+             <button v-if="readyToUpload" @click="upload">Guardar Plato</button>
+
 
 
 
@@ -33,6 +35,7 @@
 </template>
 <script>
     import pageComponent from "../../pageComponent.vue";
+    import muiChangePageEvent from "../../../functions/muiChangePageEvent";
 
     export default {
         name:"createDish",
@@ -41,23 +44,74 @@
         },
         data(){
             return{
-                imagen:"",
+                readyToUpload:false,
+                selectedfile:null,
                 types:[false,false,false],
-                checkedNames: [],
+                checkedNames:[],
                 precio:0,
-                nombre:"",
-                descripcion:""
+                nombre:null,
+                descripcion:null
             }
         },
+        props:{
+            idchef:''
+        },
         methods:{
+            setchef(id){
+
+            },
+            upload(){
+
+                var reader = new FileReader()
+                reader.nombre=this.nombre
+                reader.precio=this.precio
+                reader.types=this.types
+                reader.descripcion=this.descripcion
+                reader.idchef=this.idchef
+                this.readyToUpload=false
+                this.types=[false,false,false]
+                this.checkedNames=[]
+                this.precio=0
+                this.nombre=null
+                this.descripcion=null
+                reader.readAsDataURL(this.selectedfile)
+                reader.onloadend = function(){
+                    axios.post('/api/platos', {
+                        "name":this.nombre,
+                        "precio":this.precio,
+                        "chef":this.idchef,
+                        "esDeSemanal":false,
+                        "paraCeliacos":this.types[0],
+                        "paraVeganos":this.types[1],
+                        "paraVegetarianos":this.types[2],
+                        "descipcion":this.descripcion,
+                        "cantidad":0,
+                        "reserved":0,
+                        "photo":reader.result,
+                        "pularidad":0
+                    }).then(res => {
+                        muiChangePageEvent("home-page")
+                    } )
+                }
+            },
+            check(){
+                this.readyToUpload= this.selectedfile && this.precio && this.nombre && this.descripcion && (this.precio !== "0");
+
+            },
+            savefile(event){
+                    this.selectedfile=event.target.files[0]
+                    this.check()
+
+            },
+
             one(){
-                this.types[0]=!this.types[0]
+                this.types[0]=!(this.types[0])
             },
             two(){
-                this.types[1]=!this.types[1]
+                this.types[1]=(!this.types[1])
             },
             three(){
-                this.types[2]=!this.types[2]
+                this.types[2]=(!this.types[2])
             }
 
         }
