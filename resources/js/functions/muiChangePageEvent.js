@@ -5,3 +5,8 @@ function muiChangePageEvent($page){
 }
 
 module.exports = muiChangePageEvent;
+
+/*
+function changePage($pageId,){
+    //mui.changePage();
+}*/

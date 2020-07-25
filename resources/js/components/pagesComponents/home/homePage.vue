@@ -215,10 +215,10 @@
         },
         created() {
             console.log("entro a crear")
-            axios.get("/api/platosparapedir/").then(response =>{
+          /*  axios.get("/api/platosparapedir/").then(response =>{
                 console.log(response.data)
                 this.array=response.data
-            })
+            })*/
 
         },
         methods:{

@@ -2,7 +2,7 @@
     <page-templates  page_identification="dish-page">
 
         <template slot="page-title"> Pagina de Plato
-            <button id="micarrito" @click="mandar('modal')" >
+            <button id="micarrito" @click="$emit('open-carrito-modal')" >
             </button></template>
         <template slot="page-body">
             <div  class="info-holder" style="height:45%">
@@ -10,16 +10,22 @@
 
                     <span class="profile-1half" >
                         <div class="item-header-main">
-                            <div>Platos reservados:{{parseInt(this.elplatito.reserved)}} / {{parseInt(this.elplatito.cantidad)}}</div>
+                            <div>Platos reservados:{{parseInt(elplatito.reserved)}} / {{parseInt(elplatito.cantidad)}}</div>
                             <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
                         " ><div style="background-color:darkred;border-radius: 10px; height:100%" :style="'width:'+pintar+'%'"></div></div>
                         </div>
-                        <div class="item-header-main"> {{this.elplatito.name}}</div>
-                        <div class="item-header-secondary">{{this.elplatito.descipcion}}
+                        <div class="item-header-main"> {{elplatito.name}}</div>
+                        <div class="item-header-secondary">{{elplatito.descipcion}}
                     </div></span>
                     <span class="profile-2half">
                         <div class="flex-container profilecont" @click="irperfil"><div class="item-header-main">Perfil del chef:<div>{{this.chefname}}</div></div></div>
-                        <div id="profile-photo" :style="'background-image:url('+this.elplatito.photo+')'"></div>
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--ARREGLA ESTO JUAN!!!-->
+                        <!--<div id="profile-photo" :style="'background-image:url('+elplatito.photo+')'"></div>-->
                         <div id="price" class="flex-container">
                             <div id="coinimage" class="img-container">
                             </div>
@@ -125,8 +131,6 @@
                         this.$refs['modal-add-reseña-plato'].close()
                         axios.put('/api/resena/plato',contenido)
                     })
-
-
                 },
                 irperfil(){
                     if(this.visitante!=this.elplatito.chef){
@@ -139,16 +143,9 @@
                 this.$emit('addcarrito',[this.elplatito.name,this.elplatito._id,parseInt(this.elplatito.precio)])
                     }
                 },
-                mandar(laid){
-
-                    this.$emit('mandar',laid)
-
-
-                },
                 forceRerender() {
                     this.componentKey2 += 1;
                 },
-
         },
         props:{
             elplatito:{},

@@ -125,7 +125,7 @@
 
 
                 <chef-page-component></chef-page-component>
-				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile" v-on:mandar="abrir"  v-on:addcarrito="agregaracarrito"></dish-page-component>
+				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile"   v-on:addcarrito="agregaracarrito"></dish-page-component>
 				<profile-page-component :subscibed=this.estasubscrito :reviewsprofile=this.leprofilereviews :visita= this.idUsuario :datosprofile="this.leprofile"></profile-page-component>
 				<createdish-page-component :idchef=this.idUsuario></createdish-page-component>
 
@@ -137,24 +137,9 @@
 				<weekdish-page-component :platoides=this.platoide :idchef=this.idUsuario  v-on:subio-semanales="this.subioSemanal=true" ref="weepage"></weekdish-page-component>
                 <register-page-component></register-page-component>
 
-
-				<modal-two  ref="modal" title="Carrito">
-
-					<div>
-						<div v-if="carrito.length===0">Carrito vacio</div>
-						<div v-else></div>
-						<div style="overflow: auto">
-							<div v-for="dish in carrito" :id=dish[1] > {{dish[0]}}      -{{dish[2]}} $ </div>
-						</div>
+				<carrito-component ref="carrito_component" v-on:empty-carrito="emptyCarrito"></carrito-component>
 
 
-						<div class="flex-container"><div style="margin-right: 25%">Total: {{total}}$</div><button style="margin-left:25% " v-if="carrito.length>0" @click="sacardish">Borrar Carrito</button>
-						</div>
-						<button @click="comprar">Comprar</button>
-					</div>
-
-
-				</modal-two>
 
 
 

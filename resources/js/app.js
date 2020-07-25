@@ -1,5 +1,3 @@
-
-
 window.Vue = require('vue')
 window.axios = require('axios')
 window.Noty = require('noty');
@@ -22,100 +20,63 @@ Vue.component('dish-page-component', require('./components/pagesComponents/pagin
 Vue.component('createdish-page-component', require('./components/pagesComponents/crearPlato/createDish.vue').default);
 Vue.component('weekdish-page-component', require('./components/pagesComponents/weekDish/weekDish.vue').default);
 Vue.component('chef-option-page-component', require('./components/pagesComponents/chefOptions/chefOptions.vue').default);
+Vue.component('carrito-component', require('./components/coreComponents/carritoComponent.vue').default);
 
 import weekDish from "../../resources/js/components/pagesComponents/weekDish/weekDish.vue";
 import paginaDish from "./components/pagesComponents/paginaDish/paginaDish.vue";
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
-import authMixin from './mixins/auth.js';
+import authMixin from './mixins/auth.js'
+import carritoMixin from './mixins/carrito.js'
+import sessionMixin from "./mixins/session.js";
 
 const app = new Vue({
     el: '#app',
     data: {
-        idUsuario:"5f1a45e1142ba0d5fd62eb58",//--
-        esChef:true,//--
-        carrito:[],
-        total:0,
-        platoide:[],
-        elplato:[],
-        nombrechef:[],
-        leprofile:[],
-        leprofilereviews:[],
-        elplatoreviews:[],
-        subioSemanal:false, //--
-        estasubscrito:false,
     },
     methods: {
-        agregaracarrito(args){
 
-            this.total=this.total+args[2]
-            this.carrito.push([args[0],args[1],args[2]]) //nombre-id-precio
-        },
-        abrir(laid){
-            this.$refs[laid].open()
-        },
-        sacardish(){
-            this.carrito=[]
-            this.total=0;
-        },
-        comprar(){
-            console.log(this.carrito)
-                let data=this.carrito
-                axios.post("/api/pedido/"+this.idUsuario,data).then(response =>{
-                    this.carrito=[]
-                    this.total=0;
-                    this.$refs['modal'].close()
-                })
-                //
-            }
-            ,
-        goprofile(calveChef){
+        goprofile(calveChef) {
 
-            axios.get('api/profile/review/'+calveChef).then($response => {
-                    console.log($response.data)
-                    this.leprofilereviews=$response.data
+            axios.get('api/profile/review/' + calveChef).then($response => {
+                console.log($response.data)
+                this.leprofilereviews = $response.data
             })
-            axios.get('api/profile/'+calveChef).then($response => {
-                this.leprofile=$response.data[0]
-                axios.get('api/issubscibed/'+this.leprofile._id+"/"+this.idUsuario).then($response => {
+            axios.get('api/profile/' + calveChef).then($response => {
+                this.leprofile = $response.data[0]
+                axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
                     console.log($response)
-                    this.estasubscrito=$response.data
+                    this.estasubscrito = $response.data
 
                 })
             })
         },
-        cargarDish(clave){
-            axios.get('api/dishes/'+clave).then($response => {
-                this.elplato=$response.data[0]
+        cargarDish(clave) {
+            axios.get('api/dishes/' + clave).then($response => {
+                this.elplato = $response.data[0]
 
-                axios.get("/api/usuarios/name/"+this.elplato.chef).then(response =>{
+                axios.get("/api/usuarios/name/" + this.elplato.chef).then(response => {
                     this.nombrechef = response.data[0].user
                 })
-               axios.get("/api/plato/review/"+this.elplato._id).then(response =>{
-                   console.log(response.data)
-                   console.log(this.elplato._id)
+                axios.get("/api/plato/review/" + this.elplato._id).then(response => {
+                    console.log(response.data)
+                    console.log(this.elplato._id)
                     this.elplatoreviews = response.data
                 })
             })
         },
-        cargarforweek(args){
+        cargarforweek(args) {
 
-            let auxiliar =null
-            axios.get("/api/platosporidchef/"+args).then(response =>{
-                this.platoide=response.data
+            let auxiliar = null
+            axios.get("/api/platosporidchef/" + args).then(response => {
+                this.platoide = response.data
             })
         }
     },
-    computed:{
-
-    },
+    computed: {},
     mounted() {
     },
-    components:{
-        'modal-two': UiModal,
-        'button-keen':UiButton,
-    },
-    mixins: [authMixin],
+    mixins: [authMixin, carritoMixin, sessionMixin],
 
 })
 
