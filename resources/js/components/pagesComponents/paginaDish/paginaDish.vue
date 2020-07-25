@@ -1,16 +1,17 @@
 <template>
-    <page-templates  page_identification="dish-page">
+    <page-templates page_identification="dish-page">
 
         <template slot="page-title"> Pagina de Plato</template>
         <template slot="page-body">
-            <div  class="info-holder" style="height:45%">
+            <div class="info-holder" style="height:45%">
                 <div :key="componentKey2" class="profile-header flex-container" style="height: 100%">
 
-                    <span class="profile-1half" >
+                    <span class="profile-1half">
                         <div class="item-header-main">
                             <div>Platos reservados:{{parseInt(elplatito.reserved)}} / {{parseInt(elplatito.cantidad)}}</div>
                             <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
-                        " ><div style="background-color:darkred;border-radius: 10px; height:100%" :style="'width:'+pintar+'%'"></div></div>
+                        "><div style="background-color:darkred;border-radius: 10px; height:100%"
+                               :style="'width:'+pintar+'%'"></div></div>
                         </div>
                         <div class="item-header-main"> {{elplatito.name}}</div>
                         <div class="item-header-secondary">{{elplatito.descipcion}}
@@ -35,8 +36,8 @@
                         <div id="cart" class="flex-container">
                             <div id="cartimage" class="img-container">
                             </div>
-                            <div><button style="background-color: #99999924;border-radius:1%" @click="add">
-                                Add
+                            <div><button style="background-color: #99999924;border-radius:1%" @click="addToCarrito">
+                                Agregar al carrito
                             </button>
 
                             </div>
@@ -52,8 +53,9 @@
             </div>
 
 
-            <div id="reviews" >
-                <div style="text-decoration-line: underline;color:#adadad" @click="openModel"><a style="font-size: smaller;">Agregar reseña</a></div>
+            <div id="reviews">
+                <div style="text-decoration-line: underline;color:#adadad" @click="openModel"><a
+                        style="font-size: smaller;">Agregar reseña</a></div>
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
                     <div v-for="reviw in this.reviewsdish" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
@@ -62,10 +64,14 @@
                 </div>
             </div>
 
-            <modal-two  ref="modal-add-reseña-plato" title="Crear reseña">
+            <modal-two ref="modal-add-reseña-plato" title="Crear reseña">
                 <div class="container">
-                    <div style=" width:100%;height:50px"><input style=" width:70%;background-color: rgba(194,194,194,0.61);border-radius: 2%" v-model="resenia"></input></div>
-                    <div><button @click="mandarResenaPlato">Mandar</button></div>
+                    <div style=" width:100%;height:50px"><input
+                            style=" width:70%;background-color: rgba(194,194,194,0.61);border-radius: 2%"
+                            v-model="resenia"></input></div>
+                    <div>
+                        <button @click="mandarResenaPlato">Mandar</button>
+                    </div>
                 </div>
 
 
@@ -73,7 +79,6 @@
 
 
             <recomended-dish></recomended-dish>
-
 
 
         </template>
@@ -88,81 +93,78 @@
     import {UiModal, UiButton} from "keen-ui";
     import 'keen-ui/dist/keen-ui.css';
     import muiChangePageEvent from "../../../functions/muiChangePageEvent";
+
     export default {
         name: "dishPage",
-        components:{
-            'key':0,
-            'page-templates':pageComponent,
-            'recomended-dish':recomendedDishes,
+        components: {
+            'key': 0,
+            'page-templates': pageComponent,
+            'recomended-dish': recomendedDishes,
             'modal-two': UiModal,
-            'button-keen':UiButton,
+            'button-keen': UiButton,
         },
-        data(){
-            return{
-                carga:0,
-                resenia:"",
-                alreadyVoted:false,
-                reviews:null,
-                iddelchef:"",
+        data() {
+            return {
+                carga: 0,
+                resenia: "",
+                alreadyVoted: false,
+                reviews: null,
+                iddelchef: "",
 
                 componentKey2: 0,
 
             }
         },
-        methods:{
-                openModel(){
-                    if(this.visitante!=this.elplatito.chef){
-                        this.$refs['modal-add-reseña-plato'].open()
-                    }
-                },
-                mandarResenaPlato(){
-                    axios.get("/api/usuarios/name/"+this.visitante).then(response =>{
-                        response.data[0].user
-
-                        console.log("mandando")
-                        let contenido={
-                            "iduser":this.visitante,
-                            "idplato":this.elplatito._id,
-                            "rese":this.resenia,
-                            "nombre":response.data[0].user
-                        }
-                        this.$refs['modal-add-reseña-plato'].close()
-                        axios.put('/api/resena/plato',contenido)
-                    })
-                },
-                irperfil(){
-                    if(this.visitante!=this.elplatito.chef){
-                    this.$emit('irperfil',this.elplatito.chef)
-                    muiChangePageEvent('profile-page')
-                    }
-                },
-                add(){
-                    if(this.visitante!=this.elplatito.chef){
-                this.$emit('addcarrito',[this.elplatito.name,this.elplatito._id,parseInt(this.elplatito.precio)])
-                    }
-                },
-                forceRerender() {
-                    this.componentKey2 += 1;
-                },
-        },
-        props:{
-            elplatito:{},
-            chefname:{},
-            visitante:"",
-            reviewsdish:{}
-
-        },
-        computed:{
-            pintar(){
-                return this.carga=(100*parseInt(this.elplatito.reserved))/parseInt(this.elplatito.cantidad)
+        methods: {
+            openModel() {
+                if (this.visitante != this.elplatito.chef) {
+                    this.$refs['modal-add-reseña-plato'].open()
+                }
             },
-            load(){
-                    this.alreadyVoted=false
-                    this.reviews=null
-                    this.iddelchef=this.elplatito.chef
+            mandarResenaPlato() {
+                axios.get("/api/usuarios/name/" + this.visitante).then(response => {
+                    response.data[0].user
+
+                    console.log("mandando")
+                    let contenido = {
+                        "iduser": this.visitante,
+                        "idplato": this.elplatito._id,
+                        "rese": this.resenia,
+                        "nombre": response.data[0].user
+                    }
+                    this.$refs['modal-add-reseña-plato'].close()
+                    axios.put('/api/resena/plato', contenido)
+                })
+            },
+            irperfil() {
+                if (this.visitante != this.elplatito.chef) {
+                    this.$emit('irperfil', this.elplatito.chef)
+                    muiChangePageEvent('profile-page')
+                }
+            },
+            agregarAlCarrito() {
+                this.$store.commit('addCarrito', {dish: this.elplatito});
+            },
+            forceRerender() {
+                this.componentKey2 += 1;
+            },
+        },
+        props: {
+            elplatito: {},
+            chefname: {},
+            visitante: "",
+            reviewsdish: {}
+
+        },
+        computed: {
+            pintar() {
+                return this.carga = (100 * parseInt(this.elplatito.reserved)) / parseInt(this.elplatito.cantidad)
+            },
+            load() {
+                this.alreadyVoted = false
+                this.reviews = null
+                this.iddelchef = this.elplatito.chef
             }
-
-
         }
 
     }

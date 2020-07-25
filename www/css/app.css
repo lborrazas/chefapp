@@ -277,11 +277,33 @@ unsus{
 }
 
 /*KEEN UI OVERRIDES*/
+
+
 .ui-modal__header {
     background-color: black !important;
     color: #e5bf32 !important;
     border-bottom: 4px solid  #e5bf32 !important;
 
+}
+
+.ui-modal__container {
+    background-color: white;
+    border-radius: 0.125rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    display: inline-block;
+    margin: 0 auto;
+    max-height: 100vh;
+    max-width: 80vw !important;
+    outline: none;
+    outline-color: initial;
+    outline-style: none;
+    outline-width: initial;
+    overflow: hidden;
+    padding: 0;
+    text-align: initial;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    width: 33rem;
 }
 
 /*.ui-modal__body{
