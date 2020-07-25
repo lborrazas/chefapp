@@ -4,6 +4,8 @@
         <template slot="page-title">Home page</template>
         <template slot="page-body">
 
+            <!--<button @click="evento">APRETAME PARA PROBAR</button>-->
+
             <!-- Main -->
             <div id="main">
                 <div class="for-sticky">
@@ -243,7 +245,10 @@
                 this.$emit("cargar-plato", clave)
                 muiChangePageEvent("dish-page")
 
-            }
+            },
+           /* evento(){
+                eventBus.$emit('eventBusEmission')
+            }*/
         },
         props: {
             chefboolean: "",
