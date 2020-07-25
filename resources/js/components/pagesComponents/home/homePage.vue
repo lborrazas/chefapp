@@ -10,7 +10,7 @@
                         <div class="horizontal-content">
                             <div class="circle"></div>
                         </div>
-      app                  <div class="horizontal-content">
+                        <div class="horizontal-content">
                             <div class="circle"></div>
                         </div>
                         <div class="horizontal-content">
@@ -133,22 +133,30 @@
                         <h2>Más pedidos</h2>
                     </header>
                     <div class="row">
-                        <div class="3u flex-content-25" style=" border-bottom: 1px solid rgba(139,139,139,0.42);" v-for="product in array">
-                            <section >
+                        <div class="3u flex-content-25" style=" border-bottom: 1px solid rgba(139,139,139,0.42);"
+                             v-for="product in array">
+                            <section>
                                 <p>{{product.name}}</p>
-                                <a  class="image full"><img :src="product.photo" alt="" /></a>
-                                <span class="flex-container" style="min-height: 30px" >
-                                    <div class="dotType" style="background-color: #efbd59 ;border: 20px solid rgba(255,232,192,0.85); border-left:25px;border-right:25px; " v-if="product.paraCeliacos">
+                                <a class="image full"><img :src="product.photo" alt=""/></a>
+                                <span class="flex-container" style="min-height: 30px">
+                                    <div class="dotType"
+                                         style="background-color: #efbd59 ;border: 20px solid rgba(255,232,192,0.85); border-left:25px;border-right:25px; "
+                                         v-if="product.paraCeliacos">
                                         <div style="border: 5px solid #efbd59;border-radius: 100%"></div>
                                     </div>
-                                    <div class="dotType" style="background-color: #339dee ;border: 5px solid rgba(142,203,250,0.63)" v-if="product.paraVegetarianos">
+                                    <div class="dotType"
+                                         style="background-color: #339dee ;border: 5px solid rgba(142,203,250,0.63)"
+                                         v-if="product.paraVegetarianos">
                                         <div style="border: 5px solid #339dee;border-radius: 100%"></div>
                                     </div>
-                                    <div class="dotType" style="background-color: #1f9a05 ;border: 5px solid rgba(133,250,87,0.63)" v-if="product.paraVeganos">
+                                    <div class="dotType"
+                                         style="background-color: #1f9a05 ;border: 5px solid rgba(133,250,87,0.63)"
+                                         v-if="product.paraVeganos">
                                         <div style="border: 5px solid #1f9a05;border-radius: 100%"></div>
                                     </div>
                                 </span>
-                                <a :id="product._id" class="button btn-plus" @click="openDish(product._id)">Read More</a>
+                                <a :id="product._id" class="button btn-plus" @click="openDish(product._id)">Read
+                                    More</a>
 
                             </section>
                         </div>
@@ -215,25 +223,25 @@
         },
         created() {
             console.log("entro a crear")
-          /*  axios.get("/api/platosparapedir/").then(response =>{
-                console.log(response.data)
-                this.array=response.data
-            })*/
+            /*  axios.get("/api/platosparapedir/").then(response =>{
+                  console.log(response.data)
+                  this.array=response.data
+              })*/
 
         },
-        methods:{
-            change(){
+        methods: {
+            change() {
                 muiChangePageEvent("option-chef-page")
             },
-            openDish(clave){
+            openDish(clave) {
                 console.log(clave)
-                this.$emit("cargar-plato",clave)
+                this.$emit("cargar-plato", clave)
                 muiChangePageEvent("dish-page")
 
             }
         },
         props: {
-            chefboolean:"",
+            chefboolean: "",
         }
     }
 

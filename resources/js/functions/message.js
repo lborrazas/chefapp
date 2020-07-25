@@ -15,7 +15,6 @@ function displayMessage($response, $isError = false) {
             timeout: 3500,
         }).show();
     }
-
 }
 
 module.exports = displayMessage;

@@ -5,6 +5,38 @@ window.Noty = require('noty');
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/mint.css';
 
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+
+const store = new Vuex.Store({
+    state: {
+        count: 0,
+        carrito: [],
+        user: {},
+    },
+    mutations: {
+        increment(state) {
+            state.count++
+        },
+        addCarrito(state, payload) {
+            state.carrito.push(payload.item);
+        },
+        removeCarrito(state, payload) {
+            //not so efficent but it is smol so its ok, i wanted to keep same array on fear of reactivity
+            index = state.carrito.map(function (item) {
+                return item._id
+            }).indexOf(payload.id);
+            state.carrito.splice(index);
+        },
+        emptyCarrito(state){
+            state.carrito.empty();
+        },
+    }
+})
+
+
 Vue.component('first-component', require('./components/firstComponent.vue').default);
 Vue.component('tab-bar-compnent', require('./components/tabBarComponent.vue').default);
 Vue.component('mui-panel-component', require('./components/muiPanelComponent.vue').default);
@@ -32,8 +64,8 @@ import sessionMixin from "./mixins/session.js";
 
 const app = new Vue({
     el: '#app',
-    data: {
-    },
+    store,
+    data: {},
     methods: {
 
         goprofile(calveChef) {

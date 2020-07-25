@@ -1,9 +1,7 @@
 <template>
     <page-templates  page_identification="dish-page">
 
-        <template slot="page-title"> Pagina de Plato
-            <button id="micarrito" @click="$emit('open-carrito-modal')" >
-            </button></template>
+        <template slot="page-title"> Pagina de Plato</template>
         <template slot="page-body">
             <div  class="info-holder" style="height:45%">
                 <div :key="componentKey2" class="profile-header flex-container" style="height: 100%">

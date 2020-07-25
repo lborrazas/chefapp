@@ -3,6 +3,8 @@
        <!-- <span @click="back" > <i class="fa fa-arrow-left"></i></span>-->
         <a class="mui-backarrow" href="#"></a>
         <div class='mui-page-title'><slot name="page-title"/></div>
+        <a class="mui-cart"  v-if="with_carrito"  @click="$emit('open-carrito-modal')" >
+        </a>
         <a class="mui-headmenu" href="#"></a>
     </div>
 
@@ -15,6 +17,9 @@
             back(){
                     mui.history.back();
             }
+        },
+        props: {
+            with_carrito: { type: Boolean, default: true}
         }
     }
 </script>
