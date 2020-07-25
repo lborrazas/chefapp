@@ -1,5 +1,5 @@
 <template>
-    <page-template page_identification="login-page">
+    <page-template page_identification="login-page" :with_carrito="false">
         <template slot="page-title">Login</template>
         <template slot="page-body">
             <div class="limiter">
@@ -10,6 +10,8 @@
 					<span class="login100-form-title p-b-53">
 						Sign In With
 					</span>
+
+
 
                         <div class="flex-container-login">
 

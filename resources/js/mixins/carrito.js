@@ -2,7 +2,6 @@ export default ({
     data() {
         return {
             carrito: [],
-            total: 0,
             carritov2: {
                 items: [],
                 total: 0

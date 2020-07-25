@@ -49,6 +49,24 @@ a {
 .mui-page-body-content {
 	padding: 10px;
 }
+
+/* GoBack button ------------------------------------------------------------------ */
+.mui-cart {
+	position: absolute;
+	top: 0px;
+	right: 48px;
+	width: 40px;
+	height: 37px;
+}
+.mui-cart:after {
+	font-family: FontAwesome;
+	content: '\f07a';
+	font-size: 35px;
+	color: #e5b31b;
+}
+/* Menu button ------------------------------------------------------------------ */
+
+
 /* GoBack button ------------------------------------------------------------------ */
 .mui-backarrow {
 	position: absolute;
