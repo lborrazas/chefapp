@@ -116,10 +116,10 @@ router.use(function timeLog(req, res, next) {
         res.send(platos);
         res.end();
     });
-    router.get('/platosporidchef/:id', async (req, res) => {
-        let collection = 'platos';
+    router.get('/platosporidchef', async (req, res) => {
+        let collection = 'usuarios';
 
-        let platos = await db.getbyIdChef(client, database, collection, req.params.id);
+        let platos = await db.getbyIdChef(client, database, collection, req.session.user._id);
 
         res.send(platos);
         res.end();
@@ -161,7 +161,7 @@ router.use(function timeLog(req, res, next) {
     router.put('/resena/perfil', async (req, res) => {
         try {
             let collection = 'chef-review'
-            console.log(req)
+
             await  db.insertOne(client, database, collection, req.body,)
 
     } catch (err) {
@@ -195,13 +195,13 @@ router.use(function timeLog(req, res, next) {
             try{
                 let collection = 'subscipciones';
             let retorno=await db.isSubscribed(client, database, collection,req.params.idchef,req.params.iduser);
-            console.log()
+
             if(!retorno[0]){
                 varbool=false;
             }else {
                 varbool=true;
                 }
-            console.log(varbool)
+
             res.send(varbool)
             res.status(200).end();
         } catch (err) {

@@ -36,7 +36,11 @@ module.exports.getAllInById = async function (client, database, collection, arra
 module.exports.getbyIdChef = async function (client, database, collection, idchef) {
 	let resultado = null;
 	try {
-		resultado = await client.db(database).collection(collection).find({"chef":""+idchef}).project().toArray();
+		console.log(idchef)
+		let filter = await client.db(database).collection(collection).find({"_id":ObjectId(idchef)},{"platos":1}).project().toArray()
+		console.log(filter[0].platos)
+		collection = 'platos'
+		resultado = await client.db(database).collection(collection).find({"_id":{$in:filter[0].platos}}).project().toArray();
 	} catch (err) {
 		console.log(err);
 	}
@@ -72,8 +76,7 @@ module.exports.getuserByID = async function (client, database, collection,id) {
 }
 module.exports.isSubscribed = async function (client, database, collection,idchef,iduser) {
 	let resultado = null;
-	console.log(iduser)
-	console.log(idchef)
+
 	try {
 		resultado = await client.db(database).collection(collection).find(
 			{"iduser":idchef, "idchef":iduser},{id:1}).project().toArray();
@@ -138,7 +141,6 @@ module.exports.incrementarPedido = async function (client, database, collection,
 			ObjectId(filteres[i][1])
 		)
 	}
-	console.log(auxfilter)
 	await client.db(database).collection(collection).updateMany(
 		{ _id:{$in:auxfilter }},
 		{ $inc: { reserved: 1} },
@@ -158,7 +160,8 @@ module.exports.getOne = async function (client, database, collection, id) {
 			}
 		).toArray();
 	} catch (err) {
-		console.log(err);
+		console.log(err)
+
 	}
 	return resultado;
 }
@@ -197,7 +200,7 @@ module.exports.insertPlato = async function (client, database, collection, data,
 		});
 }
 module.exports.insertSubscripcion = async function (client, database, collection, data,id) {
-	console.log(id)
+
 	await client.db(database).collection(collection).insertOne(data)
 	collection='usuarios'
 	await client.db(database).collection(collection).updateMany({_id:ObjectId(id)},{$inc:{subscriptores:1}},)

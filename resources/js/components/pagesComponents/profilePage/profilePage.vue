@@ -43,6 +43,9 @@
 
             </modal-two>
             <div><div class="for-sticky">
+                <button @click="cargarPlatos" v-if="semanalbool === false">
+                    boton para ir a cambiar semanales [semanales]
+                </button>
                 <div class="horizontal-container">
                     <div class="horizontal-content">
 
@@ -86,12 +89,22 @@
             }
         },
         props: {
+            semanalbool:"",
             visita: {},
             datosprofile: {},
             reviewsprofile: {},
             subscibed: {}
         },
         methods: {
+            cargarPlatos(){
+                if(!this.semanalbool){
+                this.$emit("cargar-plato-week")
+                }else{
+                alert("Ya se han declarado los platos semanales")
+            }
+            alert("entre")
+            },
+
             mandarResena() {
                 axios.get("/api/usuarios/name/" + this.datosprofile._id).then(response => {
                     response.data[0].user

@@ -101,10 +101,10 @@ const app = new Vue({
             })
         },
         cargarforweek(args) {
-
             let auxiliar = null
-            axios.get("/api/platosporidchef/" + args).then(response => {
+            axios.get("/api/platosporidchef" ).then(response => {
                 this.platoide = response.data
+                mui.viewport.showPage('week-page',"NONE")
             })
         }
     },
