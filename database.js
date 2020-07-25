@@ -182,12 +182,12 @@ module.exports.insertMany = async function (client, database, collection, data) 
 }
 
 
-module.exports.insertPlato = async function (client, database, collection, data, id_chef) {//TODo no la uso
+module.exports.insertPlato = async function (client, database, collection, data,mail) {
 	await client.db(database).collection(collection).insertOne(data,
 		function (err, doc) {
 			let id_plato = doc.insertedId;
 			client.db(database).collection('usuarios').updateOne(
-				{ _id: ObjectId(id_chef) },
+				{ email:mail},
 				{
 					$push: {
 						platos:id_plato

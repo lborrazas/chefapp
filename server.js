@@ -68,6 +68,7 @@ redisClient.on('error', (err) => {
             console.log(req.session);
             res.end('failure');
         }
+
     });
 
     app.get('/logout', function (req, res) {

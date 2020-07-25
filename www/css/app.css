@@ -1,6 +1,4 @@
-.flex-container {
-    display: flex;
-}
+
 .img-container{
     background-repeat: no-repeat;
     height:100%;
@@ -11,9 +9,7 @@
     margin: 1px;
 
 }
-.flex-container{
-    height: 25%;
-}
+
 .profilecont{
  background-color: rgba(239, 171, 77, 0.87);
     border-radius: 4%;
@@ -261,14 +257,96 @@ unsus{
     border: #575757;
     height:30px;
 }
-.centerA{
-    margin-bottom:3.4px;
-    margin-top:5.4px;
-    margin-left:25%;
-    margin-right:25%;
+.centerA {
+    margin-bottom: 3.4px;
+    margin-top: 5.4px;
+    margin-left: 25%;
+    margin-right: 25%;
 }
-.weekdish{
+
+
+.noty_theme__mint.noty_type__error {
+    background-color: #a70c02  !important;
+    border-bottom: 1px solid #b8180d !important;
+    color: #fff;
+}
+.weekdish {
     background-color: #99999924;
     border-radius: 5%;
-    height:30px;
+    height: 30px;
 }
+
+/*KEEN UI OVERRIDES*/
+
+
+.ui-modal__header {
+    background-color: black !important;
+    color: #e5bf32 !important;
+    border-bottom: 4px solid  #e5bf32 !important;
+
+}
+
+.ui-modal__container {
+    background-color: white;
+    border-radius: 0.125rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    display: inline-block;
+    margin: 0 auto;
+    max-height: 100vh;
+    max-width: 80vw !important;
+    outline: none;
+    outline-color: initial;
+    outline-style: none;
+    outline-width: initial;
+    overflow: hidden;
+    padding: 0;
+    text-align: initial;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    width: 33rem;
+}
+
+/*.ui-modal__body{
+    min-height: 150px;
+}*/
+
+
+/*BTN BOOTSTRAP NEW CLASSES*/
+
+.btn-app-red {
+    color: #fff;
+    background-color: darkred;
+    border-color: darkred;
+}
+
+.btn-app-red:hover {
+    color: #fff;
+    background-color: #6c0303;
+    border-color: #710909;
+}
+
+.btn-app-red:focus, .btn-app-red.focus {
+    color: #fff;
+    background-color: #6c0303;
+    border-color: #710909;
+    box-shadow: 0 0 0 0.2rem #6c0303;
+}
+
+.btn-app-red.disabled, .btn-app-red:disabled {
+    color: #fff;
+    background-color: #553939;
+    border-color: #553939;
+}
+
+.btn-app-red:not(:disabled):not(.disabled):active, .btn-app-red:not(:disabled):not(.disabled).active,
+.show > .btn-app-red.dropdown-toggle {
+    color: #fff;
+    background-color: #710909;
+    border-color:#6c0303;
+}
+
+.btn-app-red:not(:disabled):not(.disabled):active:focus, .btn-app-red:not(:disabled):not(.disabled).active:focus,
+.show > .btn-app-red.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem #6c0303;
+}
+
