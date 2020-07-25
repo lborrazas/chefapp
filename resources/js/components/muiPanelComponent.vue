@@ -51,7 +51,7 @@
         methods:{
             cargarPerfil(){
                 this.$emit("open-panel")
-                muiChangePageEvent('profile-page')
+                mui.viewport.showPage('profile-page',"NONE")
             }
         }
     }
