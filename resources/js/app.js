@@ -68,13 +68,13 @@ const app = new Vue({
     data: {},
     methods: {
 
-        goprofile(calveChef) {
+        goprofile() {
 
-            axios.get('api/profile/review/' + calveChef).then($response => {
+            axios.get('api/profile/review'+this.idUsuario).then($response => {
                 console.log($response.data)
                 this.leprofilereviews = $response.data
             })
-            axios.get('api/profile/' + calveChef).then($response => {
+            axios.get('api/profile' + this.idUsuario ).then($response => {
                 this.leprofile = $response.data[0]
                 axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
                     console.log($response)

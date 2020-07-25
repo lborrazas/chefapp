@@ -7,7 +7,8 @@
             <!-- Main -->
             <div id="main">
                 <div class="for-sticky">
-                    <div v-for="platos in platosColectionTop" class="horizontal-container">
+                    <div  class="horizontal-container">
+                    <!--div v-for="platos in platosColectionTop" class="horizontal-container"-->
                         <div class="horizontal-content" @click="openDish(product._id)">
                             <div class="circle" @click="openChef()"></div>
                         </div>

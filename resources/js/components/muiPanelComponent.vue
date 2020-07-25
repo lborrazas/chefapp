@@ -8,7 +8,7 @@
             <div class="panel-item">
                 <i class="fa fa-home"></i> Home Page
             </div>
-            <div class="panel-item">
+            <div class="panel-item" @click="cargarPerfil">
                 <i class="fa fa-user"></i>  Mi Perfil
             </div>
             <div class="panel-item">
@@ -45,7 +45,12 @@
 
 <script>
     export default {
-        name: "muiPanelComponent"
+        name: "muiPanelComponent",
+        methods:{
+            cargarPerfil(){
+                this.$emit("open-panel")
+            }
+        }
     }
 </script>
 
