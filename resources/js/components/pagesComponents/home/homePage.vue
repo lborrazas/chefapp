@@ -1,14 +1,15 @@
 <template>
     <page-template page_identification="home-page">
+
         <template slot="page-title">Home page</template>
         <template slot="page-body">
 
             <!-- Main -->
             <div id="main">
                 <div class="for-sticky">
-                    <div class="horizontal-container">
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
+                    <div v-for="platos in platosColectionTop" class="horizontal-container">
+                        <div class="horizontal-content" @click="openDish(product._id)">
+                            <div class="circle" @click="openChef()"></div>
                         </div>
                         <div class="horizontal-content">
                             <div class="circle"></div>
@@ -66,7 +67,7 @@
                 </div>
                 <div class="for-sticky">
                     <div class="horizontal-container">
-                        <div class="horizontal-content">
+                        <div class="horizontal-content" @click="openDish(product._id)">
                             <div class="circle"></div>
                         </div>
                         <div class="horizontal-content">
@@ -232,6 +233,10 @@
         methods: {
             change() {
                 muiChangePageEvent("option-chef-page")
+            },
+            irperfil(){
+                    this.$emit('irperfil',this.elplatito.chef)
+                    muiChangePageEvent('profile-page')
             },
             openDish(clave) {
                 console.log(clave)

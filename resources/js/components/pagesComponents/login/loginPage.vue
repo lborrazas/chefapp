@@ -116,8 +116,9 @@
 
                 axios.post('/login', {email: this.user.email, password: this.user.password}).then(
                     $response => {
-                        mui.viewport.change
-                        muiChangePageEvent('home-page');
+
+                        mui.viewport.showPage('home-page',"NONE")
+
                     }
                 ).catch($error => {
                     displayMessage($error.response, true);

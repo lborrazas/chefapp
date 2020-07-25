@@ -125,10 +125,8 @@
                     })
                 },
                 irperfil(){
-                    if(this.visitante!=this.elplatito.chef){
                     this.$emit('irperfil',this.elplatito.chef)
                     muiChangePageEvent('profile-page')
-                    }
                 },
                 add(){
                     if(this.visitante!=this.elplatito.chef){

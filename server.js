@@ -67,6 +67,7 @@ const app = express();
                 req.session.key = req.body.email;
                 req.session.user = user;
                 console.log(req.session);
+                console.log(res);
                 res.end('done');
             } else {
                 req.session.key = req.body.email;

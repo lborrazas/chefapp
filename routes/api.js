@@ -3,6 +3,7 @@ const db = require('../database');
 const router = express.Router();
 
 router.use(function timeLog(req, res, next) {
+    console.log(req.session)
     if(req.session.user == undefined){
         res.status(400)
         res.end('CUAL HACE')
@@ -245,9 +246,8 @@ router.use(function timeLog(req, res, next) {
 
     router.post('/platos', async (req, res) => {
         try {
-            console.log(req)
             let collection = 'platos';
-            await db.insertPlato(client, database, collection, req.body, req.query.id);
+            await db.insertPlato(client, database, collection, req.body, req.session.key);
             res.status(200).end();
         } catch (err) {
             console.log(err);

@@ -80,16 +80,15 @@
                     axios.post('/api/platos', {
                         "name":this.nombre,
                         "precio":this.precio,
-                        "chef":this.idchef,
-                        "esDeSemanal":false,
+                        "esDeSemana":false,
                         "paraCeliacos":this.types[0],
                         "paraVeganos":this.types[1],
                         "paraVegetarianos":this.types[2],
-                        "descipcion":this.descripcion,
+                        "descripcion":this.descripcion,
                         "cantidad":0,
-                        "reserved":0,
+                        "reservaddos":0,
                         "photo":reader.result,
-                        "pularidad":0
+
                     }).then(res => {
                         muiChangePageEvent("home-page")
                     } )
