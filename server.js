@@ -73,7 +73,7 @@ const app = express();
                 res.end('failure');
             }
         }else{
-	        res.status(401).json({message: 'que te pasa'});
+	        res.status(401).json({message: 'los datos no son validos'});
         }
 
     });

@@ -1,6 +1,6 @@
 <template>
     <div :id='page_identification' class="mui-page">
-        <mui-page-header-component>
+        <mui-page-header-component v-on:$listeners>
                 <template slot="page-title"> <slot name="page-title"/> </template>
         </mui-page-header-component>
         <div class="mui-page-body mui-scrollable" id="second-body">

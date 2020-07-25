@@ -3,6 +3,8 @@
        <!-- <span @click="back" > <i class="fa fa-arrow-left"></i></span>-->
         <a class="mui-backarrow" href="#"></a>
         <div class='mui-page-title'><slot name="page-title"/></div>
+        <button id="micarrito" @click="$emit('open-carrito-modal')" >
+        </button>
         <a class="mui-headmenu" href="#"></a>
     </div>
 
