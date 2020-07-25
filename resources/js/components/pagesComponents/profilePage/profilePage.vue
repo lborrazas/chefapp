@@ -21,7 +21,7 @@
                 <div style="text-decoration-line: underline;color:#adadad"
                      @click="$refs['modal-add-reseña-profile'].open()"><a style="font-size: smaller;">Agregar reseña</a>
                 </div>
-                <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
+                <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px;margin-bottom:5px">
                     <div v-for="reviw in this.reviewsprofile" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
                         <div class="review">{{reviw.rese}}</div>
@@ -42,10 +42,21 @@
 
 
             </modal-two>
+            <div><div class="for-sticky">
+                <div class="horizontal-container">
+                    <div class="horizontal-content">
 
+                    </div>
+                    <div class="horizontal-content">
 
-            <platos-semanales></platos-semanales>
+                    </div>
+                    <div class="horizontal-content">
 
+                    </div>
+                </div>
+                <div class="content-title">Semanales</div>
+            </div>
+            </div>
         </template>
 
     </page-template>
@@ -172,6 +183,51 @@
 </script>
 
 <style scoped>
+    .horizontal-container {
+        display: flex;
+        position: relative;
+        overflow-x: auto;
+        width: 100%;
+        height: 195px; /* hay que agregarle el border */
+        background-color: white;
+        border-top: #e5bf32 5px solid;
+    }
 
+    .horizontal-content {
+        position: relative;
+        min-width: 140px;
+        background-color: black;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        height: 180px;
+    }
 
+    .for-sticky {
+        position: relative;
+        width: 100%;
+        height: 195px; /* hay que agregarle el border */
+    }
+
+    .horizontal-content > .circle {
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        top: 0;
+        left: 0;
+        margin: 10px;
+        border-radius: 100%;
+        background-color: whitesmoke;
+    }
+
+    .for-sticky > .content-title {
+        position: absolute;
+        width: 120px;
+        height: 35px;
+        background-color: darkred;
+        color: white;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 10px;
+    }
 </style>
