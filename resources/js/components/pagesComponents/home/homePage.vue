@@ -4,13 +4,14 @@
         <template slot="page-title">Home page</template>
         <template slot="page-body">
 
+            <!--<button @click="evento">APRETAME PARA PROBAR</button>-->
+
             <!-- Main -->
             <div id="main">
                 <div class="for-sticky">
                     <div  class="horizontal-container">
-                    <!--div v-for="platos in platosColectionTop" class="horizontal-container"-->
-                        <div class="horizontal-content" @click="openDish(product._id)">
-                            <div class="circle" @click="openChef()"></div>
+                        <div class="horizontal-content" >
+                            <div class="circle"></div>
                         </div>
                         <div class="horizontal-content">
                             <div class="circle"></div>
@@ -239,12 +240,15 @@
                     this.$emit('irperfil',this.elplatito.chef)
                     muiChangePageEvent('profile-page')
             },
-            openDish(clave) {
+           /* openDish(clave) {
                 console.log(clave)
                 this.$emit("cargar-plato", clave)
                 muiChangePageEvent("dish-page")
 
-            }
+            },*/
+           /* evento(){
+                eventBus.$emit('eventBusEmission')
+            }*/
         },
         props: {
             chefboolean: "",
