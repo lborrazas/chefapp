@@ -5,17 +5,16 @@
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
-
-                    <!--<span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{this.datosprofile.user}}</div>
+                    <span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{this.datosprofile.user}}</div>
                     <div class="item-header-secondary">{{this.datosprofile.bibliografia}}
                     </div></span>
-                    <span class="profile-2half">&lt;!&ndash;<div id="profile-photo"
-                                                     :style="'background-image:url('+this.datosprofile.photo+')'"></div>&ndash;&gt;
+                    <span class="profile-2half"><div id="profile-photo"
+                                                     :style="'background-image:url('+this.datosprofile.photo+')'"></div>
                         <div id="popularity" style="height: 100%"><div id="subsHolder"><button @click="changeSubButton"
                                                                                                id="subscrito">{{this.subscribirse}}</button></div><span
                                 style="margin-left:18%;background-color: #99999924;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span></div>
                     </span>
--->
+
                 </div>
             </div>
             <div id="reviews">

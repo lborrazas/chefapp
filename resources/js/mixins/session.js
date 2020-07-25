@@ -1,7 +1,7 @@
 export default ({
     data(){
         return {
-            idUsuario: "5f1bd21dc8277d38f00db5c8",//--
+            idUsuario: "5f18f8671172609418e3ff9f",//--
             esChef: true,//--
             platoide: [],
             elplato: {

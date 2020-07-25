@@ -70,11 +70,12 @@ const app = new Vue({
 
         goprofile() {
 
-            axios.get('api/profile/review'+this.idUsuario).then($response => {
+            axios.get('api/profile/review/'+this.idUsuario).then($response => {
                 console.log($response.data)
                 this.leprofilereviews = $response.data
             })
-            axios.get('api/profile' + this.idUsuario ).then($response => {
+            axios.get('api/profile/' + this.idUsuario ).then($response => {
+                console.log($response.data)
                 this.leprofile = $response.data[0]
                 axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
                     console.log($response)

@@ -44,11 +44,14 @@
 </template>
 
 <script>
+    import muiChangePageEvent from "../functions/muiChangePageEvent";
+
     export default {
         name: "muiPanelComponent",
         methods:{
             cargarPerfil(){
                 this.$emit("open-panel")
+                muiChangePageEvent('profile-page')
             }
         }
     }
