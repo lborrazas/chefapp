@@ -67,6 +67,22 @@ function installEvents() {
 				});
 				return false;
 			}
+		},	{
+			id: '#crearPlato',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("create-dish", "DEF");
+				});
+				return false;
+			}
+		},{
+			id: '#definirSemanales',
+			fn: () => {
+				mui.screen.closePanel(function() {
+					mui.viewport.showPage("week-page", "DEF");
+				});
+				return false;
+			}
 		},
 		{
 			id: '#option-product',
@@ -191,7 +207,7 @@ function installEvents() {
 				return false;
 			}
 		},
-		//MobileUI viewport specific event.
+/*		//MobileUI viewport specific event.
 		{
 			vp: mui.viewport,
 			ev: 'swiperight',
@@ -210,7 +226,7 @@ function installEvents() {
 					return false;
 				}
 			}
-		},
+		},*/
 		//It's a good idea to consider what happens when the device is switched on and off the internet.
 		//Es buena idea considerar que pasa cuando el dispositivo se conecta y desconecta a Internet.
 		{
@@ -236,7 +252,6 @@ function installEvents() {
 				//Do something if you need
 			}
 		},
-
 		{
 			id:window,
 			ev:'end-page-new-page',
@@ -244,7 +259,7 @@ function installEvents() {
 				mui.viewport.showPage($event.originalEvent.page, "DEF");
 			}
 		}
-	]);
+	]);a
 }
 
 /**
@@ -265,10 +280,10 @@ function installEvents2() {
 	}, false);
 	
 	//Back button.
-	$(".mui-backarrow").click(function() {
+/*	$(".mui-backarrow").click(function() {
 		mui.history.back();
 		return false;
-	});
+	});*/
 	
 	//Open menu.
 	$(".mui-headmenu").click(function() {
@@ -305,14 +320,14 @@ function installEvents2() {
 		return false;
 	});
 	
-	/*******************************************************************************/
-	/*Swipe Test --------------------------------------------------------------------*/
-	/*******************************************************************************/	
+/*	/!*******************************************************************************!/
+	/!*Swipe Test --------------------------------------------------------------------*!/
+	/!*******************************************************************************!/
 	//Swipe touch events. Cool for best App user experience!
 	//Evento de desplazamiento tactil. Buenisimo para una óptima experiencia de usuario en App!
 	mui.viewport.on("swiperight", function(currentPageId, originalTarget, event, startX, startY, endX, endY) {
 		if (!mui.viewport.panelIsOpen()) {
 			mui.history.back();
 		}
-	});
+	});*/
 }

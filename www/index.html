@@ -11,7 +11,6 @@
 
 	<link rel="stylesheet" href="mobileui/mui.min.css" type="text/css">
 	<link rel="stylesheet" href="custom/custom.css" type="text/css">
-	<link rel="stylesheet" href="/css/app.css">
 	<script src="cordova.js"></script>
 	<!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
 
@@ -22,13 +21,13 @@
     <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
     <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../custom/view/js/skel.min.js"></script>
-    <script src="../custom/view/js/skel-panels.min.js"></script>
-    <script src="../custom/view/js/init.js"></script>
-        <link rel="stylesheet" href="../custom/view/css/skel-noscript.css" />
-        <link rel="stylesheet" href="../custom/view/css/style.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="../custom/view/css/ie/v8.css" /><![endif]-->
-    <!--[if lte IE 9]><link rel="stylesheet" href="../custom/view/css/ie/v9.css" /><![endif]-->
+    <script src="./custom/view/js/skel.min.js"></script>
+    <script src="./custom/view/js/skel-panels.min.js"></script>
+    <script src="./custom/view/js/init.js"></script>
+        <link rel="stylesheet" href="./custom/view/css/skel-noscript.css" />
+        <link rel="stylesheet" href="./custom/view/css/style.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="./custom/view/css/ie/v8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="./custom/view/css/ie/v9.css" /><![endif]-->
     <!--End-->
 
 	<!--view links-->
@@ -65,6 +64,9 @@
     <!--Boostrap links-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!--<script src="vendors/fastclick.min.js" type="text/javascript"></script>-->
+
+	<!--ABAJO  PARA PRIORITIES-->
+	<link rel="stylesheet" href="css/app.css">
 
 	<script src="vendors/jquery.min.js" type="text/javascript"></script>
 	<script src="vendors/jquery.animate-enhanced.js" type="text/javascript"></script>
@@ -115,8 +117,11 @@
 			<!-- ViewPort por defecto. No lo elimines. Hará tu vida más simple y feliz. -->
 			<div id="mui-viewport" class="mui-viewport">
 
+				<login-page-component></login-page-component>
 
-                <home-page-component></home-page-component>
+                <home-page-component :chefboolean=this.esChef
+									 v-on:cargar-plato="cargarDish">
+				</home-page-component>
 
 
                 <product-page-component></product-page-component>
@@ -124,36 +129,19 @@
 
 
                 <chef-page-component></chef-page-component>
-				<dish-page-component v-on:mandar="abrir" v-on:addcarrito="agregaracarrito"></dish-page-component>
-				<profile-page-component ></profile-page-component>
-				<createdish-page-component></createdish-page-component>
+				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile"   v-on:addcarrito="agregaracarrito"></dish-page-component>
+				<profile-page-component :subscibed=this.estasubscrito :reviewsprofile=this.leprofilereviews :visita= this.idUsuario :datosprofile="this.leprofile"></profile-page-component>
+				<createdish-page-component :idchef=this.idUsuario></createdish-page-component>
 
 
-                <login-page-component></login-page-component>
 
 
+				<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario v-on:cargar-plato-week="cargarforweek"></chef-option-page-component>
                 <forgot-page-component></forgot-page-component>
-				<weekdish-page-component ref="weepage"></weekdish-page-component>
+				<weekdish-page-component :platoides=this.platoide :idchef=this.idUsuario  v-on:subio-semanales="this.subioSemanal=true" ref="weepage"></weekdish-page-component>
                 <register-page-component></register-page-component>
 
 
-				<modal-two  ref="modal" title="Carrito">
-
-					<div>
-						<div v-if="carrito.length===0">Carrito vacio</div>
-						<div v-else></div>
-						<div style="overflow: auto">
-							<div v-for="dish in carrito" :id=dish[1] > {{dish[0]}}      -{{dish[2]}} $ </div>
-						</div>
-
-
-						<div class="flex-container"><div style="margin-right: 25%">Total: {{total}}$</div><button style="margin-left:25% " v-if="carrito.length>0" @click="sacardish">Borrar Carrito</button>
-						</div>
-						<button-keen @click="comprar">Comprar</button-keen>
-					</div>
-
-
-				</modal-two>
 
 
 
@@ -165,7 +153,7 @@
 
 			<!-- Optional.Toolbar out of mui-viewport to be omnipresent. Remove if not needed. -->
 			<!-- Opcional. Barra de herramientas fuera de mui-viewport para ser omnipresente. Elimínalo si no lo necesitas. -->
-			<tab-bar-compnent></tab-bar-compnent>
+			<!--<tab-bar-compnent></tab-bar-compnent>-->
 		</div>
 
 		<!-- mui-screen level panel -->
