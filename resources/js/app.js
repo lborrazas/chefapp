@@ -9,6 +9,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+window.eventBus = new Vue;
+
 
 const store = new Vuex.Store({
     state: {
@@ -107,6 +109,11 @@ const app = new Vue({
     },
     computed: {},
     mounted() {
+    },
+    created(){
+       /* eventBus.$on('eventBusEmission', function () {
+            alert('hola');
+        }.bind(this));*/
     },
     mixins: [authMixin, carritoMixin, sessionMixin],
 
