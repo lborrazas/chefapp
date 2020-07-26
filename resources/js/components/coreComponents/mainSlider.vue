@@ -1,8 +1,15 @@
 <template>
         <div class="for-sticky">
             <div  class="horizontal-container">
-                <div v-for="dish in dishlist.items" class="horizontal-content"  @click="openDishPage(dish.id, dish.user)">
-                    <div class="circle" @click="openChefPage(dish.id)"></div>
+                <div   v-for="dish in dishlist.dishes"  :key="dish._id" class="horizontal-content">
+                    <div class="circle"  @click="openChefPage(dish.chef.id)">
+                        <div style="width: 100%; height: 100%;">
+                            <img :src="dish.chef.photo" alt="" style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%" >
+                        </div>
+                    </div>
+                    <div style="width: 100%; height: 100%;" @click="openDishPage(dish.id, dish.chef)">
+                        <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;" >
+                    </div>
                 </div>
             </div>
             <div class="content-title" >{{dishlist.name}} </div>
@@ -13,7 +20,7 @@
     export default {
         name: "mainSlider",
         props: {
-            dishlist: {type: Object, default: {items: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}], name: "the name"}},
+            dishlist: {type: Object, default: {dishes: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}], name: "the name"}},
         },
         methods:{
             openChefPage($id){
@@ -45,6 +52,7 @@
         margin-bottom: 5px;
         margin-top: 5px;
         height: 180px;
+        width: 140px;
         border: black 2px solid;
     }
 

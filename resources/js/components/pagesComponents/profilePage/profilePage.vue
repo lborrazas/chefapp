@@ -135,14 +135,12 @@
 
                 }
             },
-
-
         },
 
         created() {
             eventBus.$on('call-chef-page', function ($id) {
                 axios.get('api/users/' + $id).then(response => {
-                    this.chef = response.data.chef;
+                    this.chef = response.data;
                     this.perfilpropio=false;
                 });
                 //get is subcbribed
