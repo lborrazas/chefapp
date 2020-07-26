@@ -47,8 +47,8 @@
     padding:0px;
     border: 0px;
     width: 32%;
-    margin-left:32% ;
-    margin-right:32%;
+    /*margin-left:32% ;*/
+    margin-right:5%;
 
     margin-top: 15px;
     width: 70px;
@@ -63,9 +63,13 @@
 #subscrito{
     height: 100%;
     border-radius:5px;
-    min-width: 70%;height: 100%;
-    margin-left: 15%;
-    margin-right: 15%;
+    min-width: 60%;
+    height: 100%;
+    justify-content: center;
+    /*background-color: black;*/
+    color: white;
+    /*margin-left: 15%;*/
+    /*margin-right: 15%;*/
 
 }
 
