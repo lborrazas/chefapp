@@ -269,7 +269,31 @@ module.exports.insertDestacado = async function (id) {
     return null;
 }
 module.exports.getDestacados = async function () {
-    return Destacado.find();
+    let id_destacados =  Destacado.find();
+    let arr = []
+    for(e of id_destacados) {
+        arr.push(e.id);
+    }
+
+    let platos = Plato.find({
+        _id: {
+            $in: arr
+        }
+    });
+
+    platos = await platos.map(async plato => {
+        plato = plato.toObject();
+        let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
+
+        plato.chef = {
+            id: chef._id,
+            name: chef.name,
+        };
+        return plato;
+    });
+    platos = await Promise.all(platos);
+    return platos;
+
 }
 module.exports.deleteDestacado = async function (id) {
     await Destacado.deleteOne({ _id: id });
