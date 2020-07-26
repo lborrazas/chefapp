@@ -129,8 +129,8 @@
 
                 <chef-page-component></chef-page-component>
 				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile"   v-on:addcarrito="agregaracarrito"></dish-page-component>
-				<profile-page-component v-on:cargar-plato-week="cargarforweek"  :semanalbool=this.subioSemanal :subscibed=this.estasubscrito :reviewsprofile=this.leprofilereviews :visita= this.idUsuario :datosprofile="this.leprofile"></profile-page-component>
-				<createdish-page-component :idchef=this.idUsuario></createdish-page-component>
+				<profile-page-component v-on:cargar-plato-week="cargarforweek"  ></profile-page-component>
+				<createdish-page-component o></createdish-page-component>
 
 
 
@@ -157,7 +157,7 @@
 
 		<!-- mui-screen level panel -->
 		<!-- Panel a nivel de mui-screen -->
-		<mui-panel-component v-on:open-panel="goprofile"></mui-panel-component>
+		<mui-panel-component ></mui-panel-component>
 
 	</div>
 

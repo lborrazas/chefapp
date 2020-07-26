@@ -14,22 +14,21 @@ router.use(function timeLog(req, res, next) {
 
 (async function () {
 
-    /*{
-        "iduser": this.visita,
-        "idperfil": this.datosprofile._id,
-        "rese": this.reseña,
-        "nombre": response.data[0].user
-    }*/
-
     router.get('/users', async (req, res) => {
-        let data = await db.getUsers(req.query.type);
-        if (data === null) {
-            res.status(400).end();
+        try {
+            let data = await db.getUsers(req.query.type);
+            if (data === null) {
+                res.status(400).end();
+            }
+            res.send(data);
+            res.end();
+
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
         }
-        res.send(data);
-        res.end();
     });
-    router.post('/resena/:idchef', async (req, res) => {
+    router.post('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
        try{ let review= {
            userId: req.session.user._id,
            resena: req.body,
@@ -42,9 +41,29 @@ router.use(function timeLog(req, res, next) {
 
            res.status(400).end();
        }
-
-
     })
+    router.get('/user/semanalesbool',async (req,res) =>{ // --------------- juan estuvo aca tambien
+           try {
+               let varbool=false
+
+               let retorno =  await db.getPlatos(req.session.user._id,null)
+               console.log(retorno)
+               console.log(".--------------------------------------------------------------.")
+               retorno = await db.getPlato(null,{esDeSemana:true, _id:{$in:retorno.platos}})
+               console.log(retorno)
+
+               if (!retorno[0]) {
+                   varbool = false;
+               } else {
+                   varbool = true;
+               }
+               res.status(200).end();
+           }catch (e) {
+               console.log(err);
+               res.status(400).end();
+           }
+       })
+
     router.get('/users/:id', async (req, res) => { //para el prfile de otro
         try {
             let data = await db.getUser(req.params.id, null);
@@ -86,42 +105,48 @@ router.use(function timeLog(req, res, next) {
     });
 
     router.get('/platos/2', async (req, res) => {
-        let arrCat = [];
-        let categorias = await db.getCategorias();
-        for(cat of categorias) {
-            let obj = {
-                name: cat.name,
-                dishes: await db.getPlatosByCategory({categorias: cat.name})
+        try {
+            let arrCat = [];
+            let categorias = await db.getCategorias();
+            for (cat of categorias) {
+                let obj = {
+                    name: cat.name,
+                    dishes: await db.getPlatosByCategory({ categorias: cat.name })
+                }
+                arrCat.push(obj);
             }
-            arrCat.push(obj);
+            let others = {
+                name: 'Para Vegetarianos',
+                dishes: await db.getPlatosByCategory({ paraVegetarianos: true })
+            }
+            arrCat.push(others);
+            others = {
+                name: 'Para Veganos',
+                dishes: await db.getPlatosByCategory({ paraVeganos: true })
+            }
+            arrCat.push(others);
+            others = {
+                name: 'Para Celiacos',
+                dishes: await db.getPlatosByCategory({ paraCeliacos: true })
+            }
+            arrCat.push(others);
+            res.send(arrCat);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
         }
-        let others = {
-            name: 'Para Vegetarianos',
-            dishes: await db.getPlatosByCategory({paraVegetarianos: true})
-        }
-        arrCat.push(others);
-        others = {
-            name: 'Para Veganos',
-            dishes: await db.getPlatosByCategory({paraVeganos: true})
-        }
-        arrCat.push(others);
-        
-        others = {
-            name: 'Para Celiacos',
-            dishes: await db.getPlatosByCategory({paraCeliacos: true})
-        }
-        arrCat.push(others);
-        //console.log(arrCat);
-        
-        res.send(arrCat);
-        res.end();
     });
 
     router.get('/platos/chef/:id', async (req, res) => {
-
-        let platos = await db.getPlatos(req.params.id, null);
-        res.send(platos);
-        res.end();
+        try {
+            let platos = await db.getPlatos(req.params.id, null);
+            res.send(platos);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
     });
     // router.get('/platos/mios/:id', async (req, res) => { //TODO nunca la uso
     //     let collection = 'usuarios';
@@ -138,14 +163,26 @@ router.use(function timeLog(req, res, next) {
     //     res.end();
     // });
     router.get('/platos/:id', async (req, res) => {
-        let platos = await db.getPlato(req.params.id);
-        res.send(platos);
-        res.end();
+        try {
+            let platos = await db.getPlato(req.params.id);
+            res.send(platos);
+            res.end();
+
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
     });
     router.get('/platos/semanal', async (req, res) => {
-        let platos = await db.getSemanales(client, database, collection);
-        res.send(platos);
-        res.end();
+
+        try {
+            let platos = await db.getSemanales(client, database, collection);
+            res.send(platos);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
     });
     router.post('/platos/semanal/:id', async (req, res) => {
         try {
@@ -158,7 +195,7 @@ router.use(function timeLog(req, res, next) {
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' });
         }
     });
     router.post('/review/chef/:id', async (req, res) => {
@@ -167,7 +204,7 @@ router.use(function timeLog(req, res, next) {
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
     router.post('/review/plato/:id', async (req, res) => {
@@ -176,9 +213,10 @@ router.use(function timeLog(req, res, next) {
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
+    //TODO - Revisar
     router.get('/usuarios/name/:id', async (req, res) => {
         try {
             let collection = 'usuarios';
@@ -187,9 +225,10 @@ router.use(function timeLog(req, res, next) {
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(420).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     })
+    //TODO - Revisar
     router.get('/issubscibed/:idchef/:iduser', async (req, res) => {
         let varbool = false;
         try {
@@ -206,45 +245,55 @@ router.use(function timeLog(req, res, next) {
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(420).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     })
-
-    router.get('/profile/review/:id', async (req, res) => {
+    //TODO - Revisar
+    router.get('/profile/:id', async (req, res) => {
         try {
-            let collection = 'chef-review';
-            let nombre = await db.getAllReviewsByIDperfil(client, database, collection, req.params.id);
+            let collection = 'usuarios';
+            let nombre = await db.getuserByID(client, database, collection, req.params.id);
             res.send(nombre)
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(420).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     })
-    router.get('/plato/review/:id', async (req, res) => {
-        try {
-            let collection = 'platos-review';
-            let nombre = await db.getAllReviewsByIDplato(client, database, collection, req.params.id);
-            res.send(nombre)
-            res.status(200).end();
-        } catch (err) {
-            console.log(err);
-            res.status(420).end();
-        }
-    })
+    // router.get('/profile/review/:id', async (req, res) => {
+    //     try {
+    //         let collection = 'chef-review';
+    //         let nombre = await db.getAllReviewsByIDperfil(client, database, collection, req.params.id);
+    //         res.send(nombre)
+    //         res.status(200).end();
+    //     } catch (err) {
+    //         console.log(err);
+    //         res.status(400).json({message:'Error del servidor'})
+    //     }
+    // })
+    // router.get('/plato/review/:id', async (req, res) => {
+    //     try {
+    //         let collection = 'platos-review';
+    //         let nombre = await db.getAllReviewsByIDplato(client, database, collection, req.params.id);
+    //         res.send(nombre)
+    //         res.status(200).end();
+    //     } catch (err) {
+    //         console.log(err);
+    //         res.status(400).json({message:'Error del servidor'})
+    //     }
+    // })
 
 
     router.post('/platos', async (req, res) => {
         try {
-            console.log(req)
-            let collection = 'platos';
-            await db.insertPlato(client, database, collection, req.body, req.query.id);
+            await db.savePlato(req.session.key, req.body);
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
+    //TODO - Reviasr
     router.post('/subscribe/:id', async (req, res) => {
         try {
             let collection = 'subscipciones';
@@ -252,12 +301,10 @@ router.use(function timeLog(req, res, next) {
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
-
-
-
+    //TODO - Reviasr
     router.post('/unsubscribe/:id', async (req, res) => {
         try {
             console.log(req)
@@ -266,7 +313,7 @@ router.use(function timeLog(req, res, next) {
             res.status(200).end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
 
@@ -280,7 +327,7 @@ router.use(function timeLog(req, res, next) {
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
 
@@ -288,17 +335,15 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/destacados/', async (req, res) => {
         let collection = 'destacados';
         try {
-            let array_destacados = await db.get(client, database, collection, null);
-            collection = 'platos';
-            let data = await db.getAllInById(client, database, collection, array_destacados);
-            if (data == null) {
-                res.status(400).end();
+            let destacados = await db.getDestacados();
+            if (destacados == null) {
+                res.status(400).json({ message: 'No se han encontrado platos' })
             }
-            res.send(data);
+            res.send(destacados);
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
 
     });
@@ -308,49 +353,63 @@ router.use(function timeLog(req, res, next) {
             let id = {
                 id: req.body.id
             };
-            let collection = 'destacados';
-            await db.insertOne(client, database, collection, id)
+            await db.insertDestacado(req.body.id);
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
-
+    //TODO - Revisar
     router.delete('/platos/destacados/', async (req, res) => {
-        let collection = 'destacados';
         try {
             await db.deleteDestacado(client, database, collection, req.query.id);
             res.end();
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
-
+    //TODO - Corregir
     router.post('/pedido/:id', async (req, res) => {
         try {
-            let collection = 'platos';
-            let arrayaux = []
-            let arrayauxid = []
-            for (let i = 0; i < req.body.length; i++) {
-                arrayaux.push({
-                    "platoName": req.body[i][0],
-                    "idplato": req.body[i][1],
-                    "precio": req.body[i][2],
-                    "iduser": req.params.id
-                })
-            }
-
-            await db.incrementarPedido(client, database, collection, req.body);
-            collection = 'pedidos';
-
-            await db.insertMany(client, database, collection, arrayaux);
+            await db.insertPedido(req.body)
             res.status(200).end();
 
         } catch (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).json({ message: 'Error del servidor' })
+        }
+    });
+
+    router.post('/categoria', async (req, res) => {
+        try {
+            let cat = req.body;
+            await db.insertCategoria(cat);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
+    });
+    router.delete('/categoria', async (req, res) => {
+        try {
+            let id = req.query.id;
+            await db.deleteCategoria(id);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' })
+        }
+    });
+    router.get('/categoria', async (req, res) => {
+        try {
+            let data = await db.getCategorias();
+            res.send(data);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' })
         }
     });
 

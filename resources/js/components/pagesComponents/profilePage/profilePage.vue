@@ -5,14 +5,14 @@
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
-                    <span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{this.datosprofile.name}}</div>
-                    <div class="item-header-secondary">{{this.datosprofile.bibliografia}}
+                    <span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{chef.name}}</div>
+                    <div class="item-header-secondary">{{chef.bio}}
                     </div></span>
                     <span class="profile-2half"><div id="profile-photo"
-                                                     :style="'background-image:url('+this.datosprofile.photo+')'"></div>
+                                                     :style="'background-image:url('+chef.photo+')'"></div>
                         <div id="popularity" style="height: 100%"><div id="subsHolder"><button @click="changeSubButton"
                                                                                                id="subscrito">{{this.subscribirse}}</button></div><span
-                                style="margin-left:18%;background-color: #99999924;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span></div>
+                                style="margin-left:18%;background-color: #99999924;border-radius:10%"> Subs:{{chef.subscriptores}}</span></div>
                     </span>
 
                 </div>
@@ -22,7 +22,7 @@
                      @click="$refs['modal-add-reseña-profile'].open()"><a style="font-size: smaller;">Agregar reseña</a>
                 </div>
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px;margin-bottom:5px">
-                    <div v-for="reviw in this.reviewsprofile" :key="reviw._id">
+                    <div v-for="reviw in this.chef.reviews" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
                         <div class="review">{{reviw.rese}}</div>
                     </div>
@@ -82,18 +82,14 @@
         },
         data() {
             return {
-                auxbool: true,
+                chef:{},
+                semanalbool:false,
                 subscribirse: "Subscribirse",
                 reseña: "",
 
             }
         },
         props: {
-            semanalbool:"",
-            visita: {},
-            datosprofile: {},
-            reviewsprofile: {},
-            subscibed: {}
         },
         methods: {
             cargarPlatos(){
@@ -143,42 +139,28 @@
 
 
         },
-        beupdated() {
-            {
-                console(this.subscibed)
-                if (this.subscibed) {
-                    document.getElementById("subscrito").classList.remove("unsus")
-                    document.getElementById("subscrito").classList.add("sus")
-                    this.subscribirse = "Subscrito"
-                } else {
-                    document.getElementById("subscrito").classList.remove("sus")
-                    document.getElementById("subscrito").classList.add("unsus")
-                    this.subscribirse = "Subscribirse"
-                }
-            }
-        },
+
         created() {
             eventBus.$on('call-chef-page', function ($id) {
                 axios.get('api/users/' + $id).then(response => {
                     this.chef = response.data.chef;
                 });
+                //get is subcbribed
+                mui.viewport.showPage('profile-page')
+            }.bind(this));
+            eventBus.$on('open-profile-page-4-panel', function () {
+                axios.get('api/profile').then(response => {
+                    this.chef = response.data;
+                });
+                //get is subcbribed
+                //get semanalbool
+                axios.get('api/user/semanalesbool').then(response => {
+                    this.semanalbool = response.data;
+                });
                 mui.viewport.showPage('profile-page')
             }.bind(this));
         },
-
         computed: {
-
-            /* funcion() {
-                 if (this.subscibed) {
-                     document.getElementById("subscrito").classList.remove("unsus")
-                     document.getElementById("subscrito").classList.add("sus")
-                     this.subscribirse = "Subscrito"
-                 } else {
-                     document.getElementById("subscrito").classList.remove("sus")
-                     document.getElementById("subscrito").classList.add("unsus")
-                     this.subscribirse = "Subscribirse"
-                 }
-             }*/
         },
 
     }

@@ -54,7 +54,7 @@
             }
         },
         props:{
-            idchef:''
+
         },
         methods:{
             setchef(id){
@@ -67,7 +67,6 @@
                 reader.precio=this.precio
                 reader.types=this.types
                 reader.descripcion=this.descripcion
-                reader.idchef=this.idchef
                 this.readyToUpload=false
                 this.types=[false,false,false]
                 this.checkedNames=[]

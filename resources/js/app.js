@@ -71,22 +71,6 @@ const app = new Vue({
     data: {},
     methods: {
 
-        goprofile() {
-
-            axios.get('api/profile/review/'+this.idUsuario).then($response => {
-                console.log($response.data)
-                this.leprofilereviews = $response.data
-            })
-            axios.get('api/profile').then($response => {
-                console.log($response.data)
-                this.leprofile = $response.data
-                axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
-                    console.log($response)
-                    this.estasubscrito = $response.data
-
-                })
-            })
-        },
         cargarDish(clave) {
             axios.get('api/dishes/' + clave).then($response => {
                 this.elplato = $response.data[0]

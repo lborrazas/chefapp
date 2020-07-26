@@ -50,8 +50,8 @@
         name: "muiPanelComponent",
         methods:{
             cargarPerfil(){
-                this.$emit("open-panel")
-                mui.viewport.showPage('profile-page',"NONE")
+                alert("salego")
+                eventBus.$emit('open-profile-page-4-panel')
             }
         }
     }
