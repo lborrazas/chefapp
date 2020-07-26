@@ -144,7 +144,6 @@ router.use(function timeLog(req, res, next) {
     });
     router.get('/platos/semanal', async (req, res) => {
         let platos = await db.getSemanales(client, database, collection);
-
         res.send(platos);
         res.end();
     });

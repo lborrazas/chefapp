@@ -102,7 +102,7 @@
                 }else{
                 alert("Ya se han declarado los platos semanales")
             }
-            alert("entre")
+
             },
 
             mandarResena() {
