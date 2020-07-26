@@ -99,6 +99,8 @@
         },
         data() {
             return {
+                chef: {},
+                dish: {},
                 carga: 0,
                 resenia: "",
                 alreadyVoted: false,
@@ -142,7 +144,7 @@
                 this.componentKey2 += 1;
             },
         },
-        props: {
+        props: { //  <-- fijate cuales se van
             elplatito: {},
             chefname: {},
             visitante: "",
@@ -158,6 +160,17 @@
                 this.reviews = null
                 this.iddelchef = this.elplatito.chef
             }
+        },
+        created() {
+
+                eventBus.$on('call-dish-page', function ($id, $user) {
+                    this.user = $user;
+                    axios.get('api/users/' + $id).then(response => {
+                        this.dish = response.data.dish;
+                        mui.viewport.showPage('dish-page')
+                    });
+
+                }.bind(this));
         }
 
     }
