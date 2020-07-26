@@ -24,7 +24,7 @@
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px;margin-bottom:5px">
                     <div v-for="reviw in this.chef.reviews" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
-                        <div class="review">{{reviw.rese}}</div>
+                        <div class="review">{{reviw.resena}}</div>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,9 @@
 
                     let contenido = {"rese":this.reseña}
                     console.log(contenido)
-                    axios.put('/api/resena/'+this.chef._id, contenido)
+                    axios.put('/api/resena/chef/'+this.chef._id, contenido).then(response => {
+                        this.chef.reviews.push(response.data)
+                    })
                     this.$refs['modal-add-reseña-profile'].close()
             },
 

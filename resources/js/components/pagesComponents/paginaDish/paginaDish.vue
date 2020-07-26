@@ -53,7 +53,7 @@
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
                     <div v-for="reviw in this.dish.reviews" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
-                        <div class="review">{{reviw.rese}}</div>
+                        <div class="review">{{reviw.resena}}</div>
                     </div>
                 </div>
             </div>
@@ -108,9 +108,6 @@
                 carga: 0, //queda
                 resenia: "",//queda
                 alreadyVoted: false, //porverse
-                reviews: null, //por
-
-
                 componentKey2: 0,
 
             }
@@ -126,7 +123,10 @@
                 let contenido = {"rese":this.resenia}
 
                     this.$refs['modal-add-reseña-plato'].close()
-                    axios.put('/api/resena/plato/'+this.dish._id, contenido)
+                    axios.put('/api/resena/plato/'+this.dish._id, contenido).then( response=>{
+                        console.log(response)
+                        this.dish.reviews.push(response.data)
+                    })
 
             },
             irperfil() {
@@ -144,11 +144,11 @@
 
         computed: {
             pintar() {
-                return this.carga = (100 * parseInt(this.dish.reserved)) / parseInt(this.dish.cantidad)
+                return this.carga = (100 * parseInt(this.dish.reservado)) / parseInt(this.dish.cantidad)
             },
             load() {
                 this.alreadyVoted = false
-                this.reviews = null
+
                 this.iddelchef = this.dish.chef
             }
         },
@@ -158,7 +158,7 @@
                     alert($id);
                     this.user = $user;
                     axios.get('api/platos/' + $id).then(response => {
-                        this.dish = response.data.dish;
+                        this.dish = response.data;
                         mui.viewport.showPage('dish-page')
                     });
 

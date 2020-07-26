@@ -147,10 +147,6 @@
         data() {
             return {
                 id: 'template-page',
-                array: [
-                    ['/custom/view/images/home-bg.jpg', 'nombre', "genericid"],
-                    ['/custom/view/images/home-bg.jpg', 'nombre1', "genericid1"],
-                ],
                 lists: [],
 
             }

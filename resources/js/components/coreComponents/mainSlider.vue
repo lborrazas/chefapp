@@ -7,7 +7,7 @@
                             <img :src="dish.chef.photo" alt="" style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%" >
                         </div>
                     </div>
-                    <div style="width: 100%; height: 100%;" @click="openDishPage(dish.id, dish.chef)">
+                    <div style="width: 100%; height: 100%;" @click="openDishPage(dish._id, dish.chef)">
                         <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;" >
                     </div>
                 </div>

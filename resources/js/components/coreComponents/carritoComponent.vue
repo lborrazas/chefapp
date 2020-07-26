@@ -6,7 +6,7 @@
                 <div v-if="carrito.length===0">Carrito vacio</div>
                 <div v-else>
                     <div style="overflow: auto">
-                        <div v-for="dish in carrito" :id=dish[1]> {{dish[0]}} -{{dish[2]}} $</div>
+                        <div v-for="dish in carrito" :id="dish._id"> {{dish.name}} -{{dish.precio}} $</div>
                     </div>
 
                     <div class="flex-container">
@@ -17,7 +17,7 @@
                     </div>
 
                 <div style="height: 30px; position: relative">
-                    <button  style="position: absolute; bottom: 0; right: 0;" class="btn btn-app-red" @click="this.$emit('buy-items-event')">Comprar</button>
+                    <button  style="position: absolute; bottom: 0; right: 0;" class="btn btn-app-red" @click="Comprar">Comprar</button>
                 </div>
                 </div>
         </keen-modal>
@@ -42,11 +42,16 @@
             'keen-modal': UiModal,
             'button-keen': UiButton,
         },
+        methods:{
+            comprar(){
+                alert("falta esto")
+            }
+        },
         computed: {
             total(){
                 let $total = 0;
                 if(this.carrito.length > 0)
-                    $total = this.$store.state.carrito.map(item => item.price).reduce((prev, next) => prev + next);
+                    $total = this.$store.state.carrito.map(item => item.precio).reduce((prev, next) => prev + next);
                 return $total;
             },
             carrito(){

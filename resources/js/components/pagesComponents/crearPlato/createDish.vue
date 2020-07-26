@@ -50,7 +50,8 @@
                 checkedNames:[],
                 precio:0,
                 nombre:null,
-                descripcion:null
+                descripcion:null,
+                categories:[]
             }
         },
         props:{
@@ -113,6 +114,15 @@
                 this.types[2]=(!this.types[2])
             }
 
+        },
+        created() {
+            eventBus.$on('load-categories',function () {
+                axios.get('/api/categoria').then(response =>{
+                    console.log(response)
+                    this.categories = response.data
+                    console.log("hola")
+                })
+            }.bind(this))
         }
     };
 

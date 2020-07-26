@@ -28,7 +28,7 @@ router.use(function timeLog(req, res, next) {
             res.status(400).json({ message: 'Error del servidor' });
         }
     });
-    router.put('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
+    router.put('/resena/chef/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
        try{ let review= {
            userId: req.session.user._id,
            resena: req.body.rese,
@@ -36,20 +36,21 @@ router.use(function timeLog(req, res, next) {
            nombre: req.session.user.user,
             }
             await db.insertReviewChef(req.params.idchef,review)
-
+           res.send(review)
            res.status(200).end();
         }   catch (e) {
 
            res.status(400).end();
        }
-    }); router.put('/resena/:idplato', async (req, res) => { /// -------------------------------- aca estuvo junaito
+    });
+    router.put('/resena/plato/:idplato', async (req, res) => { /// -------------------------------- aca estuvo junaito
        try{ let review= {
            userId: req.session.user._id,
            resena: req.body.rese,
            nombre: req.session.user.user,
             }
             await db.insertReviewPlato(req.params.idplato,review)
-
+           res.send(review)
            res.status(200).end();
         }   catch (e) {
 
@@ -61,7 +62,6 @@ router.use(function timeLog(req, res, next) {
                let varbool=false
 
                let retorno =  await db.getPlatos(req.session.user._id,null)
-               console.log(".--------------------------------------------------------------.")
                retorno = await db.getPlato(null,{esDeSemana:true, _id:{$in:retorno.platos}})
                console.log(retorno)
 

@@ -52,16 +52,22 @@
         name: "muiPanelComponent",
         methods:{
             cargarPerfil(){
-                mui.screen.closePanel()
                 eventBus.$emit('open-profile-page-4-panel')
+                mui.screen.closePanel()
             },
             createDish(){
+
+                eventBus.$emit('load-categories')
                 mui.screen.closePanel(function() {
                     mui.viewport.showPage("create-dish", "DEF");
                 })
             },
             logOut(){
-                alert("Quedate un poco mas :(")
+                axios.get('/logout').then(response =>{
+                        mui.screen.closePanel(function() {
+                            mui.viewport.showPage('login-page')
+                        })
+                })
             },
             goHome(){
                 mui.screen.closePanel(function() {
