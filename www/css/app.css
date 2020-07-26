@@ -10,6 +10,16 @@
 
 }
 
+.carrousel-perfil{
+    min-height: 95vh;
+    width: 60%;
+}
+
+.perfil-info{
+    width: 40%;
+}
+
+
 .profilecont{
  background-color: rgba(239, 171, 77, 0.87);
     border-radius: 4%;
@@ -47,8 +57,8 @@
     padding:0px;
     border: 0px;
     width: 32%;
-    margin-left:32% ;
-    margin-right:32%;
+    /*margin-left:32% ;*/
+    margin-right:5%;
 
     margin-top: 15px;
     width: 70px;
@@ -63,9 +73,12 @@
 #subscrito{
     height: 100%;
     border-radius:5px;
-    min-width: 70%;height: 100%;
-    margin-left: 15%;
-    margin-right: 15%;
+    min-width: 60%;
+    height: 100%;
+    justify-content: center;
+    /*background-color: black;*/
+    /*margin-left: 15%;*/
+    /*margin-right: 15%;*/
 
 }
 
@@ -166,6 +179,7 @@
 .sus{
     border: #999999;
     background-color: darkred;
+    color: white;
 }
 unsus{
     border: #FAFAF9;
@@ -180,6 +194,12 @@ unsus{
 #reviews{
     height: 30%;
     overflow: auto;
+}
+
+.flex_container{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: DodgerBlue;
 }
 
 .more{
@@ -229,7 +249,7 @@ unsus{
     margin-bottom: 5%;
 }
 .review{
-    background-color: #99999924;
+    background-color: lightgoldenrodyellow;
     margin-bottom: 1%;
     border-radius: 4%;
 }
@@ -366,3 +386,40 @@ unsus{
     box-shadow: 0 0 0 0.2rem #6c0303;
 }
 
+.according-chef{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.according-chef2{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.according-chef3{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.panel-chef{
+    display: none;
+    overflow: hidden;
+}
