@@ -162,7 +162,7 @@
         created() {
             eventBus.$on('call-home-page', function () {
                 axios.get('api/platos/main/call/').then(response => {
-                    this.lists = response.data;
+                    this.lists = response.data.data;
                     mui.viewport.showPage('home-page')
                 })
             }.bind(this));

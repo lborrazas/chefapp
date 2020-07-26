@@ -6,7 +6,7 @@
                 <div v-if="carrito.length===0">Carrito vacio</div>
                 <div v-else>
                     <div style="overflow: auto">
-                        <div v-for="dish in carrito" :id=dish[1]> {{dish[0]}} -{{dish[2]}} $</div>
+                        <div v-for="dish in carrito" :id=dish._id> {{dish.name}} - {{dish.price}} $</div>
                     </div>
 
                     <div class="flex-container">
