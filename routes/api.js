@@ -62,17 +62,12 @@ router.use(function timeLog(req, res, next) {
         try {
             let varbool = false
 
-            let retorno = await db.getPlatos(req.session.user._id, null)
-            console.log(".--------------------------------------------------------------.")
-            retorno = await db.getPlato(null, { esDeSemana: true, _id: { $in: retorno.platos } })
-            console.log(retorno)
+            let user = await db.getUserWithPlatos(req.session.user._id);
 
-            if (!retorno) {
-                varbool = false;
-            } else {
-                varbool = true;
+
+            if (user.platos.length > 0) {
+                varbool = true
             }
-            console.log(varbool)
             res.send({ data: varbool })
             res.status(200).end();
         } catch (e) {
@@ -83,7 +78,7 @@ router.use(function timeLog(req, res, next) {
 
     router.get('/users/:id', async (req, res) => { //para el prfile de otro
         try {
-            let data = await db.getUser(req.params.id, null);
+            let data = await db.getUserWithPlatos(req.params.id);
             res.send({ data: data });
             res.status(200).end();
         } catch (err) {
@@ -94,7 +89,7 @@ router.use(function timeLog(req, res, next) {
     });
     router.get('/profile', async (req, res) => {
         try {
-            let data = await db.getUser(req.session.user._id, null);
+            let data = await db.getUserWithPlatos(req.session.user._id);
             res.send({ data: data });
             res.status(200).end();
         } catch (err) {
@@ -267,13 +262,11 @@ router.use(function timeLog(req, res, next) {
         try {
             let collection = 'subscipciones';
             let retorno = await db.isSubscribed(client, database, collection, req.params.idchef, req.params.iduser);
-            console.log()
             if (!retorno[0]) {
                 varbool = false;
             } else {
                 varbool = true;
             }
-            console.log(varbool)
             res.send({ data: varbool })
             res.status(200).end();
         } catch (err) {

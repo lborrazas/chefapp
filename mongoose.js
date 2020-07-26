@@ -98,8 +98,6 @@ module.exports.savePlato = async function (email, data) {
                         }
                     }, function (err, res) {
                         console.log(err);
-                        console.log(res);
-
                     }
                 );
             }
@@ -117,14 +115,11 @@ module.exports.getPlatos = async function (id, filters) {
         if (!filters) filters = {};
         filters._id = id;
         let id_platos = await Usuario.findOne(filters, 'platos');
-        console.log(id_platos);
-
         result = await Plato.find({
             _id: {
                 $in: id_platos.platos
             }
         });
-        console.log(result);
     }
     return result;
 };
@@ -188,7 +183,6 @@ module.exports.getUsers = async function (type) {
 
 module.exports.getUser = async function (id, filters) {
     let result = null;
-    console.log(filters)
     if (id) {
         result = await Usuario.findById(id,'-password');
     } else {
@@ -196,6 +190,21 @@ module.exports.getUser = async function (id, filters) {
     }
     return result;
 };
+
+module.exports.getUserWithPlatos = async function(id) {
+    let user = await Usuario.findById(id);
+    let id_platos = user.platos;
+
+    let platos = await Plato.find({
+        esDeSemana:true,
+        _id: {
+            $in: id_platos
+        }
+    });
+    user = user.toObject();
+    user.platos = platos;
+    return user;
+}
 
 module.exports.updateUser = async function (id, data) {
     let result = await Usuario.updateOne({ _id: id }, data);
@@ -281,7 +290,6 @@ module.exports.insertDestacado = async function (id) {
 }
 module.exports.getDestacados = async function () {
     let id_destacados =  await Destacado.find();
-    console.log(id_destacados);
     
     let arr = []
     for(e of id_destacados) {
@@ -294,7 +302,6 @@ module.exports.getDestacados = async function () {
         }
     }, 'photo');
     platos = await platos.map(async plato => {
-        console.log(plato);
         
         plato = plato.toObject();
         let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
