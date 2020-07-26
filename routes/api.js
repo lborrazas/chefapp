@@ -117,17 +117,17 @@ router.use(function timeLog(req, res, next) {
                 arrCat.push(obj);
             }
             let others = {
-                name: 'Para Vegetarianos',
+                name: 'Vegetariana',
                 dishes: await db.getPlatosByCategory({ paraVegetarianos: true })
             }
             arrCat.push(others);
             others = {
-                name: 'Para Veganos',
+                name: 'Vegana',
                 dishes: await db.getPlatosByCategory({ paraVeganos: true })
             }
             arrCat.push(others);
             others = {
-                name: 'Para Celiacos',
+                name: 'Libre de Gluten',
                 dishes: await db.getPlatosByCategory({ paraCeliacos: true })
             }
             arrCat.push(others);
