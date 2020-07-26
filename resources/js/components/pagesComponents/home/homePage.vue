@@ -9,6 +9,7 @@
             <!-- Main -->
             <div id="main">
                 <main-slider v-for="list in lists" :dishlist="list"></main-slider>
+                <!--main-slider> </main-slider> -->
                 <div class="for-sticky">
                     <div  class="horizontal-container">
                         <div class="horizontal-content" >
