@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const database = 'chefsappv2';
 const dotenv = require('dotenv');
 dotenv.config();
-const url = process.env.DB_CONNECTION + '/' + database;
+const url = process.env.DB_CONNECTION + database;
 
 
 mongoose.Promise = global.Promise;
@@ -171,6 +171,7 @@ module.exports.getUsers = async function (type) {
 
 module.exports.getUser = async function (id, filters) {
     let result = null;
+    console.log(filters)
     if (id) {
         result = await Usuario.findById(id);
     } else {

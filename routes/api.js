@@ -14,6 +14,13 @@ router.use(function timeLog(req, res, next) {
 
 (async function () {
 
+    /*{
+        "iduser": this.visita,
+        "idperfil": this.datosprofile._id,
+        "rese": this.reseña,
+        "nombre": response.data[0].user
+    }*/
+
     router.get('/users', async (req, res) => {
         let data = await db.getUsers(req.query.type);
         if (data === null) {
@@ -22,9 +29,36 @@ router.use(function timeLog(req, res, next) {
         res.send(data);
         res.end();
     });
-    router.get('/users/:id', async (req, res) => {
+    router.post('/resena/:idchef', async (req, res) => {
+       try{ let review= {
+           userId: req.session.user._id,
+           resena: req.body,
+           nombre: req.session.user.user,
+            }
+            await db.insertReviewChef(req.params.idchef,review)
+
+           res.status(200).end();
+        }   catch (e) {
+
+           res.status(400).end();
+       }
+
+
+    })
+    router.get('/users/:id', async (req, res) => { //para el prfile de otro
         try {
             let data = await db.getUser(req.params.id, null);
+            res.send(data);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+
+    });
+    router.get('/profile', async (req, res) => { //para el profile dee uno mismo
+        try {
+            let data = await db.getUser(req.session.user._id, null);
             res.send(data);
             res.status(200).end();
         } catch (err) {
@@ -178,17 +212,7 @@ router.use(function timeLog(req, res, next) {
             res.status(420).end();
         }
     })
-    router.get('/profile/:id', async (req, res) => {
-        try {
-            let collection = 'usuarios';
-            let nombre = await db.getuserByID(client, database, collection, req.params.id);
-            res.send(nombre)
-            res.status(200).end();
-        } catch (err) {
-            console.log(err);
-            res.status(420).end();
-        }
-    })
+
     router.get('/profile/review/:id', async (req, res) => {
         try {
             let collection = 'chef-review';
@@ -234,6 +258,8 @@ router.use(function timeLog(req, res, next) {
             res.status(400).end();
         }
     });
+
+
 
     router.post('/unsubscribe/:id', async (req, res) => {
         try {

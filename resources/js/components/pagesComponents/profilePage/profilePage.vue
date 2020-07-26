@@ -5,7 +5,7 @@
         <template slot="page-body">
             <div class="info-holder" style="height:45%">
                 <div class="profile-header flex-container" style="height: 100%">
-                    <span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{this.datosprofile.user}}</div>
+                    <span class="profile-1half"><div class="item-header-main" style="font-size: large"> {{this.datosprofile.name}}</div>
                     <div class="item-header-secondary">{{this.datosprofile.bibliografia}}
                     </div></span>
                     <span class="profile-2half"><div id="profile-photo"
@@ -110,13 +110,8 @@
                     response.data[0].user
 
                     console.log("mandando")
-                    let contenido = {
-                        "iduser": this.visita,
-                        "idperfil": this.datosprofile._id,
-                        "rese": this.reseña,
-                        "nombre": response.data[0].user
-                    }
-                    axios.put('/api/resena/perfil', contenido)
+                    let contenido = this.reseña
+                    axios.put('/api/resena/perfil/'+this.datosprofile._id, contenido)
                     this.$refs['modal-add-reseña-profile'].close()
                 })
             },

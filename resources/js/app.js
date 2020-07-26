@@ -5,7 +5,7 @@ window.Noty = require('noty');
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/mint.css';
 
-import Vuex from 'vuex'
+import Vuex from 'Vuex'
 
 Vue.use(Vuex)
 
@@ -76,9 +76,9 @@ const app = new Vue({
                 console.log($response.data)
                 this.leprofilereviews = $response.data
             })
-            axios.get('api/profile/' + this.idUsuario ).then($response => {
+            axios.get('api/profile').then($response => {
                 console.log($response.data)
-                this.leprofile = $response.data[0]
+                this.leprofile = $response.data
                 axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
                     console.log($response)
                     this.estasubscrito = $response.data
@@ -102,7 +102,7 @@ const app = new Vue({
         },
         cargarforweek(args) {
             let auxiliar = null
-            axios.get("/api/platosporidchef" ).then(response => {
+            axios.get("/api/platos/chef/:id" ).then(response => {
                 this.platoide = response.data
                 mui.viewport.showPage('week-page',"NONE")
             })
