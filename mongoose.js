@@ -131,10 +131,11 @@ module.exports.getPlatosByCategory = async function (filters) {
     let platos = await Plato.find(filters, 'photo').limit(10);
     platos = await platos.map(async plato => {
         plato = plato.toObject();
-        let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'photo');
+        let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
 
         plato.chef = {
             id: chef._id,
+            name: chef.name,
             photo: chef.photo
         };
         return plato;

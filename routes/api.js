@@ -104,8 +104,6 @@ router.use(function timeLog(req, res, next) {
     //     res.end();
     // });
     router.get('/platos/:id', async (req, res) => {
-        let collection = 'platos';
-
         let platos = await db.getPlato(req.params.id);
         res.send(platos);
         res.end();
