@@ -19,8 +19,8 @@
             openChefPage($id){
                 eventBus.$emit('call-chef-page',  $id);
             },
-            openDishPage($id, $chef){
-                eventBus.$emit('call-dish-page')
+            openDishPage($id, $chef){       
+                eventBus.$emit('call-dish-page', $id, $chef)
             }
         }
     }
