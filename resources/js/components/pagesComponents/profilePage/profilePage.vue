@@ -104,24 +104,21 @@
             },
 
             mandarResena() {
-                axios.get("/api/usuarios/name/" + this.datosprofile._id).then(response => {
-                    response.data[0].user
 
-                    console.log("mandando")
-                    let contenido = this.reseña
-                    axios.put('/api/resena/perfil/'+this.datosprofile._id, contenido)
+                    let contenido = {"rese":this.reseña}
+                    console.log(contenido)
+                    axios.put('/api/resena/'+this.chef._id, contenido)
                     this.$refs['modal-add-reseña-profile'].close()
-                })
             },
 
             changeSubButton() {
                 this.subscibed = !this.subscibed
                 let envio = {
-                    iduser: this.datosprofile._id,
+                    iduser: this.chef._id,
                     idchef: this.visita
                 }
                 if (this.subscibed) {
-                    axios.post("api/subscribe/" + this.datosprofile._id, envio).then(respons => {
+                    axios.post("api/subscribe/" + this.chef._id, envio).then(respons => {
                         document.getElementById("subscrito").classList.remove("unsus")
                         document.getElementById("subscrito").classList.add("sus")
                         this.subscribirse = "Subscrito"

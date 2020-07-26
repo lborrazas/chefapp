@@ -94,8 +94,10 @@
                     "cantidad":cantidad,
                 }
 
-                axios.post("/api/semanal/"+this.idchef,data2send).then((result) => {
+                axios.post("/api/platos/semanal/"+this.idchef,data2send).then((result) => {
+                    this.$refs['modal2'].close()
                     this.$emit("subio-semanales")
+
                });
             },
             pinch(clave){

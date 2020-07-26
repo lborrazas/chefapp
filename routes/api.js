@@ -28,10 +28,11 @@ router.use(function timeLog(req, res, next) {
             res.status(400).json({ message: 'Error del servidor' });
         }
     });
-    router.post('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
+    router.put('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
        try{ let review= {
            userId: req.session.user._id,
-           resena: req.body,
+           resena: req.body.rese,
+
            nombre: req.session.user.user,
             }
             await db.insertReviewChef(req.params.idchef,review)
@@ -41,7 +42,20 @@ router.use(function timeLog(req, res, next) {
 
            res.status(400).end();
        }
-    })
+    }); router.put('/resena/:idplato', async (req, res) => { /// -------------------------------- aca estuvo junaito
+       try{ let review= {
+           userId: req.session.user._id,
+           resena: req.body.rese,
+           nombre: req.session.user.user,
+            }
+            await db.insertReviewPlato(req.params.idplato,review)
+
+           res.status(200).end();
+        }   catch (e) {
+
+           res.status(400).end();
+       }
+    });
     router.get('/user/semanalesbool',async (req,res) =>{ // --------------- juan estuvo aca tambien
            try {
                let varbool=false
@@ -201,7 +215,7 @@ router.use(function timeLog(req, res, next) {
                 "esDeSemana": true,
                 "cantidad": req.body.cantidad
             }
-            await db.updatePlato(req.body.id, updateInfo)
+            await db.updatePlato(req.body.id, updateInfo) // aca estuvo juaniot
             // await db.updateUserSem(client, database, collection, req.params.id)
             res.end();
         } catch (err) {

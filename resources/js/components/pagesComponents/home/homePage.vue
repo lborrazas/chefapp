@@ -166,13 +166,12 @@
                   this.array=response.data
               })*/
 
-            eventBus.$on('call-home-page', () => {
+            eventBus.$on('call-home-page', function() {
                 axios.get('api/platos/main/call/').then(response => {
                     this.lists = response.data;
                     mui.viewport.showPage('home-page')
                 })
-
-            }).bind(this)
+            }.bind(this))
         },
         methods: {
             change() {

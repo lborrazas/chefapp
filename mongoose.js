@@ -153,6 +153,14 @@ module.exports.getPlato = async function (id) {
     return result;
 };
 
+module.exports.updatePlato=async  function f(id,data)  { // te habia faltado esta -- Your fiendly neitgboor Spider-man
+    let result = await Plato.updateOne({ _id: id }, data);
+    return result;
+
+}
+
+
+
 module.exports.deletePlato = async function (id) {
     await Plato.deleteOne({ _id: id });
 }
