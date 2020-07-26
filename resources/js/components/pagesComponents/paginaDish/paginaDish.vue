@@ -164,6 +164,7 @@
         created() {
 
                 eventBus.$on('call-dish-page', function ($id, $user) {
+                    alert($id);
                     this.user = $user;
                     axios.get('api/users/' + $id).then(response => {
                         this.dish = response.data.dish;

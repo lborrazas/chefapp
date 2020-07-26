@@ -71,6 +71,14 @@ redisClient.on('error', (err) => {
 
     });
 
+    app.get('/checksession', function (req, res) {
+        if(req.session.user){
+            res.json({bool: true});
+        }else{
+            res.json({bool: false});
+        }
+    })
+
     app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
             if (err) {
