@@ -2,63 +2,28 @@
 
     <page-template page_identification="profile-page">
         <template slot="page-title"> Perfil</template>
-        <template slot="page-body" style="background-color: black;">
-            <div  style="background-color: black;">
-            <div class="info-holder container" style="height:45%; background-color: black;">
-                <div class="profile-header flex-container" style="height: 100%;">
-                    <span class="profile-1half" style="background-color: #1E1F00;"><div class="item-header-main" style="font-size: large; color: white;">{{this.datosprofile.user}}</div>
-                    <div class="item-header-secondary" style="color: white;">{{this.datosprofile.bibliografia}}
-                    </div>
-                    </span>
-                    <span class="float-right" style="background-color: #1E1F00; height: 60%; flex: auto;"><div id="profile-photo" class="float-right" style="flex: auto;"
-                                                     :style="'background-image:url('+this.datosprofile.photo+');'"></div>
-                        <div id="popularity" style="height: 100%"><div id="subsHolder"><button @click="changeSubButton"
-                                                                                               id="subscrito">{{this.subscribirse}}</button></div><span
-                                style="margin-left:26%;background-color: white;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span></div>
-                    </span>
-                </div>
+        <template slot="page-body">
+        <div  class="flex-content;" style="display: flex;">
+            <div class="flex-container" style="padding-top:25px; flex-direction: column; background-color: lightgoldenrodyellow; width: 33%; min-height: 45%;">
+                <div class="item-header-main align-middle" style="font-size: large; color: black; text-align: center;">Puntuacion</div>
+                    <div class="d-block mx-auto align-middle" style="color: black; font-weight: bold; font-size: x-large">69%</div>
             </div>
-            <div id="reviews" class="container" style="background-color: #e5b31b;">
-                <div style="text-decoration-line: underline;color:#1E1F00; cursor: pointer; "
-                     @click="$refs['modal-add-reseña-profile'].open()"><a style="font-size: smaller;">Agregar reseña</a>
-                </div>
-                <div style="overflow: scroll;max-height: 160px;margin-bottom:5px">
-                    <div v-for="reviw in this.reviewsprofile" :key="reviw._id">
-                        <div style="color: black">{{reviw.nombre}}</div>
-                        <div class="review container" style="background-color: #1E1F00; color: white;">{{reviw.rese}}</div>
-                    </div>
-                </div>
+            <div class="flex-container" style="flex-direction: column; background-color: lightgoldenrodyellow; width: 34%; min-height: 45%;">
+                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">{{this.datosprofile.user}}</div>
+                <div id="profile-photo" class="d-block mx-auto" style="" :style="'background-image:url('+this.datosprofile.photo+');'"></div>
             </div>
+            <div class="flex-container" style="padding-top: 20px; flex-direction: column; background-color: lightgoldenrodyellow; width: 33%; min-height: 45%;">
+               <div class="item-header-main" style="font-size: large; color: black; text-align: center;">Subscriptores</div>
+                <div class="d-block mx-auto"><button class="btn-link" @click="changeSubButton" id="subscrito">{{this.subscribirse}}</button></div>
+                <span class="d-block mx-auto" style="margin-left:26%;background-color: #e5b31b;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span>
             </div>
+        </div>
+        <div>
+            <div class="item-header-main" style="font-size: large; color: black; text-align: center; background-color: #e5b31b">Biografìa</div>
+            <div class="item-header-secondary" style="color: black; background-color: lightgoldenrodyellow"><div class="container">{{this.datosprofile.bibliografia}}</div></div>
+        </div>
 
 
-
-            <modal-two ref="modal-add-reseña-profile" title="Crear reseña">
-                <div class="container">
-                    <div style=" width:100%;height:50px"><input
-                            style=" width:70%;background-color: rgba(194,194,194,0.61);border-radius: 2%"
-                            v-model="reseña"></input></div>
-                    <div>
-                        <button style="background-color: red; color: white;" @click="mandarResena">Mandar</button>
-                    </div>
-                </div>
-
-
-            </modal-two>
-           <div class="for-sticky" style="background-color: black;">
-                <div class="horizontal-container" style="background-color: black">
-                    <div class="horizontal-content">
-
-                    </div>
-                    <div class="horizontal-content">
-
-                    </div>
-                    <div class="horizontal-content">
-
-                    </div>
-                </div>
-                <div class="content-title">Semanales</div>
-            </div>
         </template>
 
     </page-template>
