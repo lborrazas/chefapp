@@ -47,16 +47,17 @@ router.use(function timeLog(req, res, next) {
                let varbool=false
 
                let retorno =  await db.getPlatos(req.session.user._id,null)
-               console.log(retorno)
                console.log(".--------------------------------------------------------------.")
                retorno = await db.getPlato(null,{esDeSemana:true, _id:{$in:retorno.platos}})
                console.log(retorno)
 
-               if (!retorno[0]) {
+               if (!retorno) {
                    varbool = false;
                } else {
                    varbool = true;
                }
+               console.log(varbool)
+               res.send(varbool)
                res.status(200).end();
            }catch (e) {
                console.log(err);
@@ -75,7 +76,7 @@ router.use(function timeLog(req, res, next) {
         }
 
     });
-    router.get('/profile', async (req, res) => { //para el profile dee uno mismo
+    router.get('/profile', async (req, res) => {
         try {
             let data = await db.getUser(req.session.user._id, null);
             res.send(data);
@@ -138,9 +139,19 @@ router.use(function timeLog(req, res, next) {
         }
     });
 
-    router.get('/platos/chef/:id', async (req, res) => {
+    router.get('/platos/chef/:id', async (req, res) => {  // juan aca otra vez le saque el id y se lo cambie por el res
         try {
             let platos = await db.getPlatos(req.params.id, null);
+            res.send(platos);
+            res.end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
+    });
+    router.get('/platos/mios', async (req, res) => {  // juan aca otra vez le saque el id y se lo cambie por el res
+        try {
+            let platos = await db.getPlatos(req.session.user._id, null);
             res.send(platos);
             res.end();
         } catch (err) {

@@ -51,7 +51,7 @@
                 <div style="text-decoration-line: underline;color:#adadad" @click="openModel"><a
                         style="font-size: smaller;">Agregar reseña</a></div>
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
-                    <div v-for="reviw in this.reviewsdish" :key="reviw._id">
+                    <div v-for="reviw in this.dish.reviews" :key="reviw._id">
                         <div>{{reviw.nombre}}</div>
                         <div class="review">{{reviw.rese}}</div>
                     </div>

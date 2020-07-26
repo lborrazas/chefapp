@@ -86,6 +86,7 @@
                 semanalbool:false,
                 subscribirse: "Subscribirse",
                 reseña: "",
+                perfilpropio:false,
 
             }
         },
@@ -94,7 +95,8 @@
         methods: {
             cargarPlatos(){
                 if(!this.semanalbool){
-                this.$emit("cargar-plato-week")
+                eventBus.$emit("cargar-plato-week")
+                    mui.viewport.showPage('week-page')
                 }else{
                 alert("Ya se han declarado los platos semanales")
             }
@@ -136,14 +138,13 @@
 
                 }
             },
-
-
         },
 
         created() {
             eventBus.$on('call-chef-page', function ($id) {
                 axios.get('api/users/' + $id).then(response => {
-                    this.chef = response.data.chef;
+                    this.chef = response.data;
+                    this.perfilpropio=false;
                 });
                 //get is subcbribed
                 mui.viewport.showPage('profile-page')
@@ -151,6 +152,7 @@
             eventBus.$on('open-profile-page-4-panel', function () {
                 axios.get('api/profile').then(response => {
                     this.chef = response.data;
+                    this.perfilpropio = true
                 });
                 //get is subcbribed
                 //get semanalbool

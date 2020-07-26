@@ -85,13 +85,7 @@ const app = new Vue({
                 })
             })
         },
-        cargarforweek(args) {
-            let auxiliar = null
-            axios.get("/api/platos/chef/:id" ).then(response => {
-                this.platoide = response.data
-                mui.viewport.showPage('week-page',"NONE")
-            })
-        }
+
     },
     computed: {},
     mounted() {

@@ -1,12 +1,16 @@
 <template>
     <page-templates page_identification="week-page">
         <template slot="page-title">Semanales
-            <button v-if="auxiliarbool" id="subirsemanales" @click="$refs['modal2'].open()" >Ok
+            <button v-if="auxiliarbool" id="subirsemanales" @click="$refs['modal2'].open()" >Aceptar
             </button>
             <button v-else></button>
         </template>
         <template slot="page-body">
-            <div style="margin:10px" v-for="dishes in platoides">
+
+
+
+
+            <div style="margin:10px" v-for="dishes in misplatos">
                 <div class="flex-container weekdish" style="height:5%; margin: 5px;"><span>{{dishes.name}}</span><div style=" margin-left: 75%;width:20px"><button :id="dishes._id" class ="dishCheck" @click="pinch(dishes._id);setnames();" >✓</button></div></div>
                 <div class="disheselector img-container" :id="dishes[1]" :style="'background-image: url('+ dishes.photo+')'">
                 </div>
@@ -31,6 +35,7 @@
 
 
             </modal-two>
+
         </template>
     </page-templates>
 
@@ -51,6 +56,7 @@
         },
         data(){
             return{
+                misplatos:[],
                 auxiliarbool:false,
                 cant0:0,
                 cant1:0,
@@ -88,7 +94,7 @@
                     "cantidad":cantidad,
                 }
 
-                axios.post("/api/semala"+this.idchef,data2send).then((result) => {
+                axios.post("/api/semanal/"+this.idchef,data2send).then((result) => {
                     this.$emit("subio-semanales")
                });
             },
@@ -145,10 +151,10 @@
             getname(clave){
 
                 let valorretorno =""
-                for (let i=0;i<this.platoides.length;i++){
-                    if ((this.platoides[i]._id)==clave){
+                for (let i=0;i<this.misplatos.length;i++){
+                    if ((this.misplatos[i]._id)==clave){
 
-                        valorretorno=this.platoides[i].name
+                        valorretorno=this.misplatos[i].name
                     }
                 }
 
@@ -158,6 +164,14 @@
         computed:{
 
 
+        },
+        created() {
+            eventBus.$on('cargar-plato-week',function () {
+                axios.get("/api/platos/mios").then(response => {
+                    this.misplatos = response.data
+                    console.log(response.data)
+                })
+            }.bind(this))
         }
     }
 </script>

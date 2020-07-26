@@ -6,7 +6,7 @@
                 <div>
                     <ul class='mui-list'>
                         <li  class="centereli chefoptionbutton"><a class="centerA" id='crearPlato' href="#">Crear Plato</a></li>
-                        <li  class="centereli chefoptionbutton"><a @click="cargarPlatos" class="centerA" id='definirSemanales' href="#">Platos Semanales</a></li>
+                        <li  class="centereli chefoptionbutton"><a class="centerA" id='definirSemanales' href="#">Platos Semanales</a></li>
                     </ul>
                 </div>
 
@@ -24,12 +24,7 @@
             }
         },
         methods:{
-            cargarPlatos(){if(!this.semanalbool){
-                this.$emit("cargar-plato-week",this.idchef)
-                }else{
-                alert("Ya se han declarado los platos semanales")
-            }
-            },
+
         },
         props:{
             'idchef':'',

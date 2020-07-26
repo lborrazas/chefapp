@@ -9,6 +9,7 @@
             <!-- Main -->
             <div id="main">
                 <main-slider v-for="list in lists" :dishlist="list"></main-slider>
+               <!-- <main-slider></main-slider>-->
                 <div class="for-sticky">
                     <div  class="horizontal-container">
                         <div class="horizontal-content" >
@@ -159,19 +160,12 @@
             'main-slider' : mainSlider,
         },
         created() {
-            console.log("entro a crear");
-            /*  axios.get("/api/platosparapedir/").then(response =>{
-                  console.log(response.data)
-                  this.array=response.data
-              })*/
-
-            eventBus.$on('call-home-page', () => {
+            eventBus.$on('call-home-page', function () {
                 axios.get('api/platos/main/call/').then(response => {
                     this.lists = response.data;
                     mui.viewport.showPage('home-page')
                 })
-
-            }).bind(this)
+            }.bind(this));
         },
         methods: {
             change() {
