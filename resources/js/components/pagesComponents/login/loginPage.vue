@@ -113,7 +113,7 @@
 
                 axios.post('/login', {email: this.user.email, password: this.user.password}).then(
                     $response => {
-                        mui.viewport.showPage('home-page', "NONE")
+                        eventBus.$emit('call-home-page');
                     }
                 ).catch($error => {
                     displayMessage($error.response, true);

@@ -1,8 +1,9 @@
 <template>
         <div class="for-sticky">
             <div  class="horizontal-container">
-                <div v-for="dish in dishlist.items" class="horizontal-content"  @click="openDishPage(dish.id, dish.user)">
+                <div v-for="dish in dishlist.items" class="horizontal-content">
                     <div class="circle" @click="openChefPage(dish.id)"></div>
+                    <div style="width: 100%; height: 100%; background-color: #e5bf32" @click="openDishPage(dish.id, dish.user)"></div>
                 </div>
             </div>
             <div class="content-title" >{{dishlist.name}} </div>

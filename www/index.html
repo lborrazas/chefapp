@@ -124,8 +124,8 @@
 
                <!-- <product-page-component></product-page-component>-->
 
-                <chef-page-component></chef-page-component>
-				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile"   v-on:addcarrito="agregaracarrito"></dish-page-component>
+              <!--  <chef-page-component></chef-page-component>-->
+				<dish-page-component :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef"    v-on:addcarrito="agregaracarrito"></dish-page-component>
 				<profile-page-component v-on:cargar-plato-week="cargarforweek"  ></profile-page-component>
 				<createdish-page-component o></createdish-page-component>
 
