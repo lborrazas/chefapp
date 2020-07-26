@@ -8,7 +8,7 @@
 
                     <span class="profile-1half">
                         <div class="item-header-main">
-                            <div>Platos reservados:{{parseInt(dish.reservado)}} / {{parseInt(dish.cantidad)}}</div>
+                            <div>Platos reservados:{{parseInt(dish.reservados)}} / {{parseInt(dish.cantidad)}}</div>
                             <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
                         "><div style="background-color:darkred;border-radius: 10px; height:100%"
                                :style="'width:'+pintar+'%'"></div></div>
@@ -136,6 +136,12 @@
             },
             addToCarrito() {
                 this.$store.commit('addCarrito', {dish: this.dish});
+                new Noty({
+                    type: "success",
+                    text: "<strong style='color: whitesmoke !important;'>Plato Ingresado al Carrito </strong><br>",
+                    progressBar: true,
+                    timeout: 1500,
+                }).show();
             },
             forceRerender() {
                 this.componentKey2 += 1;
@@ -144,7 +150,7 @@
 
         computed: {
             pintar() {
-                return this.carga = (100 * parseInt(this.dish.reservado)) / parseInt(this.dish.cantidad)
+                return this.carga = (100 * parseInt(this.dish.reservados)) / parseInt(this.dish.cantidad)
             },
             load() {
                 this.alreadyVoted = false
@@ -155,10 +161,9 @@
         created() {
 
                 eventBus.$on('call-dish-page', function ($id, $user) {
-                    alert($id);
                     this.user = $user;
                     axios.get('api/platos/' + $id).then(response => {
-                        this.dish = response.data;
+                        this.dish = response.data.data;
                         mui.viewport.showPage('dish-page')
                     });
 

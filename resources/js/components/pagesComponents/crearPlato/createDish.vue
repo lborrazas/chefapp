@@ -86,7 +86,7 @@
                         "paraVegetarianos":this.types[2],
                         "descripcion":this.descripcion,
                         "cantidad":0,
-                        "reservaddos":0,
+                        "reservados":0,
                         "photo":reader.result,
 
                     }).then(res => {

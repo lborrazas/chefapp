@@ -142,7 +142,7 @@
         created() {
             eventBus.$on('call-chef-page', function ($id) {
                 axios.get('api/users/' + $id).then(response => {
-                    this.chef = response.data;
+                    this.chef = response.data.data;
                     this.perfilpropio=false;
                 });
                 //get is subcbribed
@@ -150,7 +150,7 @@
             }.bind(this));
             eventBus.$on('open-profile-page-4-panel', function () {
                 axios.get('api/profile').then(response => {
-                    this.chef = response.data;
+                    this.chef = response.data.data;
                     this.perfilpropio = true
                 });
                 //get is subcbribed

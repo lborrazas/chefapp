@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const database = 'chefsappv2';
 const dotenv = require('dotenv');
 dotenv.config();
-const url = process.env.DB_CONNECTION + database;
+const url = process.env.DB_CONNECTION+ database;
 
 
 mongoose.Promise = global.Promise;
@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
 
 const PlatoSchema = new Schema({
     name: String,
-    precio: Number,
+    price: Number,
     esDeSemana: Boolean,
     paraCeliacos: { type: Boolean, default: false },
     paraVeganos: { type: Boolean, default: false },
@@ -55,7 +55,7 @@ const UsuarioSchema = new Schema({
 });
 
 const PedidoSchema = new Schema({
-    usuario: {
+    user: {
         id: String,
         name: String
     },
@@ -129,6 +129,7 @@ module.exports.getPlatos = async function (id, filters) {
     return result;
 };
 module.exports.getPlatosByCategory = async function (filters) {
+    filters.esDeSemana = true;
     let platos = await Plato.find(filters, 'photo').limit(10);
     platos = await platos.map(async plato => {
         plato = plato.toObject();
@@ -181,7 +182,7 @@ module.exports.insertUser = async function (user) {
 }
 
 module.exports.getUsers = async function (type) {
-    let result = await Usuario.find({ type: type });
+    let result = await Usuario.find({ type: type },'-password');
     return result;
 };
 
@@ -189,7 +190,7 @@ module.exports.getUser = async function (id, filters) {
     let result = null;
     console.log(filters)
     if (id) {
-        result = await Usuario.findById(id);
+        result = await Usuario.findById(id,'-password');
     } else {
         result = await Usuario.findOne(filters);
     }
@@ -244,7 +245,7 @@ module.exports.getReviewsPlato = async function (id) {
 //Pedidos
 
 module.exports.insertPedido = async function (data) {
-    let id_user = data.usuario.id;
+    let id_user = data.user.id;
     let pedido = new Pedido(data);
     await pedido.save();
     await Usuario.updateOne({ _id: id_user }, {
@@ -279,25 +280,29 @@ module.exports.insertDestacado = async function (id) {
     return null;
 }
 module.exports.getDestacados = async function () {
-    let id_destacados =  Destacado.find();
+    let id_destacados =  await Destacado.find();
+    console.log(id_destacados);
+
     let arr = []
     for(e of id_destacados) {
         arr.push(e.id);
     }
 
-    let platos = Plato.find({
+    let platos = await Plato.find({
         _id: {
             $in: arr
         }
-    });
-
+    }, 'photo');
     platos = await platos.map(async plato => {
+        console.log(plato);
+
         plato = plato.toObject();
         let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
 
         plato.chef = {
             id: chef._id,
             name: chef.name,
+            photo: chef.photo
         };
         return plato;
     });

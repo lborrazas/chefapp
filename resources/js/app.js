@@ -23,7 +23,6 @@ const store = new Vuex.Store({
             state.count++
         },
         addCarrito(state, payload) {
-            console.log(payload)
             state.carrito.push(payload.dish);
         },
         removeCarrito(state, payload) {
