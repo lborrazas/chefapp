@@ -121,14 +121,12 @@
 
             },
             mandarResenaPlato() {
-                  /*  let contenido = {
-                        "iduser": this.visitante,
-                        "idplato": this.elplatito._id,
-                        "rese": this.resenia,
-                        "nombre": response.data[0].user
-                    }*/
+
+
+                let contenido = {"rese":this.resenia}
+
                     this.$refs['modal-add-reseña-plato'].close()
-                    axios.put('/api/resena/plato', contenido)
+                    axios.put('/api/resena/plato/'+this.dish._id, contenido)
 
             },
             irperfil() {

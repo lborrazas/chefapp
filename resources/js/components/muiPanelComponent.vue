@@ -5,14 +5,14 @@
         </div>
         <div class="mui-panel-body">
 
-            <div class="panel-item">
-                <i class="fa fa-home"></i> Home Page
+            <div class="panel-item" @click="goHome">
+                <i class="fa fa-home" ></i> Home Page
             </div>
             <div class="panel-item" @click="cargarPerfil">
                 <i class="fa fa-user"></i>  Mi Perfil
             </div>
             <div class="panel-item">
-                <i class="fa fa-map-pin"></i> Mis Direcciones
+                <i class="fa fa-map-pin" ></i> Mis Direcciones
             </div>
             <div class="panel-item">
                 <i class="fa fa-heart"></i> Mis Favoritos
@@ -27,15 +27,17 @@
             <div class="panel-item">
                 <i class="fa fa-line-chart"></i> Metricas (Chef)
             </div>
+            <div v-if class="panel-item" @click="createDish">
+                <i class="fa fa-line-chart" ></i> Crear Plato (Chef)
+            </div>
+            <div class="panel-item" @click="logOut">
+                <i class="fa fa-line-chart" ></i> Log Out
+            </div>
 
 
             <div>
                 <ul id='menuoptions' class='mui-list'>
-                    <li class="centereli"><a class="centerA" id='option1' href="#">Go Home Page</a></li>
-                    <li class="centereli"><a class="centerA" id='option4' href="#">Perfil</a></li>
-                    <li class="centereli"><a class="centerA" id='option5' href="#">Plato</a></li>
-                    <li class="centereli"><a class="centerA" id='option6' href="#">Crear Plato</a></li>
-                    <li class="centereli"><a class="centerA" id='option13' href="#">Platos Semanales</a></li>
+                    <li class="centereli"><a class="centerA" id='option5' href="#">Plato se tiene que ir</a></li>
                     <li class="centereli"><a class="centerA" id='option100' href="#">Go Login</a></li>
                 </ul>
             </div>
@@ -50,8 +52,21 @@
         name: "muiPanelComponent",
         methods:{
             cargarPerfil(){
-                alert("salego")
+                mui.screen.closePanel()
                 eventBus.$emit('open-profile-page-4-panel')
+            },
+            createDish(){
+                mui.screen.closePanel(function() {
+                    mui.viewport.showPage("create-dish", "DEF");
+                })
+            },
+            logOut(){
+                alert("Quedate un poco mas :(")
+            },
+            goHome(){
+                mui.screen.closePanel(function() {
+                    mui.viewport.showPage("home-page", "DEF");
+                })
             }
         }
     }
