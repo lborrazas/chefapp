@@ -163,15 +163,15 @@
         },
         created() {
 
-                eventBus.$on('call-dish-page', function ($id, $user) {
-                    alert($id);
-                    this.user = $user;
-                    axios.get('api/users/' + $id).then(response => {
-                        this.dish = response.data.dish;
-                        mui.viewport.showPage('dish-page')
-                    });
+            eventBus.$on('call-dish-page', function ($id, $user) {
+                alert($id);
+                this.user = $user;
+                axios.get('api/users/' + $id).then(response => {
+                    this.dish = response.data.dish;
+                    mui.viewport.showPage('dish-page')
+                });
 
-                }.bind(this));
+            }.bind(this));
         }
 
     }

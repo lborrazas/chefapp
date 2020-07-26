@@ -19,7 +19,7 @@
             openChefPage($id){
                 eventBus.$emit('call-chef-page',  $id);
             },
-            openDishPage($id, $chef){       
+            openDishPage($id, $chef){
                 eventBus.$emit('call-dish-page', $id, $chef)
             }
         }
@@ -45,6 +45,7 @@
         margin-bottom: 5px;
         margin-top: 5px;
         height: 180px;
+        border: black 2px solid;
     }
 
     .for-sticky {
@@ -62,16 +63,18 @@
         margin: 10px;
         border-radius: 100%;
         background-color: whitesmoke;
+        border: darkred 2px solid;
     }
 
     .for-sticky > .content-title {
         position: absolute;
-        width: 120px;
+        width: 130px;
         height: 35px;
         background-color: darkred;
         color: white;
         bottom: 0;
         left: 0;
         margin-bottom: 10px;
+        box-shadow: 0 0 10px black;
     }
 </style>

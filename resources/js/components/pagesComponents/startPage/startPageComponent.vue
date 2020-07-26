@@ -25,7 +25,8 @@
             delay(function () {
                 axios.get('/checksession').then(response => {
                     if (response.data.bool == true) {
-                        mui.viewport.showPage('home-page')
+                        eventBus.$emit('call-home-page')
+                       // mui.viewport.showPage('home-page')
                     } else {
                         mui.viewport.showPage('login-page')
                     }
