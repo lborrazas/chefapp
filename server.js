@@ -85,7 +85,6 @@ redisClient.on('error', (err) => {
                 console.log(err);
             } else {
                 res.end('fin');
-
             }
         });
     });

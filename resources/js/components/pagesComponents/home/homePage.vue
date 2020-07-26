@@ -6,11 +6,9 @@
 
             <!--<button @click="evento">APRETAME PARA PROBAR</button>-->
 
-
-
             <!-- Main -->
             <div id="main">
-                <main-slider></main-slider>
+                <main-slider v-for="list in lists" :dishlist="list"></main-slider>
                 <div class="for-sticky">
                     <div  class="horizontal-container">
                         <div class="horizontal-content" >
@@ -151,7 +149,8 @@
                 array: [
                     ['/custom/view/images/home-bg.jpg', 'nombre', "genericid"],
                     ['/custom/view/images/home-bg.jpg', 'nombre1', "genericid1"],
-                ]
+                ],
+                lists: [],
 
             }
         },
@@ -160,12 +159,19 @@
             'main-slider' : mainSlider,
         },
         created() {
-            console.log("entro a crear")
+            console.log("entro a crear");
             /*  axios.get("/api/platosparapedir/").then(response =>{
                   console.log(response.data)
                   this.array=response.data
               })*/
 
+            eventBus.$on('call-home-page', () => {
+                axios.get('api/platos/main/call/').then(response => {
+                    this.lists = response.data;
+                    mui.viewport.showPage('home-page')
+                })
+
+            }).bind(this)
         },
         methods: {
             change() {
@@ -239,5 +245,6 @@
         bottom: 0;
         left: 0;
         margin-bottom: 10px;
+        box-shadow: 0 0 10px black;
     }
 </style>

@@ -164,7 +164,7 @@
                         mui.viewport.showPage('dish-page')
                     });
 
-                }.bind(this));
+            }.bind(this));
         }
 
     }
