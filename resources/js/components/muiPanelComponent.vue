@@ -56,6 +56,10 @@
                 mui.screen.closePanel()
             },
             createDish(){
+   /*     for (let i=0;i<10;i++){
+    axios.post("/api/categoria",{name:"ejeplor"+i})
+}   */
+
 
                 eventBus.$emit('load-categories')
                 mui.screen.closePanel(function() {
