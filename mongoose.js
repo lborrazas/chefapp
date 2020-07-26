@@ -128,6 +128,7 @@ module.exports.getPlatos = async function (id, filters) {
     return result;
 };
 module.exports.getPlatosByCategory = async function (filters) {
+    filters.esDeSemana = true;
     let platos = await Plato.find(filters, 'photo').limit(10);
     platos = await platos.map(async plato => {
         plato = plato.toObject();
@@ -172,16 +173,16 @@ module.exports.insertUser = async function (user) {
 }
 
 module.exports.getUsers = async function (type) {
-    let result = await Usuario.find({ type: type });
+    let result = await Usuario.find({ type: type },'-password');
     return result;
 };
 
 module.exports.getUser = async function (id, filters) {
     let result = null;
     if (id) {
-        result = await Usuario.findById(id);
+        result = await Usuario.findById(id,'-password');
     } else {
-        result = await Usuario.findOne(filters);
+        result = await Usuario.findOne(filters,'-password');
     }
     return result;
 };
