@@ -19,11 +19,50 @@
             </div>
         </div>
         <div>
-            <div class="item-header-main" style="font-size: large; color: black; text-align: center; background-color: #e5b31b">Biografìa</div>
-            <div class="item-header-secondary" style="color: black; background-color: lightgoldenrodyellow"><div class="container">{{this.datosprofile.bibliografia}}</div></div>
+            <div class="item-header-main according-chef" onclick="acc123()">Biografìa</div>
+            <div class="item-header-secondary text-center panel-chef" style="color: black; background-color: lightgoldenrodyellow"><div class="container">{{this.datosprofile.bibliografia}}</div></div>
         </div>
+            <div id="reviews">
+                <div class="" style="text-decoration-line: underline;color:#adadad">
+                    <a class="text-center" style="font-size: smaller; background-color: black; color: #e5b31b; font-weight: bold;"><div class="d-block mx-auto" style="width: 26%;" @click="$refs['modal-add-reseña-profile'].open()">Agregar reseña</div></a>
+                </div>
+                <div class="" style="overflow: scroll;max-height: 260px;margin-bottom:5px; min-height: 260px">
+                    <div class="" v-for="reviw in this.reviewsprofile" :key="reviw._id">
+                        <div class="container">•&nbsp{{reviw.nombre}}:</div>
+                        <div class="review"><div class="container">&nbsp&nbsp&nbsp&nbsp{{reviw.rese}}</div></div>
+                    </div>
+                </div>
+            </div>
 
+            <modal-two ref="modal-add-reseña-profile" title="Crear reseña">
+                <div class="container">
+                    <div style=" width:100%;height:50px">
+                        <textarea v-model="reseña" style="background-color: lightgoldenrodyellow; width: 100%; border-radius: 5px; border: black;" placeholder="Ingrese su reseña.">
+                        </textarea>
+                    </div>
+                <div>
+                        <button class="btn-secondary float-right" style="border-radius: 3px; width: 27%" @click="mandarResena">Mandar</button>
+                    </div>
+                </div>
+            </modal-two>
 
+            <div>
+                <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
+                <div class="for-sticky">
+                    <div class="horizontal-container panel-chef">
+                        <div class="horizontal-content">
+
+                        </div>
+                        <div class="horizontal-content">
+
+                        </div>
+                        <div class="horizontal-content">
+
+                        </div>
+                    </div>
+                    <div class="content-title">Semanales</div>
+                </div>
+            </div>
         </template>
 
     </page-template>
@@ -147,6 +186,7 @@
         }
 
     }
+
 </script>
 
 <style scoped>
@@ -162,7 +202,7 @@
 
     .horizontal-content {
         position: relative;
-        min-width: 140px;
+        min-width: 32%;
         background-color: #1E1F00;
         margin-left: 10px;
         margin-bottom: 5px;

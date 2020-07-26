@@ -2,35 +2,32 @@
 
     <page-template page_identification="profile-page">
         <template slot="page-title"> Perfil</template>
-        <template slot="page-body" style="background-color: black;">
-            <div  style="background-color: black;">
-                <div class="info-holder container" style="height:45%; background-color: black;">
-                    <div class="profile-header flex-container" style="height: 100%;">
-                    <span class="profile-1half" style="background-color: #1E1F00;"><div class="item-header-main" style="font-size: large; color: white;">{{this.datosprofile.user}}</div>
-                    <div class="item-header-secondary" style="color: white;">{{this.datosprofile.bibliografia}}
-                    </div>
-                    </span>
-                        <span class="float-right" style="background-color: #1E1F00; height: 60%; flex: auto;"><div id="profile-photo" class="float-right" style="flex: auto;"
-                                                                                                                   :style="'background-image:url('+this.datosprofile.photo+');'"></div>
+        <template slot="page-body">
+            <div class="info-holder" style="height:45%">
+                <div class="profile-header flex-container" style="height: 100%">
+                    <span class="profile-1half"><div class="item-header-main" style="font-size: large">{{this.datosprofile.user}}</div>
+                    <div class="item-header-secondary">{{this.datosprofile.bibliografia}}
+                    </div></span>
+                    <span class="profile-2half"><div id="profile-photo"
+                                                     :style="'background-image:url('+this.datosprofile.photo+')'"></div>
                         <div id="popularity" style="height: 100%"><div id="subsHolder"><button @click="changeSubButton"
                                                                                                id="subscrito">{{this.subscribirse}}</button></div><span
-                                style="margin-left:26%;background-color: white;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span></div>
+                                style="margin-left:18%;background-color: #99999924;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span></div>
                     </span>
-                    </div>
+
                 </div>
-                <div id="reviews" class="container" style="background-color: #e5b31b;">
-                    <div style="text-decoration-line: underline;color:#1E1F00; cursor: pointer; "
-                         @click="$refs['modal-add-reseña-profile'].open()"><a style="font-size: smaller;">Agregar reseña</a>
-                    </div>
-                    <div style="overflow: scroll;max-height: 160px;margin-bottom:5px">
-                        <div v-for="reviw in this.reviewsprofile" :key="reviw._id">
-                            <div style="color: black">{{reviw.nombre}}</div>
-                            <div class="review container" style="background-color: #1E1F00; color: white;">{{reviw.rese}}</div>
-                        </div>
+            </div>
+            <div id="reviews">
+                <div style="text-decoration-line: underline;color:#adadad"
+                     @click="$refs['modal-add-reseña-profile'].open()"><a style="font-size: smaller;">Agregar reseña</a>
+                </div>
+                <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px;margin-bottom:5px">
+                    <div v-for="reviw in this.reviewsprofile" :key="reviw._id">
+                        <div>{{reviw.nombre}}</div>
+                        <div class="review">{{reviw.rese}}</div>
                     </div>
                 </div>
             </div>
-
 
 
             <modal-two ref="modal-add-reseña-profile" title="Crear reseña">
@@ -39,14 +36,14 @@
                             style=" width:70%;background-color: rgba(194,194,194,0.61);border-radius: 2%"
                             v-model="reseña"></input></div>
                     <div>
-                        <button style="background-color: red; color: white;" @click="mandarResena">Mandar</button>
+                        <button @click="mandarResena">Mandar</button>
                     </div>
                 </div>
 
 
             </modal-two>
-            <div class="for-sticky" style="background-color: black;">
-                <div class="horizontal-container" style="background-color: black">
+            <div><div class="for-sticky">
+                <div class="horizontal-container">
                     <div class="horizontal-content">
 
                     </div>
@@ -58,6 +55,7 @@
                     </div>
                 </div>
                 <div class="content-title">Semanales</div>
+            </div>
             </div>
         </template>
 
@@ -198,7 +196,7 @@
     .horizontal-content {
         position: relative;
         min-width: 140px;
-        background-color: #1E1F00;
+        background-color: black;
         margin-left: 10px;
         margin-bottom: 5px;
         margin-top: 5px;

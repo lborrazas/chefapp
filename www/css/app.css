@@ -242,7 +242,7 @@ unsus{
     margin-bottom: 5%;
 }
 .review{
-    background-color: #99999924;
+    background-color: lightgoldenrodyellow;
     margin-bottom: 1%;
     border-radius: 4%;
 }
@@ -370,3 +370,40 @@ unsus{
     box-shadow: 0 0 0 0.2rem #6c0303;
 }
 
+.according-chef{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.according-chef2{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.according-chef3{
+    font-size: large;
+    color: black;
+    text-align: center;
+    background-color: #e5b31b;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: height 4s;
+}
+
+.panel-chef{
+    display: none;
+    overflow: hidden;
+}

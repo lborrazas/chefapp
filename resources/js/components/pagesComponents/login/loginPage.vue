@@ -5,10 +5,10 @@
             <div class="limiter">
                 <div class="container-login100"
                      style="background-image: url('/custom/view/images/login-background.jpg');">
-                    <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                    <div class="wrap-login100 p-l-50 p-r-40 p-t-22 p-b-3">
 
-					<span class="login100-form-title p-b-53">
-						Sign In With
+					<span class="login100-form-title p-b-5">
+						Sign In
 					</span>
 
 
@@ -71,7 +71,7 @@
                             </button>
                         </div>
 
-                        <div class="w-full text-center p-t-55">
+                        <div class="w-full text-center p-t-25">
 						<span class="txt2">
 							Not a member?
 						</span>
