@@ -4,7 +4,7 @@
          width="200px" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200"
          xml:space="preserve">
 <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="99.686" y1="59.255" x2="99.686" y2="59.255"/>
-        <path fill="#FFFFFF" class="pathcook" stroke="#000000" stroke-miterlimit="10"
+        <path fill="#FFFFFF" class="pathcook" stroke="#e5bf32" stroke-miterlimit="10" stroke-width="2.2%"
               d="M135.438,94.985
               c0.579,4.845,0.889,10.051,0.889,15.42
 	          c0,25.553-7.011,47.095-15.677,47.095

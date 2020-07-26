@@ -117,14 +117,13 @@
 			<!-- ViewPort por defecto. No lo elimines. Hará tu vida más simple y feliz. -->
 			<div id="mui-viewport" class="mui-viewport">
 
+				<start-page-component></start-page-component>
 				<login-page-component></login-page-component>
 
-                <home-page-component :chefboolean=this.esChef
-									 v-on:cargar-plato="cargarDish">
-				</home-page-component>
+                <home-page-component :chefboolean=this.esChef v-on:cargar-plato="cargarDish"></home-page-component>
 
 
-                <product-page-component></product-page-component>
+               <!-- <product-page-component></product-page-component>-->
 
 
 
@@ -167,3 +166,9 @@
 
 <script type="text/javascript" src="js/output.js"></script>
 </html>
+<script>
+	import StartPageComponent from "../resources/js/components/pagesComponents/startPage/startPageComponent";
+	export default {
+		components: {StartPageComponent}
+	}
+</script>
