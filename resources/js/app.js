@@ -23,7 +23,7 @@ const store = new Vuex.Store({
             state.count++
         },
         addCarrito(state, payload) {
-            state.carrito.push(payload.item);
+            state.carrito.push(payload.dish);
         },
         removeCarrito(state, payload) {
             //not so efficent but it is smol so its ok, i wanted to keep same array on fear of reactivity

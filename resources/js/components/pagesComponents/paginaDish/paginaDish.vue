@@ -136,6 +136,12 @@
             },
             addToCarrito() {
                 this.$store.commit('addCarrito', {dish: this.dish});
+                new Noty({
+                    type: "success",
+                    text: "<strong style='color: whitesmoke !important;'>Plato Ingresado al Carrito </strong><br>",
+                    progressBar: true,
+                    timeout: 1500,
+                }).show();
             },
             forceRerender() {
                 this.componentKey2 += 1;
@@ -155,10 +161,9 @@
         created() {
 
                 eventBus.$on('call-dish-page', function ($id, $user) {
-                    alert($id);
                     this.user = $user;
                     axios.get('api/platos/' + $id).then(response => {
-                        this.dish = response.data.dish;
+                        this.dish = response.data;
                         mui.viewport.showPage('dish-page')
                     });
 
