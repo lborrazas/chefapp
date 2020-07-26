@@ -277,6 +277,15 @@ unsus{
     border-bottom: 1px solid #b8180d !important;
     color: #fff;
 }
+
+
+.noty_theme__mint.noty_type__success {
+    background-color: #e5bf32  !important;
+    border-bottom: 1px solid #e5bf32 !important;
+    color: #fff;
+}
+
+
 .weekdish {
     background-color: #99999924;
     border-radius: 5%;

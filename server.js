@@ -58,7 +58,9 @@ redisClient.on('error', (err) => {
         }
 
         let user = await db.getUser(null, filters);
-
+        if(!user){
+            res.status('400').json({message: "usuario no encontrado"});
+        }
         if (user.password == req.body.password) {
             req.session.key = req.body.email;
             req.session.user = user;
@@ -66,7 +68,7 @@ redisClient.on('error', (err) => {
         } else {
             req.session.key = req.body.email;
             console.log(req.session);
-            res.end('failure');
+            res.status('400').json({message: "los datos no son validos"});
         }
 
     });
