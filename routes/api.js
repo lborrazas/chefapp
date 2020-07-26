@@ -57,7 +57,7 @@ router.use(function timeLog(req, res, next) {
         }
     });
 
-    router.get('/platos/2', async (req, res) => {
+    router.get('/platos/main/call', async (req, res) => {
         try {
             let arrCat = [];
             let categorias = await db.getCategorias();
