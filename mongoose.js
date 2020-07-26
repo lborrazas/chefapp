@@ -128,12 +128,18 @@ module.exports.getPlatos = async function (id, filters) {
     return result;
 };
 module.exports.getPlatosByCategory = async function (filters) {
-    let platos = Plato.find(filters,'photo').limit(10);
-    for(plato in platos) {
-        let chef = Usuario.findOne({type:'chef', platos: plato._id},'photo');
-        plato['id_chef'] = chef._id;
-        plato['photo_chef'] = chef.photo;
-    }
+    let platos = await Plato.find(filters, 'photo').limit(10);
+    platos = await platos.map(async plato => {
+        plato = plato.toObject();
+        let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'photo');
+
+        plato.chef = {
+            id: chef._id,
+            photo: chef.photo
+        };
+        return plato;
+    });
+    platos = await Promise.all(platos);
     return platos;
 }
 module.exports.getPlatosLimit = async function (filters, limit) {

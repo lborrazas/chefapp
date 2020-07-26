@@ -54,7 +54,7 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/2', async (req, res) => {
         let arrCat = [];
         let categorias = await db.getCategorias();
-        for(cat in categorias) {
+        for(cat of categorias) {
             let obj = {
                 name: cat.name,
                 dishes: await db.getPlatosByCategory({categorias: cat.name})
@@ -77,6 +77,8 @@ router.use(function timeLog(req, res, next) {
             dishes: await db.getPlatosByCategory({paraCeliacos: true})
         }
         arrCat.push(others);
+        //console.log(arrCat);
+        
         res.send(arrCat);
         res.end();
     });
@@ -97,9 +99,7 @@ router.use(function timeLog(req, res, next) {
     // });
     // router.get('/platosporidchef/:id', async (req, res) => {
     //     let collection = 'platos';
-
     //     let platos = await db.getbyIdChef(client, database, collection, req.params.id);
-
     //     res.send(platos);
     //     res.end();
     // });
