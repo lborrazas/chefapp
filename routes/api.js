@@ -4,8 +4,8 @@ const router = express.Router();
 
 router.use(function timeLog(req, res, next) {
     if (req.session.user == undefined) {
-        res.status(400)
-        res.end('CUAL HACE')
+        res.status(400);
+        res.end('CUAL HACE');
     }
     next();
 });
@@ -20,7 +20,7 @@ router.use(function timeLog(req, res, next) {
             if (data === null) {
                 res.status(400).end();
             }
-            res.send(data);
+            res.send({ data: data });
             res.end();
 
         } catch (err) {
@@ -29,60 +29,62 @@ router.use(function timeLog(req, res, next) {
         }
     });
     router.put('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
-       try{ let review= {
-           userId: req.session.user._id,
-           resena: req.body.rese,
+        try {
+            let review = {
+                userId: req.session.user._id,
+                resena: req.body.rese,
 
-           nombre: req.session.user.user,
+                nombre: req.session.user.user,
             }
-            await db.insertReviewChef(req.params.idchef,review)
+            await db.insertReviewChef(req.params.idchef, review)
 
-           res.status(200).end();
-        }   catch (e) {
+            res.status(200).end();
+        } catch (e) {
 
-           res.status(400).end();
-       }
+            res.status(400).end();
+        }
     }); router.put('/resena/:idplato', async (req, res) => { /// -------------------------------- aca estuvo junaito
-       try{ let review= {
-           userId: req.session.user._id,
-           resena: req.body.rese,
-           nombre: req.session.user.user,
+        try {
+            let review = {
+                userId: req.session.user._id,
+                resena: req.body.rese,
+                nombre: req.session.user.user,
             }
-            await db.insertReviewPlato(req.params.idplato,review)
+            await db.insertReviewPlato(req.params.idplato, review)
 
-           res.status(200).end();
-        }   catch (e) {
+            res.status(200).end();
+        } catch (e) {
 
-           res.status(400).end();
-       }
+            res.status(400).end();
+        }
     });
-    router.get('/user/semanalesbool',async (req,res) =>{ // --------------- juan estuvo aca tambien
-           try {
-               let varbool=false
+    router.get('/user/semanalesbool', async (req, res) => { // --------------- juan estuvo aca tambien
+        try {
+            let varbool = false
 
-               let retorno =  await db.getPlatos(req.session.user._id,null)
-               console.log(".--------------------------------------------------------------.")
-               retorno = await db.getPlato(null,{esDeSemana:true, _id:{$in:retorno.platos}})
-               console.log(retorno)
+            let retorno = await db.getPlatos(req.session.user._id, null)
+            console.log(".--------------------------------------------------------------.")
+            retorno = await db.getPlato(null, { esDeSemana: true, _id: { $in: retorno.platos } })
+            console.log(retorno)
 
-               if (!retorno) {
-                   varbool = false;
-               } else {
-                   varbool = true;
-               }
-               console.log(varbool)
-               res.send(varbool)
-               res.status(200).end();
-           }catch (e) {
-               console.log(err);
-               res.status(400).end();
-           }
-       })
+            if (!retorno) {
+                varbool = false;
+            } else {
+                varbool = true;
+            }
+            console.log(varbool)
+            res.send({ data: varbool })
+            res.status(200).end();
+        } catch (e) {
+            console.log(err);
+            res.status(400).end();
+        }
+    })
 
     router.get('/users/:id', async (req, res) => { //para el prfile de otro
         try {
             let data = await db.getUser(req.params.id, null);
-            res.send(data);
+            res.send({ data: data });
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -93,7 +95,7 @@ router.use(function timeLog(req, res, next) {
     router.get('/profile', async (req, res) => {
         try {
             let data = await db.getUser(req.session.user._id, null);
-            res.send(data);
+            res.send({ data: data });
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -122,6 +124,11 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/main/call', async (req, res) => {
         try {
             let arrCat = [];
+            let others = {
+                name: 'Platos Destacados',
+                dishes: await db.getDestacados()
+            }
+            arrCat.push(others);
             let categorias = await db.getCategorias();
             for (cat of categorias) {
                 let obj = {
@@ -130,7 +137,7 @@ router.use(function timeLog(req, res, next) {
                 }
                 arrCat.push(obj);
             }
-            let others = {
+            others = {
                 name: 'Vegetariana',
                 dishes: await db.getPlatosByCategory({ paraVegetarianos: true })
             }
@@ -145,7 +152,9 @@ router.use(function timeLog(req, res, next) {
                 dishes: await db.getPlatosByCategory({ paraCeliacos: true })
             }
             arrCat.push(others);
-            res.send(arrCat);
+
+
+            res.send({ data: arrCat });
             res.end();
         } catch (err) {
             console.log(err);
@@ -156,7 +165,7 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/chef/:id', async (req, res) => {  // juan aca otra vez le saque el id y se lo cambie por el res
         try {
             let platos = await db.getPlatos(req.params.id, null);
-            res.send(platos);
+            res.send({ data: platos });
             res.end();
         } catch (err) {
             console.log(err);
@@ -166,7 +175,7 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/mios', async (req, res) => {  // juan aca otra vez le saque el id y se lo cambie por el res
         try {
             let platos = await db.getPlatos(req.session.user._id, null);
-            res.send(platos);
+            res.send({ data: platos });
             res.end();
         } catch (err) {
             console.log(err);
@@ -190,9 +199,8 @@ router.use(function timeLog(req, res, next) {
     router.get('/platos/:id', async (req, res) => {
         try {
             let platos = await db.getPlato(req.params.id);
-            res.send(platos);
+            res.send({ data: platos });
             res.end();
-
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' });
@@ -202,7 +210,7 @@ router.use(function timeLog(req, res, next) {
 
         try {
             let platos = await db.getSemanales(client, database, collection);
-            res.send(platos);
+            res.send({ data: platos });
             res.end();
         } catch (err) {
             console.log(err);
@@ -246,7 +254,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let collection = 'usuarios';
             let nombre = await db.getuserByID(client, database, collection, req.params.id);
-            res.send(nombre)
+            res.send({ data: nombre })
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -266,7 +274,7 @@ router.use(function timeLog(req, res, next) {
                 varbool = true;
             }
             console.log(varbool)
-            res.send(varbool)
+            res.send({ data: varbool })
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -278,7 +286,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let collection = 'usuarios';
             let nombre = await db.getuserByID(client, database, collection, req.params.id);
-            res.send(nombre)
+            res.send({ data: nombre });
             res.status(200).end();
         } catch (err) {
             console.log(err);
@@ -319,28 +327,28 @@ router.use(function timeLog(req, res, next) {
         }
     });
     //TODO - Reviasr
-    router.post('/subscribe/:id', async (req, res) => {
-        try {
-            let collection = 'subscipciones';
-            await db.insertSubscripcion(client, database, collection, req.body, req.params.id);
-            res.status(200).end();
-        } catch (err) {
-            console.log(err);
-            res.status(400).json({ message: 'Error del servidor' })
-        }
-    });
-    //TODO - Reviasr
-    router.post('/unsubscribe/:id', async (req, res) => {
-        try {
-            console.log(req)
-            let collection = 'subscipciones';
-            await db.delateSubscripcion(client, database, collection, req.body, req.params.id);
-            res.status(200).end();
-        } catch (err) {
-            console.log(err);
-            res.status(400).json({ message: 'Error del servidor' })
-        }
-    });
+    // router.post('/subscribe/:id', async (req, res) => {
+    //     try {
+    //         let collection = 'subscipciones';
+    //         await db.insertSubscripcion(client, database, collection, req.body, req.params.id);
+    //         res.status(200).end();
+    //     } catch (err) {
+    //         console.log(err);
+    //         res.status(400).json({ message: 'Error del servidor' })
+    //     }
+    // });
+    // //TODO - Reviasr
+    // router.post('/unsubscribe/:id', async (req, res) => {
+    //     try {
+    //         console.log(req)
+    //         let collection = 'subscipciones';
+    //         await db.delateSubscripcion(client, database, collection, req.body, req.params.id);
+    //         res.status(200).end();
+    //     } catch (err) {
+    //         console.log(err);
+    //         res.status(400).json({ message: 'Error del servidor' })
+    //     }
+    // });
 
     router.delete('/platos', async (req, res) => {
         let collection = 'platos';
@@ -364,7 +372,7 @@ router.use(function timeLog(req, res, next) {
             if (destacados == null) {
                 res.status(400).json({ message: 'No se han encontrado platos' })
             }
-            res.send(destacados);
+            res.send({ data: destacados });
             res.end();
         } catch (err) {
             console.log(err);
@@ -396,8 +404,14 @@ router.use(function timeLog(req, res, next) {
         }
     });
     //TODO - Corregir
-    router.post('/pedido/:id', async (req, res) => {
+    router.post('/pedido', async (req, res) => {
         try {
+            let user = req.session.user;
+            let pedido = req.body;
+            pedido.user = {
+                id: user._id,
+                name: user.name
+            }
             await db.insertPedido(req.body)
             res.status(200).end();
 
@@ -430,7 +444,7 @@ router.use(function timeLog(req, res, next) {
     router.get('/categoria', async (req, res) => {
         try {
             let data = await db.getCategorias();
-            res.send(data);
+            res.send({ data: data });
             res.end();
         } catch (err) {
             console.log(err);

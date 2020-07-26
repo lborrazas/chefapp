@@ -6,7 +6,7 @@
                 <div v-if="carrito.length===0">Carrito vacio</div>
                 <div v-else>
                     <div style="overflow: auto">
-                        <div v-for="dish in carrito" :id=dish._id> {{dish.name}} - {{dish.precio}} $</div>
+                        <div v-for="dish in carrito" :id=dish._id> {{dish.name}} - {{dish.price}} $</div>
                     </div>
 
                     <div class="flex-container">
@@ -46,7 +46,7 @@
             total(){
                 let $total = 0;
                 if(this.carrito.length > 0)
-                    $total = this.$store.state.carrito.map(item => item.precio).reduce((prev, next) => prev + next);
+                    $total = this.$store.state.carrito.map(item => item.price).reduce((prev, next) => prev + next);
                 return $total;
             },
             carrito(){

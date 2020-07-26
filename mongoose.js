@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
 
 const PlatoSchema = new Schema({
     name: String,
-    precio: Number,
+    price: Number,
     esDeSemana: Boolean,
     paraCeliacos: { type: Boolean, default: false },
     paraVeganos: { type: Boolean, default: false },
@@ -55,7 +55,7 @@ const UsuarioSchema = new Schema({
 });
 
 const PedidoSchema = new Schema({
-    usuario: {
+    user: {
         id: String,
         name: String
     },
@@ -192,7 +192,7 @@ module.exports.getUser = async function (id, filters) {
     if (id) {
         result = await Usuario.findById(id,'-password');
     } else {
-        result = await Usuario.findOne(filters,'-password');
+        result = await Usuario.findOne(filters);
     }
     return result;
 };
@@ -245,7 +245,7 @@ module.exports.getReviewsPlato = async function (id) {
 //Pedidos
 
 module.exports.insertPedido = async function (data) {
-    let id_user = data.usuario.id;
+    let id_user = data.user.id;
     let pedido = new Pedido(data);
     await pedido.save();
     await Usuario.updateOne({ _id: id_user }, {
@@ -280,25 +280,29 @@ module.exports.insertDestacado = async function (id) {
     return null;
 }
 module.exports.getDestacados = async function () {
-    let id_destacados =  Destacado.find();
+    let id_destacados =  await Destacado.find();
+    console.log(id_destacados);
+
     let arr = []
     for(e of id_destacados) {
         arr.push(e.id);
     }
 
-    let platos = Plato.find({
+    let platos = await Plato.find({
         _id: {
             $in: arr
         }
-    });
-
+    }, 'photo');
     platos = await platos.map(async plato => {
+        console.log(plato);
+
         plato = plato.toObject();
         let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
 
         plato.chef = {
             id: chef._id,
             name: chef.name,
+            photo: chef.photo
         };
         return plato;
     });

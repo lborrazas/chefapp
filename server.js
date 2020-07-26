@@ -24,7 +24,9 @@ redisClient.on('error', (err) => {
 (async function () {
     let httpPort = process.env.APP_PORT;
 
-    app.use(urlencodedParser)
+    app.use(urlencodedParser);
+    app.use(bodyParser.json({ limit: '100mb' }));
+
 
     app.use(express.static(path.join(__dirname, 'www')))
 
@@ -54,22 +56,16 @@ redisClient.on('error', (err) => {
         let filters = {
             email: req.body.email
         }
+
         let user = await db.getUser(null, filters);
         if(!user){
             res.status('400').json({message: "usuario no encontrado"});
         }
-        console.log(req.body.password);
-        console.log(user);
-        console.log(user.password)
-        console.log((String(req.body.password)));
         if (user.password == req.body.password) {
-            console.log('si')
             req.session.key = req.body.email;
             req.session.user = user;
-            console.log(req.session);
             res.end('done');
         } else {
-            console.log('no')
             req.session.key = req.body.email;
             console.log(req.session);
             res.status('400').json({message: "los datos no son validos"});
@@ -78,10 +74,10 @@ redisClient.on('error', (err) => {
     });
 
     app.get('/checksession', function (req, res) {
-        if(req.session.user){
-            res.json({bool: true});
-        }else{
-            res.json({bool: false});
+        if (req.session.user) {
+            res.json({ bool: true });
+        } else {
+            res.json({ bool: false });
         }
     })
 
@@ -107,7 +103,7 @@ redisClient.on('error', (err) => {
     app.get('/users/:id', async (req, res) => {
         try {
             let goback = await db.getUser(req.params.id, null);
-            res.send(goback)
+            res.send({ data: goback })
             res.status(200).end();
         } catch (err) {
             console.log(err);

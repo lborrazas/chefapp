@@ -163,7 +163,7 @@
                 eventBus.$on('call-dish-page', function ($id, $user) {
                     this.user = $user;
                     axios.get('api/platos/' + $id).then(response => {
-                        this.dish = response.data;
+                        this.dish = response.data.data;
                         mui.viewport.showPage('dish-page')
                     });
 
