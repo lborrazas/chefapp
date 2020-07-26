@@ -124,16 +124,14 @@
 
                <!-- <product-page-component></product-page-component>-->
 
-              <!--  <chef-page-component></chef-page-component>-->
+				<profile-page-component  ></profile-page-component>
+
 				<dish-page-component :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef"    v-on:addcarrito="agregaracarrito"></dish-page-component>
-				<profile-page-component v-on:cargar-plato-week="cargarforweek"  ></profile-page-component>
 				<createdish-page-component o></createdish-page-component>
 
 
-				<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario v-on:cargar-plato-week="cargarforweek"></chef-option-page-component>
-
-
-				<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario ></chef-option-page-component>
+				<!--<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario v-on:cargar-plato-week="cargarforweek"></chef-option-page-component> -->
+		<!--		<chef-option-page-component ></chef-option-page-component>-->
                 <forgot-page-component></forgot-page-component>
 				<weekdish-page-component :platoides=this.platoide :idchef=this.idUsuario  v-on:subio-semanales="this.subioSemanal=true" ref="weepage"></weekdish-page-component>
                 <register-page-component></register-page-component>

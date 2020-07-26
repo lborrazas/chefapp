@@ -135,19 +135,26 @@
     border: 0px;
     border-radius: 5px;
 }
-#subirsemanales{  background-color: #ffcfc3;
+
+#realtiveDiv{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#subirsemanales{
+    color: whitesmoke;
     position: absolute;
-    right:50px;
-    top: 10px;
+    background-color: darkred;
     height: 30px;
-    max-width: 30.5px;
     min-width: 30.5px;
     background-size:contain;
     background-repeat: no-repeat;
-    margin: 0px;
-    padding:0px;
-    border: 0px;
+    margin: 5%;
     border-radius: 5px;
+    bottom: 0;
+    left: 0;
+
 }
 .popuHold{
     height:95%;
