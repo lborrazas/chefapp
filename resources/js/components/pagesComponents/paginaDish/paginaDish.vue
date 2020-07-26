@@ -8,22 +8,22 @@
 
                     <span class="profile-1half">
                         <div class="item-header-main">
-                            <div>Platos reservados:{{parseInt(elplatito.reserved)}} / {{parseInt(elplatito.cantidad)}}</div>
+                            <div>Platos reservados:{{parseInt(dish.reservado)}} / {{parseInt(dish.cantidad)}}</div>
                             <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
                         "><div style="background-color:darkred;border-radius: 10px; height:100%"
                                :style="'width:'+pintar+'%'"></div></div>
                         </div>
-                        <div class="item-header-main"> {{elplatito.name}}</div>
-                        <div class="item-header-secondary">{{elplatito.descipcion}}
+                        <div class="item-header-main"> {{dish.name}}</div>
+                        <div class="item-header-secondary">{{dish.descipcion}}
                     </div></span>
                     <span class="profile-2half">
-                        <div class="flex-container profilecont" @click="irperfil"><div class="item-header-main">Perfil del chef:<div>{{this.chefname}}</div></div></div>
-                        <div id="profile-photo" :style="'background-image:url('+elplatito.photo+')'"></div>
+                        <div class="flex-container profilecont" @click="irperfil"><div class="item-header-main">Perfil del chef:<div>{{this.dish.chefname}}</div></div></div>
+                        <div id="profile-photo" :style="'background-image:url('+dish.photo+')'"></div>
                         <div id="price" class="flex-container">
                             <div id="coinimage" class="img-container">
                             </div>
                             <div>
-                                {{(parseInt(this.elplatito.precio))}}$
+                                {{(parseInt(this.dish.precio))}}$
                             </div>
 
                         </div>
@@ -97,15 +97,19 @@
             'modal-two': UiModal,
             'button-keen': UiButton,
         },
+        props: {
+        },
         data() {
+
+
             return {
-                chef: {},
+
                 dish: {},
-                carga: 0,
-                resenia: "",
-                alreadyVoted: false,
-                reviews: null,
-                iddelchef: "",
+                carga: 0, //queda
+                resenia: "",//queda
+                alreadyVoted: false, //porverse
+                reviews: null, //por
+
 
                 componentKey2: 0,
 
@@ -113,63 +117,52 @@
         },
         methods: {
             openModel() {
-                if (this.visitante != this.elplatito.chef) {
                     this.$refs['modal-add-reseña-plato'].open()
-                }
+
             },
             mandarResenaPlato() {
-                axios.get("/api/usuarios/name/" + this.visitante).then(response => {
-                    response.data[0].user
-
-                    console.log("mandando")
-                    let contenido = {
+                  /*  let contenido = {
                         "iduser": this.visitante,
                         "idplato": this.elplatito._id,
                         "rese": this.resenia,
                         "nombre": response.data[0].user
-                    }
+                    }*/
                     this.$refs['modal-add-reseña-plato'].close()
                     axios.put('/api/resena/plato', contenido)
-                })
+
             },
             irperfil() {
-               this.$emit('irperfil', this.elplatito.chef)
+               this.$emit('irperfil', this.dish.idchef)
                     muiChangePageEvent('profile-page')
 
             },
             addToCarrito() {
-                this.$store.commit('addCarrito', {dish: this.elplatito});
+                this.$store.commit('addCarrito', {dish: this.dish});
             },
             forceRerender() {
                 this.componentKey2 += 1;
             },
         },
-        props: { //  <-- fijate cuales se van
-            elplatito: {},
-            chefname: {},
-            visitante: "",
-            reviewsdish: {}
 
-        },
         computed: {
             pintar() {
-                return this.carga = (100 * parseInt(this.elplatito.reserved)) / parseInt(this.elplatito.cantidad)
+                return this.carga = (100 * parseInt(this.dish.reserved)) / parseInt(this.dish.cantidad)
             },
             load() {
                 this.alreadyVoted = false
                 this.reviews = null
-                this.iddelchef = this.elplatito.chef
+                this.iddelchef = this.dish.chef
             }
         },
         created() {
 
-            eventBus.$on('call-dish-page', function ($id, $user) {
-                alert($id);
-                this.user = $user;
-                axios.get('api/users/' + $id).then(response => {
-                    this.dish = response.data.dish;
-                    mui.viewport.showPage('dish-page')
-                });
+                eventBus.$on('call-dish-page', function ($id, $user) {
+                    alert($id);
+                    this.user = $user;
+                    axios.get('api/platos/' + $id).then(response => {
+                        this.dish = response.data.dish;
+                        mui.viewport.showPage('dish-page')
+                    });
 
             }.bind(this));
         }

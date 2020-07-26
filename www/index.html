@@ -126,11 +126,14 @@
 
                 <chef-page-component></chef-page-component>
 				<dish-page-component :reviewsdish=this.elplatoreviews :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef" v-on:irperfil="goprofile"   v-on:addcarrito="agregaracarrito"></dish-page-component>
-				<profile-page-component :subscibed=this.estasubscrito :reviewsprofile=this.leprofilereviews :visita= this.idUsuario :datosprofile="this.leprofile"></profile-page-component>
-				<createdish-page-component :idchef=this.idUsuario></createdish-page-component>
+				<profile-page-component v-on:cargar-plato-week="cargarforweek"  ></profile-page-component>
+				<createdish-page-component o></createdish-page-component>
 
 
 				<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario v-on:cargar-plato-week="cargarforweek"></chef-option-page-component>
+
+
+				<chef-option-page-component :semanalbool=this.subioSemanal :idchef=this.idUsuario ></chef-option-page-component>
                 <forgot-page-component></forgot-page-component>
 				<weekdish-page-component :platoides=this.platoide :idchef=this.idUsuario  v-on:subio-semanales="this.subioSemanal=true" ref="weepage"></weekdish-page-component>
                 <register-page-component></register-page-component>

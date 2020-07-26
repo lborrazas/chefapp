@@ -5,7 +5,7 @@ window.Noty = require('noty');
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/mint.css';
 
-import Vuex from 'vuex'
+import Vuex from 'Vuex'
 
 Vue.use(Vuex)
 
@@ -71,21 +71,6 @@ const app = new Vue({
     data: {},
     methods: {
 
-        goprofile(calveChef) {
-
-            axios.get('api/profile/review/' + calveChef).then($response => {
-                console.log($response.data)
-                this.leprofilereviews = $response.data
-            })
-            axios.get('api/profile/' + calveChef).then($response => {
-                this.leprofile = $response.data[0]
-                axios.get('api/issubscibed/' + this.leprofile._id + "/" + this.idUsuario).then($response => {
-                    console.log($response)
-                    this.estasubscrito = $response.data
-
-                })
-            })
-        },
         cargarDish(clave) {
             axios.get('api/dishes/' + clave).then($response => {
                 this.elplato = $response.data[0]
@@ -101,10 +86,10 @@ const app = new Vue({
             })
         },
         cargarforweek(args) {
-
             let auxiliar = null
-            axios.get("/api/platosporidchef/" + args).then(response => {
+            axios.get("/api/platos/chef/:id" ).then(response => {
                 this.platoide = response.data
+                mui.viewport.showPage('week-page',"NONE")
             })
         }
     },

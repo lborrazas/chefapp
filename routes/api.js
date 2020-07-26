@@ -28,9 +28,56 @@ router.use(function timeLog(req, res, next) {
             res.status(400).json({ message: 'Error del servidor' });
         }
     });
-    router.get('/users/:id', async (req, res) => {
+    router.post('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
+       try{ let review= {
+           userId: req.session.user._id,
+           resena: req.body,
+           nombre: req.session.user.user,
+            }
+            await db.insertReviewChef(req.params.idchef,review)
+
+           res.status(200).end();
+        }   catch (e) {
+
+           res.status(400).end();
+       }
+    })
+    router.get('/user/semanalesbool',async (req,res) =>{ // --------------- juan estuvo aca tambien
+           try {
+               let varbool=false
+
+               let retorno =  await db.getPlatos(req.session.user._id,null)
+               console.log(retorno)
+               console.log(".--------------------------------------------------------------.")
+               retorno = await db.getPlato(null,{esDeSemana:true, _id:{$in:retorno.platos}})
+               console.log(retorno)
+
+               if (!retorno[0]) {
+                   varbool = false;
+               } else {
+                   varbool = true;
+               }
+               res.status(200).end();
+           }catch (e) {
+               console.log(err);
+               res.status(400).end();
+           }
+       })
+
+    router.get('/users/:id', async (req, res) => { //para el prfile de otro
         try {
             let data = await db.getUser(req.params.id, null);
+            res.send(data);
+            res.status(200).end();
+        } catch (err) {
+            console.log(err);
+            res.status(400).end();
+        }
+
+    });
+    router.get('/profile', async (req, res) => { //para el profile dee uno mismo
+        try {
+            let data = await db.getUser(req.session.user._id, null);
             res.send(data);
             res.status(200).end();
         } catch (err) {

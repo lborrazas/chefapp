@@ -8,7 +8,7 @@
             <div class="panel-item">
                 <i class="fa fa-home"></i> Home Page
             </div>
-            <div class="panel-item">
+            <div class="panel-item" @click="cargarPerfil">
                 <i class="fa fa-user"></i>  Mi Perfil
             </div>
             <div class="panel-item">
@@ -44,8 +44,16 @@
 </template>
 
 <script>
+    import muiChangePageEvent from "../functions/muiChangePageEvent";
+
     export default {
-        name: "muiPanelComponent"
+        name: "muiPanelComponent",
+        methods:{
+            cargarPerfil(){
+                alert("salego")
+                eventBus.$emit('open-profile-page-4-panel')
+            }
+        }
     }
 </script>
 
