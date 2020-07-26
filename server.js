@@ -54,8 +54,7 @@ redisClient.on('error', (err) => {
         let filters = {
             email: req.body.email
         }
-        let user = await db.getUser(null, filters); //TODO LOGIN WIHT UNREgistered USer WILL LAST 2 MINS OF PENDING
-           console.log(user)
+        let user = await db.getUser(null, filters);
         console.log(req.body.password);
         console.log(user.password)
         console.log((String(req.body.password)));

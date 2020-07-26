@@ -158,18 +158,12 @@
             }
         },
         created() {
-            /*  console.log(this.subscibed)
-              {
-                  if (this.subscibed) {
-                      document.getElementById("subscrito").classList.remove("unsus")
-                      document.getElementById("subscrito").classList.add("sus")
-                      this.subscribirse = "Subscrito"
-                  } else {
-                      document.getElementById("subscrito").classList.remove("sus")
-                      document.getElementById("subscrito").classList.add("unsus")
-                      this.subscribirse = "Subscribirse"
-                  }
-              }*/
+            eventBus.$on('call-chef-page', function ($id) {
+                axios.get('api/users/' + $id).then(response => {
+                    this.chef = response.data.chef;
+                });
+                mui.viewport.showPage('profile-page')
+            }.bind(this));
         },
 
         computed: {
@@ -185,7 +179,7 @@
                      this.subscribirse = "Subscribirse"
                  }
              }*/
-        }
+        },
 
     }
 </script>

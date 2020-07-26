@@ -6,8 +6,11 @@
 
             <!--<button @click="evento">APRETAME PARA PROBAR</button>-->
 
+
+
             <!-- Main -->
             <div id="main">
+                <main-slider></main-slider>
                 <div class="for-sticky">
                     <div  class="horizontal-container">
                         <div class="horizontal-content" >
@@ -207,6 +210,7 @@
 
 <script>
     import pageComponent from "../../pageComponent.vue";
+    import mainSlider from "../../coreComponents/mainSlider.vue";
     import muiChangePageEvent from "../../../functions/muiChangePageEvent";
 
     export default {
@@ -223,6 +227,7 @@
         },
         components: {
             'page-template': pageComponent,
+            'main-slider' : mainSlider,
         },
         created() {
             console.log("entro a crear")

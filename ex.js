@@ -16,14 +16,30 @@ const db = require('./mongoose');
         platos: [],
         suscriptores: 0
     }
+    let categoria1 = {
+        name: 'Mexicana'
+    }    
+    let categoria2 = {
+        name: 'Sea Food'
+    }    
+    let categoria3 = {
+        name: 'Mexicana'
+    }
+    // let categorias = [categoria1,categoria2,categoria3];
+    // for(l of categorias){
+    //     console.log(l);
+        
+    //     await db.insertCategoria(l);
+    // }
     let data = {
-        name: 'Arroz',
+        name: 'Elotes',
         precio: 10,
         esDeSemana: true,
-        paraCeliacos: true,
+        paraCeliacos: false,
         paraVeganos: true,
-        paraVegetarianos: true,
-        descripcion: 'Arroz',
+        paraVegetarianos: false,
+        categorias: ['Mexicana'],
+        descripcion: 'Es un elote',
         reviews: [],
         cantidad: 1,
         reservados: 0,
@@ -33,9 +49,9 @@ const db = require('./mongoose');
     await db.savePlato('Pepe@abc.com', data);
     await db.getPlatos('5f1c88e440305112a01d0f8d');
 
-    let data2 = {
-        descripcion: 'Esto esta updateado'
-    }
-    await db.updateUser('5f1bb0dff94a41313c94e4ed', data2)
-    console.log('Fin');
+    // let data2 = {
+    //     descripcion: 'Esto esta updateado'
+    // }
+    // await db.updateUser('5f1bb0dff94a41313c94e4ed', data2)
+    // console.log('Fin');
 })()
