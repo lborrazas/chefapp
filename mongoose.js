@@ -26,8 +26,9 @@ const PlatoSchema = new Schema({
     descripcion: String,
     reviews: Array,
     cantidad: Number,
-    reservados: Number,
+    reservados: { type: Number, default: 0 },
     photo: String,
+    favs: Number
 }, {
     versionKey: false
 });
@@ -48,7 +49,8 @@ const UsuarioSchema = new Schema({
     reviews: Array,
     platos: [String],
     suscriptores: Number,
-    status: String
+    status: String,
+    favs: Array
 
 }, {
     versionKey: false
@@ -149,10 +151,38 @@ module.exports.getPlato = async function (id) {
     return result;
 };
 
-module.exports.updatePlato=async  function f(id,data)  { // te habia faltado esta -- Your fiendly neitgboor Spider-man
+module.exports.updatePlato = async function f(id, data) { // te habia faltado esta -- Your fiendly neitgboor Spider-man
     let result = await Plato.updateOne({ _id: id }, data);
     return result;
+}
 
+module.exports.getRecomendados = async function (plato) {
+    let cat_fuertes = {
+        esDeSemana: true,
+        paraCeliacos: plato.paraCeliacos,
+        paraVeganos: plato.paraVeganos,
+        paraVegetarianos: plato.paraVegetarianos
+    }
+    let categorias = plato.categorias;
+    cat_fuertes.categorias = {
+        $in: categorias
+    }
+
+    let recomendados = await Plato.find(cat_fuertes, '_id photo').sort({ favs: -1 }).limit(3);
+
+    recomendados = await recomendados.map(async plato => {
+        plato = plato.toObject();
+        let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
+
+        plato.chef = {
+            id: chef._id,
+            name: chef.name,
+            photo: chef.photo
+        };
+        return plato;
+    });
+    platos = await Promise.all(platos);
+    return platos;
 }
 
 
@@ -177,26 +207,26 @@ module.exports.insertUser = async function (user) {
 }
 
 module.exports.getUsers = async function (type) {
-    let result = await Usuario.find({ type: type },'-password');
+    let result = await Usuario.find({ type: type }, '-password');
     return result;
 };
 
 module.exports.getUser = async function (id, filters) {
     let result = null;
     if (id) {
-        result = await Usuario.findById(id,'-password');
+        result = await Usuario.findById(id, '-password');
     } else {
         result = await Usuario.findOne(filters);
     }
     return result;
 };
 
-module.exports.getUserWithPlatos = async function(id) {
+module.exports.getUserWithPlatos = async function (id) {
     let user = await Usuario.findById(id);
     let id_platos = user.platos;
 
     let platos = await Plato.find({
-        esDeSemana:true,
+        esDeSemana: true,
         _id: {
             $in: id_platos
         }
@@ -262,9 +292,55 @@ module.exports.insertPedido = async function (data) {
             pedidos: pedido._id
         }
     });
+
+    let platos = data.platos;
+
+    for (let plato of platos) {
+        await Plato.updateOne({ _id: plato._id },
+            {
+                $inc: {
+                    reservados: 1
+                }
+            })
+    }
 }
 module.exports.getPedidos = async function (id) {
-    let id_pedidos = Usuario.findOne({ _id: id }, 'pedidos');
+    let id_pedidos = await Usuario.findOne({ _id: id }, 'pedidos');
+    let pedidos = await Pedido.find({
+        _id: {
+            $in: id_pedidos.pedidos
+        }
+    });
+    return pedidos;
+}
+
+module.exports.getPedidosParaChef = async function (id) {
+    let id_platos = await Usuario.findOne({ _id: id }, 'platos');
+    let platos_semana = await Plato.find({
+        _id: {
+            $in: id_platos.platos
+        },
+        esDeSemana: true
+    }, '_id name photo');
+
+    for (let plato of platos_semana) {
+        let id = plato._id
+    }
+
+    platos_semana = await platos_semana.map(async plato => {
+        plato = plato.toObject();
+        let pedidos = await Pedido.find({
+            platos: plato._id
+        }, '_id user');
+
+        plato.pedidos = pedidos;
+        return plato;
+    });
+    platos = await Promise.all(platos);
+    return platos;
+
+
+
     let pedidos = Pedido.find({
         _id: {
             $in: id_pedidos.pedidos
@@ -289,10 +365,10 @@ module.exports.insertDestacado = async function (id) {
     return null;
 }
 module.exports.getDestacados = async function () {
-    let id_destacados =  await Destacado.find();
-    
+    let id_destacados = await Destacado.find();
+
     let arr = []
-    for(e of id_destacados) {
+    for (e of id_destacados) {
         arr.push(e.id);
     }
 
@@ -302,7 +378,7 @@ module.exports.getDestacados = async function () {
         }
     }, 'photo');
     platos = await platos.map(async plato => {
-        
+
         plato = plato.toObject();
         let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
 
@@ -332,4 +408,36 @@ module.exports.getCategorias = async function () {
 }
 module.exports.deleteCategoria = async function (id) {
     await Categoria.deleteOne({ _id: id });
+}
+
+
+// Favs
+
+module.exports.addFav = async function (userId, dishId) {
+    await Usuario.updateOne({ _id: userId },
+        {
+            $addToSet: {
+                favs: dishId
+            }
+        });
+    await Plato.findOneAndUpdate({ _id: dishId },
+        {
+            $inc: {
+                favs: 1
+            }
+        });
+}
+module.exports.deleteFav = async function (userId, dishId) {
+    await Usuario.updateOne({ _id: userId },
+        {
+            $pull: {
+                favs: dishId
+            }
+        });
+    await Plato.findOneAndUpdate({ _id: dishId },
+        {
+            $inc: {
+                favs: -1
+            }
+        });
 }

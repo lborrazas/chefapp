@@ -100,7 +100,7 @@ router.use(function timeLog(req, res, next) {
     router.put('/users/:id', async (req, res) => {
         try {
             await db.updateUser(req.params.id, req.body);
-            res.status(200).end();
+            res.status(200).json({ message: 'Usuario actualizado' });
         } catch (err) {
             console.log(err);
             res.status(400).end();
@@ -109,7 +109,7 @@ router.use(function timeLog(req, res, next) {
     router.delete('/users/:id', async (req, res) => {
         try {
             await db.deleteUser(req.params.id);
-            res.end();
+            res.status(200).json({ message: 'Usuario eliminado' });
         } catch (err) {
             console.log(err);
             res.status(400).end();
@@ -193,8 +193,9 @@ router.use(function timeLog(req, res, next) {
     // });
     router.get('/platos/:id', async (req, res) => {
         try {
-            let platos = await db.getPlato(req.params.id);
-            res.send({ data: platos });
+            let plato = await db.getPlato(req.params.id);
+            let recomendados = await db.getRecomendados(plato);
+            res.send({ data: { dish: plato } });
             res.end();
         } catch (err) {
             console.log(err);
@@ -220,7 +221,7 @@ router.use(function timeLog(req, res, next) {
             }
             await db.updatePlato(req.body.id, updateInfo) // aca estuvo juaniot
             // await db.updateUserSem(client, database, collection, req.params.id)
-            res.end();
+            res.status(200).json({ message: 'Plato actualizado' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' });
@@ -229,7 +230,7 @@ router.use(function timeLog(req, res, next) {
     router.post('/review/chef/:id', async (req, res) => {
         try {
             await db.insertReviewChef(req.params.id, req.body)
-            res.end();
+            res.status(200).json({ message: 'Reseña agregada' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
@@ -238,7 +239,7 @@ router.use(function timeLog(req, res, next) {
     router.post('/review/plato/:id', async (req, res) => {
         try {
             await db.insertReviewPlato(req.params.id, req.body)
-            res.end();
+            res.status(200).json({ message: 'Reseña agregada' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
@@ -313,7 +314,7 @@ router.use(function timeLog(req, res, next) {
     router.post('/platos', async (req, res) => {
         try {
             await db.savePlato(req.session.key, req.body);
-            res.status(200).end();
+            res.status(200).json({ message: 'Plato agregado' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
@@ -343,14 +344,15 @@ router.use(function timeLog(req, res, next) {
     //     }
     // });
 
-    router.delete('/platos', async (req, res) => {
+    router.delete('/platos/:id', async (req, res) => {
         let collection = 'platos';
         let updateInfo = {
             isDeleted: true
         };
         try {
-            await db.updatePlato(client, database, collection, req.query.id, updateInfo);
-            res.end();
+            // await db.updatePlato(client, database, collection, req.query.id, updateInfo);
+            await db.deletePlato(req.params.id)
+            res.status(200).json({ message: 'Plato eliminado' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
@@ -380,23 +382,23 @@ router.use(function timeLog(req, res, next) {
                 id: req.body.id
             };
             await db.insertDestacado(req.body.id);
-            res.end();
+            res.status(200).json({ message: 'Plato destacado agregado' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
         }
     });
     //TODO - Revisar
-    router.delete('/platos/destacados/', async (req, res) => {
+    router.delete('/platos/destacados/:id', async (req, res) => {
         try {
-            await db.deleteDestacado(client, database, collection, req.query.id);
-            res.end();
+            await db.deleteDestacado(req.params.id);
+            res.status(200).json({ message: 'Plato destacado eliminado' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
         }
     });
-    //TODO - Corregir
+    //TODO - Corregir ????
     router.post('/pedido', async (req, res) => {
         try {
             let user = req.session.user;
@@ -405,7 +407,34 @@ router.use(function timeLog(req, res, next) {
                 id: user._id,
                 name: user.name
             }
-            await db.insertPedido(req.body)
+            await db.insertPedido(pedido)
+            res.status(200).json({ message: 'Pedido completado' });
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' })
+        }
+    });
+
+    router.get('/pedido', async (req, res) => {
+        try {
+            let user = req.session.user._id;
+
+            let pedidos = await db.getPedidos(user);
+            res.send({ data: pedidos });
+            res.status(200).end();
+
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' })
+        }
+    });
+
+    router.get('/pedido/chef', async (req, res) => {
+        try {
+            let user = req.session.user._id;
+
+            let pedidos = await db.getPedidosParaChef(user);
+            res.send({ data: pedidos });
             res.status(200).end();
 
         } catch (err) {
@@ -418,7 +447,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let cat = req.body;
             await db.insertCategoria(cat);
-            res.end();
+            res.status(200).json({ message: 'Categoria agregada' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' });
@@ -428,7 +457,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let id = req.query.id;
             await db.deleteCategoria(id);
-            res.end();
+            res.status(200).json({ message: 'Categoria eliminada' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
@@ -442,6 +471,27 @@ router.use(function timeLog(req, res, next) {
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' })
+        }
+    });
+
+
+    router.post('/favs', async (req, res) => {
+        try {
+            await db.addFav(req.session._id, req.body.id);
+            res.status(200).json({ message: 'Plato marcado como favorito' });
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
+        }
+    });
+
+    router.delete('/favs/:id', async (req, res) => {
+        try {
+            await db.deleteFav(req.session._id, req.params.id);
+            res.status(200).json({ message: 'Plato desmarcado como favorito' });
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Error del servidor' });
         }
     });
 
