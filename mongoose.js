@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const database = 'chefsappv2';
 const dotenv = require('dotenv');
 dotenv.config();
-const url = process.env.DB_CONNECTION + database;
+const url = process.env.DB_CONNECTION + '/' + database;
 
 
 mongoose.Promise = global.Promise;
@@ -226,7 +226,6 @@ module.exports.getUserWithPlatos = async function (id) {
     let id_platos = user.platos;
 
     let platos = await Plato.find({
-        esDeSemana: true,
         _id: {
             $in: id_platos
         }
@@ -362,7 +361,8 @@ module.exports.deletePedido = async function (id, id_user) {
 //Destacados
 
 module.exports.insertDestacado = async function (id) {
-    return null;
+    let destacado = new Destacado({ id: id });
+    await destacado.save();
 }
 module.exports.getDestacados = async function () {
     let id_destacados = await Destacado.find();
