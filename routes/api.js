@@ -217,7 +217,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let platosNuevos = req.body.keys;
 
-            await db.updatePlatosSemanales(platosNuevos); // aca estuvo juaniot //Aca estuvo Mendi
+            await db.updatePlatosSemanales(req.session.user._id, platosNuevos); // aca estuvo juaniot //Aca estuvo Mendi
             res.status(200).json({ message: 'Platos semanales confirmados' });
         } catch (err) {
             console.log(err);
