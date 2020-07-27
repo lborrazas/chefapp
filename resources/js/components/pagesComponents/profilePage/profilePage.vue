@@ -52,18 +52,19 @@
                 </button>
                 <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
                 <div class="for-sticky">
-                    <div class="horizontal-container panel-chef">
-                        <div class="horizontal-content">
-
-                        </div>
-                        <div class="horizontal-content">
-
-                        </div>
-                        <div class="horizontal-content">
-
+                    <div  class="horizontal-container">
+                        <div   v-for="dish in chef.platos" v-if="dish.esDeSemana"  :key="dish._id" class="horizontal-content">
+                            <div class="circle">
+                                <div style="width: 100%; height: 100%;">
+                                    <img :src="chef.photo" alt="" style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%" >
+                                </div>
+                            </div>
+                            <div style="width: 100%; height: 100%;" @click="openDishPage(dish._id, chef._id)">
+                                <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;" >
+                            </div>
                         </div>
                     </div>
-                    <div class="content-title">Semanales</div>
+                    <div class="content-title" >Semanales </div>
                 </div>
             </div>
         </template>
@@ -105,10 +106,11 @@
                     mui.viewport.showPage('week-page')
                 }else{
                 alert("Ya se han declarado los platos semanales")
-            }
-
+                }
             },
-
+            openDishPage($id,$chef){
+                eventBus.$emit('call-dish-page', $id, $chef)
+            },
             mandarResena() {
 
                     let contenido = {"rese":this.reseña}

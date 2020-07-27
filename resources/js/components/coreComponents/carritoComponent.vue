@@ -65,7 +65,11 @@
             realizar_pedido(){
                 alert("compre")
                 let data = {platos: this.$store.state.carrito}
-                axios.post("/api/pedido",data)
+                axios.post("/api/pedido",data).then(
+                    response=>{
+                        this.$refs['creditoModal'].close
+                    }
+                )
             }
         },
         computed: {

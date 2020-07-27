@@ -147,7 +147,7 @@
         data() {
             return {
                 id: 'template-page',
-                lists: [],
+                lists:{},
 
             }
         },
