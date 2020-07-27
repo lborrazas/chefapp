@@ -51,7 +51,7 @@
         },
         created() {
             eventBus.$on('cargar-plato-week', function (dishes) {
-                dishes.forEach(dish => dish.cantidad = 0);
+                dishes.forEach((dish) => {dish.cantidad = 0; dish.esDeSemana = 0});
                 this.dishes = dishes;
                 mui.viewport.showPage('v2-week-page');
             }.bind(this));
