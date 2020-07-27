@@ -1,25 +1,17 @@
 <template>
     <div class="for-sticky">
         <div class="horizontal-container">
-            <div v-for="dish in dishlist.dishes" :key="dish._id" class="horizontal-content">
-                <div class="circle" @click="openChefPage(dish.chef.id)">
-                    <div style="width: 100%; height: 100%;">
-                        <img :src="dish.chef.photo" alt=""
-                             style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%">
-                    </div>
-                </div>
-                <div style="width: 100%; height: 100%;" @click="openDishPage(dish._id, dish.chef)">
-                    <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;">
-                </div>
-            </div>
+            <image-component v-for="dish in dishlist.dishes" :dish="dish" :key="dish._id" :with-chef="with_chef"></image-component>
         </div>
         <div class="content-title">{{dishlist.name}}</div>
     </div>
 </template>
 
 <script>
+    import imageComponent from "./imageComponent.vue";
     export default {
         name: "mainSlider",
+        components: {'imageComponent': imageComponent},
         props: {
             dishlist: {
                 type: Object,
@@ -37,6 +29,7 @@
                     }
                 }
             },
+            with_chef: {type: Boolean, default:true}
         },
         methods: {
             openChefPage($id) {
