@@ -59,7 +59,6 @@
         methods: {
             addKey(dish) {
                 let myKey = this.keys.find(key => key._id == dish._id)
-                alert(myKey);
                 if (!myKey) {
                     this.keys.push({_id: dish._id, cantidad: dish.cantidad});
                     dish.esDeSemana = true;
