@@ -12,7 +12,7 @@
                             {{pedido.platos[0].precio }}
                         </div>
                      <div>
-                         <div style="width: 100%; height: 100%;">
+                         <div  @click="irplato(pedido.platos[0]._id)" style="width: 100%; height: 100%;">
                              <img :src="pedido.platos[0].photo" alt=""
                                   style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%">
                          </div>
@@ -41,8 +41,11 @@
             pedidos:[]
             }
         },
+        methods:{
+            irplato(){
 
-
+            }
+        },
         created() {
             eventBus.$on('cargar-pedidos',function () {
                 axios.get("/api/pedido").then($response=>{

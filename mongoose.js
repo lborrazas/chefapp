@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const database = 'chefsappv2';
 const dotenv = require('dotenv');
 dotenv.config();
-const url = process.env.DB_CONNECTION + '/' + database;
+const url = process.env.DB_CONNECTION + database;
 
 
 mongoose.Promise = global.Promise;
@@ -325,7 +325,6 @@ module.exports.getPedidosParaChef = async function (id) {
     for (let plato of platos_semana) {
         let id = plato._id
     }
-
     platos_semana = await platos_semana.map(async plato => {
         plato = plato.toObject();
         let pedidos = await Pedido.find({
