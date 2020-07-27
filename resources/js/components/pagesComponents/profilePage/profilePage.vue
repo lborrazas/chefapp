@@ -47,25 +47,11 @@
             </modal-two>
 
             <div>
-                <button @click="openWeekPage">
-                    boton para ir a cambiar semanales [semanales]
+                <button @click="openWeekPage" class="btn btn-app-red" v-if="this.perfilpropio">
+                  Escoger Semanales
                 </button>
                 <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
-                <div class="for-sticky">
-                    <div  class="horizontal-container">
-                        <div   v-for="dish in chef.platos" v-if="dish.esDeSemana"  :key="dish._id" class="horizontal-content">
-                            <div class="circle">
-                                <div style="width: 100%; height: 100%;">
-                                    <img :src="chef.photo" alt="" style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%" >
-                                </div>
-                            </div>
-                            <div style="width: 100%; height: 100%;" @click="openDishPage(dish._id, chef._id)">
-                                <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-title" >Semanales </div>
-                </div>
+                <main-slider v-if="chef.platos" :dishlist="dishlist" :with_chef="false"></main-slider>
             </div>
         </template>
 
@@ -77,6 +63,7 @@
     import platosSemanales from "./platosSemanales.vue";
     import pageComponent from "../../pageComponent.vue";
     import {UiModal, UiButton} from "keen-ui";
+    import mainSlider from "../../coreComponents/mainSlider.vue";
     import 'keen-ui/dist/keen-ui.css';
 
     export default {
@@ -86,6 +73,7 @@
             'platos-semanales': platosSemanales,
             'modal-two': UiModal,
             'button-keen': UiButton,
+            'main-slider': mainSlider,
         },
         data() {
             return {
@@ -164,6 +152,20 @@
             }.bind(this));
         },
         computed: {
+            dishlist(){
+                if(this.chef.platos){
+                    return {dishes: this.platosForImages.filter( plato => plato.esDeSemana == true), 'name':'semanales'}
+                }
+                return {}
+
+            },
+            platosForImages(){
+                return this.chef.platos.map((plato) => {
+                    let aux = {'_id': plato._id, 'photo': plato.photo, 'esDeSemana':plato.esDeSemana}
+                    aux.chef = {'_id': this.chef, 'photo': this.chef.photo}
+                    return aux;
+                })
+            }
         },
 
     }

@@ -31,7 +31,7 @@
                         mui.viewport.showPage('login-page')
                     }
                 });
-            }, 3000)
+            }, 2000)
         }
     }
 

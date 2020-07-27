@@ -7,131 +7,13 @@
 
             <!-- Main -->
             <div id="main">
-                <main-slider v-for="list in lists" :dishlist="list"></main-slider>
-               <!-- <main-slider></main-slider>-->
-                <div class="for-sticky">
-                    <div  class="horizontal-container">
-                        <div class="horizontal-content" >
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="content-title">Top Dishes</div>
-                </div>
-
-                <div class="for-sticky">
-                    <div class="horizontal-container">
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="content-title">Vegan</div>
-                </div>
-                <div class="for-sticky">
-                    <div class="horizontal-container">
-                        <div class="horizontal-content" @click="openDish(product._id)">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-
-                    </div>
-                    <div class="content-title">From the sea</div>
-                </div>
-
-
-                <div class="for-sticky">
-                    <div class="horizontal-container">
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="horizontal-content">
-                            <div class="circle"></div>
-                        </div>
-
-                    </div>
-                    <div class="content-title">Steaks</div>
-                </div>
-
+                <template v-for="list in lists">
+                    <main-slider v-if="list.dishes.length > 0" :key="list.name" :dishlist="list"></main-slider>
+                </template>
+                <!-- <main-slider></main-slider>-->
             </div>
+
+
         </template>
     </page-template>
 </template>
@@ -146,13 +28,13 @@
         data() {
             return {
                 id: 'template-page',
-                lists:{},
+                lists: {},
 
             }
         },
         components: {
             'page-template': pageComponent,
-            'main-slider' : mainSlider,
+            'main-slider': mainSlider,
         },
         created() {
             eventBus.$on('call-home-page', function () {
@@ -167,19 +49,19 @@
             change() {
                 muiChangePageEvent("option-chef-page")
             },
-            irperfil(){
-                    this.$emit('irperfil',this.elplatito.chef)
-                    muiChangePageEvent('profile-page')
+            irperfil() {
+                this.$emit('irperfil', this.elplatito.chef)
+                muiChangePageEvent('profile-page')
             },
-           /* openDish(clave) {
-                console.log(clave)
-                this.$emit("cargar-plato", clave)
-                muiChangePageEvent("dish-page")
+            /* openDish(clave) {
+                 console.log(clave)
+                 this.$emit("cargar-plato", clave)
+                 muiChangePageEvent("dish-page")
 
-            },*/
-           /* evento(){
-                eventBus.$emit('eventBusEmission')
-            }*/
+             },*/
+            /* evento(){
+                 eventBus.$emit('eventBusEmission')
+             }*/
         },
         props: {
             chefboolean: "",
