@@ -47,7 +47,7 @@
             </modal-two>
 
             <div>
-                <button @click="cargarPlatos" v-if="semanalbool === false">
+                <button @click="openWeekPage">
                     boton para ir a cambiar semanales [semanales]
                 </button>
                 <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
@@ -100,13 +100,8 @@
         props: {
         },
         methods: {
-            cargarPlatos(){
-                if(!this.semanalbool){
-                eventBus.$emit("cargar-plato-week")
-                    mui.viewport.showPage('week-page')
-                }else{
-                alert("Ya se han declarado los platos semanales")
-                }
+            openWeekPage(){
+                eventBus.$emit("cargar-plato-week", this.chef.platos)
             },
             openDishPage($id,$chef){
                 eventBus.$emit('call-dish-page', $id, $chef)
@@ -141,9 +136,7 @@
                         document.getElementById("subscrito").classList.add("unsus")
                         this.subscribirse = "Subscribirse"
                         this.datosprofile.subscriptores = this.datosprofile.subscriptores - 1
-
                     })
-
                 }
             },
         },
@@ -165,7 +158,7 @@
                 //get is subcbribed
                 //get semanalbool
                 axios.get('api/user/semanalesbool').then(response => {
-                    this.semanalbool = response.data;
+                    this.semanalbool = false;
                 });
                 mui.viewport.showPage('profile-page')
             }.bind(this));
