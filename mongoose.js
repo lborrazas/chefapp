@@ -160,7 +160,7 @@ module.exports.updatePlatosSemanales = async function (platos) {
     await Plato.updateMany({ esDeSemana: true }, { $set: { esDeSemana: false } });
     for (plato of platos) {
 
-        await Plato.updateMany({
+        await Plato.updateOne({
             _id: plato._id
         }, {
             $set: {
