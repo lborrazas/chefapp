@@ -6,10 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const url = process.env.DB_CONNECTION + database;
 
-
 mongoose.Promise = global.Promise;
 mongoose.connect(url);
-
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -155,6 +153,22 @@ module.exports.getPlato = async function (id) {
 module.exports.updatePlato = async function f(id, data) { // te habia faltado esta -- Your fiendly neitgboor Spider-man
     let result = await Plato.updateOne({ _id: id }, data);
     return result;
+}
+
+module.exports.updatePlatosSemanales = async function (id_chef, platos) {
+    let chef = await Usuario.find({ _id: id_chef }, 'platos');
+    await Plato.updateMany({ _id: { $in: chef.platos }, esDeSemana: true }, { $set: { esDeSemana: false } });
+    for (let plato of platos) {
+
+        await Plato.updateOne({
+            _id: plato._id
+        }, {
+            $set: {
+                esDeSemana: true,
+                cantidad: plato.cantidad
+            }
+        });
+    }
 }
 
 module.exports.getRecomendados = async function (plato) {

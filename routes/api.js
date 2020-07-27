@@ -215,13 +215,10 @@ router.use(function timeLog(req, res, next) {
     });
     router.post('/platos/semanal/:id', async (req, res) => {
         try {
-            let updateInfo = {
-                "esDeSemana": true,
-                "cantidad": req.body.cantidad
-            }
-            await db.updatePlato(req.body.id, updateInfo) // aca estuvo juaniot
-            // await db.updateUserSem(client, database, collection, req.params.id)
-            res.status(200).json({ message: 'Plato actualizado' });
+            let platosNuevos = req.body.keys;
+
+            await db.updatePlatosSemanales(req.session.user._id, platosNuevos); // aca estuvo juaniot //Aca estuvo Mendi
+            res.status(200).json({ message: 'Platos semanales confirmados' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' });

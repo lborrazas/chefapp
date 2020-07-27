@@ -5,7 +5,7 @@ window.Noty = require('noty');
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/mint.css';
 
-import Vuex from 'Vuex'
+import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
@@ -33,7 +33,7 @@ const store = new Vuex.Store({
             state.carrito.splice(index);
         },
         emptyCarrito(state){
-            state.carrito.empty();
+            state.carrito = [];
         },
     }
 })
@@ -56,6 +56,7 @@ Vue.component('weekdish-page-component', require('./components/pagesComponents/w
 Vue.component('chef-option-page-component', require('./components/pagesComponents/chefOptions/chefOptions.vue').default);
 Vue.component('carrito-component', require('./components/coreComponents/carritoComponent.vue').default);
 Vue.component('start-page-component', require('./components/pagesComponents/startPage/startPageComponent.vue').default);
+Vue.component('week-v2-component', require('./components/pagesComponents/weekDish/weekDishV2.vue').default);
 Vue.component('pedidos-component', require('./components/pagesComponents/misPedidos/misPedidos.vue').default);
 Vue.component('activity-page-component', require('./components/pagesComponents/actPage/activity.vue').default);
 

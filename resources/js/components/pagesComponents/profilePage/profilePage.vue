@@ -10,7 +10,12 @@
             </div>
             <div class="flex-container" style="flex-direction: column; background-color: lightgoldenrodyellow; width: 34%; min-height: 45%;">
                 <div class="item-header-main" style="font-size: large; color: black; text-align: center;">{{this.chef.name}}</div>
-                <div id="profile-photo" class="d-block mx-auto" style="" :style="'background-image:url('+this.chef.photo+');'"></div>
+                <div style="height: 80px; width: 80px; margin:auto; border: black solid 2px; border-radius: 100%" >
+                    <img  :src="chef.photo" alt=""
+                         style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%">
+                </div>
+
+
             </div>
             <div class="flex-container" style="padding-top: 20px; flex-direction: column; background-color: lightgoldenrodyellow; width: 33%; min-height: 45%;">
                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">Subscriptores</div>
@@ -46,27 +51,12 @@
                 </div>
             </modal-two>
 
-            <div><div v-if="perfilpropio">
-                <button @click="cargarPlatos" v-if="semanalbool === false">
-                    boton para ir a cambiar semanales [semanales]
+            <div>
+                <button @click="openWeekPage" class="btn btn-app-red" v-if="this.perfilpropio">
+                  Escoger Semanales
                 </button>
-            </div>
                 <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
-                <div class="for-sticky">
-                    <div  class="horizontal-container">
-                        <div   v-for="dish in chef.platos" v-if="dish.esDeSemana"  :key="dish._id" class="horizontal-content">
-                            <div class="circle">
-                                <div style="width: 100%; height: 100%;">
-                                    <img :src="chef.photo" alt="" style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%" >
-                                </div>
-                            </div>
-                            <div style="width: 100%; height: 100%;" @click="openDishPage(dish._id, chef._id)">
-                                <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-title" >Semanales </div>
-                </div>
+                <main-slider v-if="chef.platos" :dishlist="dishlist" :with_chef="false"></main-slider>
             </div>
         </template>
 
@@ -78,6 +68,7 @@
     import platosSemanales from "./platosSemanales.vue";
     import pageComponent from "../../pageComponent.vue";
     import {UiModal, UiButton} from "keen-ui";
+    import mainSlider from "../../coreComponents/mainSlider.vue";
     import 'keen-ui/dist/keen-ui.css';
 
     export default {
@@ -87,6 +78,7 @@
             'platos-semanales': platosSemanales,
             'modal-two': UiModal,
             'button-keen': UiButton,
+            'main-slider': mainSlider,
         },
         data() {
             return {
@@ -94,20 +86,15 @@
                 semanalbool:false,
                 subscribirse: "Subscribirse",
                 reseña: "",
-                perfilpropio:"",
+                perfilpropio:false,
 
             }
         },
         props: {
         },
         methods: {
-            cargarPlatos(){
-                if(!this.semanalbool){
-                eventBus.$emit("cargar-plato-week")
-                    mui.viewport.showPage('week-page')
-                }else{
-                alert("Ya se han declarado los platos semanales")
-                }
+            openWeekPage(){
+                eventBus.$emit("cargar-plato-week", this.chef.platos)
             },
             openDishPage($id,$chef){
                 eventBus.$emit('call-dish-page', $id, $chef)
@@ -142,9 +129,7 @@
                         document.getElementById("subscrito").classList.add("unsus")
                         this.subscribirse = "Subscribirse"
                         this.datosprofile.subscriptores = this.datosprofile.subscriptores - 1
-
                     })
-
                 }
             },
         },
@@ -166,12 +151,26 @@
                 //get is subcbribed
                 //get semanalbool
                 axios.get('api/user/semanalesbool').then(response => {
-                    this.semanalbool = response.data;
+                    this.semanalbool = false;
                 });
                 mui.viewport.showPage('profile-page')
             }.bind(this));
         },
         computed: {
+            dishlist(){
+                if(this.chef.platos){
+                    return {dishes: this.platosForImages.filter( plato => plato.esDeSemana == true), 'name':'semanales'}
+                }
+                return {}
+
+            },
+            platosForImages(){
+                return this.chef.platos.map((plato) => {
+                    let aux = {'_id': plato._id, 'photo': plato.photo, 'esDeSemana':plato.esDeSemana}
+                    aux.chef = {'_id': this.chef, 'photo': this.chef.photo}
+                    return aux;
+                })
+            }
         },
 
     }

@@ -28,19 +28,13 @@
                 <i class="fa fa-line-chart"></i> Metricas (Chef)
             </div>
             <div v-if class="panel-item" @click="createDish">
-                <i class="fa fa-line-chart" ></i> Crear Plato (Chef)
+                <i class="fa fa-plus" ></i> Crear Plato (Chef)
             </div>
             <div class="panel-item" @click="logOut">
-                <i class="fa fa-line-chart" ></i> Log Out
+                <i class="fa fa-close" ></i> Log Out
             </div>
 
 
-            <div>
-                <ul id='menuoptions' class='mui-list'>
-                    <li class="centereli"><a class="centerA" id='option5' href="#">Plato se tiene que ir</a></li>
-                    <li class="centereli"><a class="centerA" id='option100' href="#">Go Login</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </template>

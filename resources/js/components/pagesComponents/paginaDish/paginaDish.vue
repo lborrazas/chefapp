@@ -15,7 +15,7 @@
                     <div><strong>Nombre: </strong> {{dish.name}}</div>
                     <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
                 </div>
-                <image-component :dish="dishForPhoto" :is_main_photo="true"></image-component>
+                <image-component :dish="dishForPhoto"   :is_main_photo="true"></image-component>
             </div>
 
             <div class="flex-container-buttons">
@@ -52,7 +52,8 @@
 
 
            <!-- <recomended-dish></recomended-dish>-->
-            <main-slider-component></main-slider-component>
+            <main-slider-component  v-if="recomended.length > 0" :dishlist="{name:'recomendados', dishes: this.recomended} "></main-slider-component>
+            <main-slider-component  v-else></main-slider-component>
 
 
         </template>
@@ -88,6 +89,7 @@
             return {
                 dish: {},
                 chef: {},
+                recomended: {},
                 carga: 0, //queda
                 resenia: "",//queda
                 alreadyVoted: false, //porverse
@@ -150,6 +152,7 @@
                 this.chef = $user;
                 axios.get('api/platos/' + $id).then(response => {
                     this.dish = response.data.data.dish;
+                    this.recomended = response.data.data.recommended;
 
                     mui.viewport.showPage('dish-page')
                 });
