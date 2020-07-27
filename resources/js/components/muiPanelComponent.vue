@@ -17,11 +17,11 @@
             <div class="panel-item">
                 <i class="fa fa-heart"></i> Mis Favoritos
             </div>
-            <div class="panel-item">
+            <div class="panel-item" @click="irpedidos">
                 <i class="fa fa-list"></i> Mis Pedidos
             </div>
 
-            <div class="panel-item">
+            <div class="panel-item" @click="activity">
                 <i class="fa fa-coffee"></i> Mi Actividad (Chef)
             </div>
             <div class="panel-item">
@@ -49,11 +49,14 @@
                 eventBus.$emit('open-profile-page-4-panel')
                 mui.screen.closePanel()
             },
-            createDish(){
-   /*     for (let i=0;i<10;i++){
-    axios.post("/api/categoria",{name:"ejeplor"+i})
-}   */
 
+            irpedidos(){
+                eventBus.$emit('cargar-pedidos')
+                mui.screen.closePanel(function() {
+                    mui.viewport.showPage("mis-pedidos-page", "DEF");
+                })
+            },
+            createDish(){
 
                 eventBus.$emit('load-categories')
                 mui.screen.closePanel(function() {
@@ -70,6 +73,12 @@
             goHome(){
                 mui.screen.closePanel(function() {
                     mui.viewport.showPage("home-page", "DEF");
+                })
+            },
+            activity(){
+                eventBus.$emit('act')
+                mui.screen.closePanel(function() {
+                    mui.viewport.showPage("activity-page", "DEF");
                 })
             }
         }

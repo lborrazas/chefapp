@@ -21,7 +21,7 @@
                 </div>
                 </div>
         </keen-modal>
-        <keen-modal ref="creditoModal">
+        <keen-modal ref="creditoModal" title="carrito">
             <div>
                 <div>Tarjeta de credito
                     <div>
@@ -44,6 +44,7 @@
 
     import {UiModal, UiButton} from "keen-ui";
     import 'keen-ui/dist/keen-ui.css';
+    import displayMessage from '../../functions/message.js'
 
     export default {
         name: "carritoComponent",
@@ -63,13 +64,19 @@
 
             },
             realizar_pedido(){
-                alert("compre")
-                let data = {platos: this.$store.state.carrito}
+                let today = new Date();
+                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                let dateTime = date+' '+time;
+                let data = {platos: this.$store.state.carrito,
+                fecha:dateTime}
+                this.$refs['creditoModal'].close()
                 axios.post("/api/pedido",data).then(
                     response=>{
-                        this.$refs['creditoModal'].close
+                        displayMessage(response)
                     }
                 )
+
             },
             emptyCarrito(){
                 this.$store.commit('emptyCarrito')

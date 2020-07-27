@@ -431,7 +431,7 @@ router.use(function timeLog(req, res, next) {
             let user = req.session.user._id;
 
             let pedidos = await db.getPedidosParaChef(user);
-            res.send({ data: pedidos });
+            res.send({ data: pedidos});
             res.status(200).end();
 
         } catch (err) {
