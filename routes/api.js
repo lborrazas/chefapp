@@ -218,7 +218,7 @@ router.use(function timeLog(req, res, next) {
             let platosNuevos = req.body.keys;
 
             await db.updatePlatosSemanales(platosNuevos); // aca estuvo juaniot //Aca estuvo Mendi
-            res.status(200).json({ message: 'Platos semanales actualizados' });
+            res.status(200).json({ message: 'Platos semanales confirmados' });
         } catch (err) {
             console.log(err);
             res.status(400).json({ message: 'Error del servidor' });
