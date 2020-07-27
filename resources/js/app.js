@@ -62,7 +62,6 @@ import paginaDish from "./components/pagesComponents/paginaDish/paginaDish.vue";
 import {UiModal, UiButton} from "keen-ui";
 import 'keen-ui/dist/keen-ui.css';
 import authMixin from './mixins/auth.js'
-import carritoMixin from './mixins/carrito.js'
 import sessionMixin from "./mixins/session.js";
 
 const app = new Vue({
@@ -95,7 +94,7 @@ const app = new Vue({
             alert('hola');
         }.bind(this));*/
     },
-    mixins: [authMixin, carritoMixin, sessionMixin],
+    mixins: [authMixin, sessionMixin],
 
 })
 

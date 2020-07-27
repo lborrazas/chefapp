@@ -3,7 +3,6 @@
 
         <template slot="page-title">Home page</template>
         <template slot="page-body">
-
             <!--<button @click="evento">APRETAME PARA PROBAR</button>-->
 
             <!-- Main -->
