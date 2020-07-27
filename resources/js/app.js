@@ -56,6 +56,7 @@ Vue.component('weekdish-page-component', require('./components/pagesComponents/w
 Vue.component('chef-option-page-component', require('./components/pagesComponents/chefOptions/chefOptions.vue').default);
 Vue.component('carrito-component', require('./components/coreComponents/carritoComponent.vue').default);
 Vue.component('start-page-component', require('./components/pagesComponents/startPage/startPageComponent.vue').default);
+Vue.component('activity-page-component', require('./components/pagesComponents/actPage/activity.vue').default);
 
 import weekDish from "../../resources/js/components/pagesComponents/weekDish/weekDish.vue";
 import paginaDish from "./components/pagesComponents/paginaDish/paginaDish.vue";

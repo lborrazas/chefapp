@@ -21,7 +21,7 @@
                 <i class="fa fa-list"></i> Mis Pedidos
             </div>
 
-            <div class="panel-item">
+            <div class="panel-item" @click="activity">
                 <i class="fa fa-coffee"></i> Mi Actividad (Chef)
             </div>
             <div class="panel-item">
@@ -76,6 +76,12 @@
             goHome(){
                 mui.screen.closePanel(function() {
                     mui.viewport.showPage("home-page", "DEF");
+                })
+            },
+            activity(){
+                eventBus.$emit('act')
+                mui.screen.closePanel(function() {
+                    mui.viewport.showPage("activity-page", "DEF");
                 })
             }
         }
