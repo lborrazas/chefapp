@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="horizontal-content">
-            <div class="circle" @click="openChefPage(dish.chef.id)">
+
+            <div v-if="withChef" class="circle" @click="openChefPage(dish.chef.id)">
                 <div style="width: 100%; height: 100%;">
                     <img :src="dish.chef.photo" alt=""
                          style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%">
@@ -23,7 +24,8 @@
                     return {_id: '1', photo: 'la foto', chef: {id: '1', photo: 'foto chef'}}
                 }
             },
-            is_main_photo: {Boolean, default: false}
+            is_main_photo: {Boolean, default: false},
+            withChef: {Boolean, default: true},
         },
         methods: {
             openChefPage($id) {
