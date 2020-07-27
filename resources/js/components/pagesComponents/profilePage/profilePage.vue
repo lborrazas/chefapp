@@ -9,18 +9,18 @@
                     <div class="d-block mx-auto align-middle" style="color: black; font-weight: bold; font-size: x-large">69%</div>
             </div>
             <div class="flex-container" style="flex-direction: column; background-color: lightgoldenrodyellow; width: 34%; min-height: 45%;">
-                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">{{this.datosprofile.user}}</div>
-                <div id="profile-photo" class="d-block mx-auto" style="" :style="'background-image:url('+this.datosprofile.photo+');'"></div>
+                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">{{this.chef.name}}</div>
+                <div id="profile-photo" class="d-block mx-auto" style="" :style="'background-image:url('+this.chef.photo+');'"></div>
             </div>
             <div class="flex-container" style="padding-top: 20px; flex-direction: column; background-color: lightgoldenrodyellow; width: 33%; min-height: 45%;">
                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">Subscriptores</div>
                 <div class="d-block mx-auto"><button class="btn-link" @click="changeSubButton" id="subscrito">{{this.subscribirse}}</button></div>
-                <span class="d-block mx-auto" style="margin-left:26%;background-color: #e5b31b;border-radius:10%"> Subs:{{this.datosprofile.subscriptores}}</span>
+                <span class="d-block mx-auto" style="margin-left:26%;background-color: #e5b31b;border-radius:10%"> Subs:{{this.chef.subscriptores}}</span>
             </div>
         </div>
         <div>
             <div class="item-header-main according-chef" onclick="acc123()">Biografìa</div>
-            <div class="item-header-secondary text-center panel-chef" style="color: black; background-color: lightgoldenrodyellow"><div class="container">{{this.datosprofile.bibliografia}}</div></div>
+            <div class="item-header-secondary text-center panel-chef" style="color: black; background-color: lightgoldenrodyellow"><div class="container">{{this.chef.bio}}</div></div>
         </div>
             <div id="reviews">
                 <div class="" style="text-decoration-line: underline;color:#adadad">
@@ -28,8 +28,8 @@
                 </div>
                 <div class="" style="overflow: scroll;max-height: 260px;margin-bottom:5px; min-height: 260px">
                     <div class="" v-for="reviw in this.chef.reviews" :key="reviw._id">
-                        <div class="container">•&nbsp{{reviw.nombre}}:</div>
-                        <div class="review"><div class="container">&nbsp&nbsp&nbsp&nbsp{{reviw.rese}}</div></div>
+                        <div class="container">•&nbsp {{reviw.nombre}}:</div>
+                        <div class="review"><div class="container">&nbsp&nbsp&nbsp&nbsp {{reviw.resena}}</div></div>
                     </div>
                 </div>
             </div>
@@ -114,6 +114,7 @@
                     let contenido = {"rese":this.reseña}
                     console.log(contenido)
                     axios.put('/api/resena/chef/'+this.chef._id, contenido).then(response => {
+                        console.log(response.data)
                         this.chef.reviews.push(response.data)
                     })
                     this.$refs['modal-add-reseña-profile'].close()

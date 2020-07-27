@@ -28,7 +28,7 @@ router.use(function timeLog(req, res, next) {
             res.status(400).json({ message: 'Error del servidor' });
         }
     });
-    router.put('/resena/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
+    router.put('/resena/chef/:idchef', async (req, res) => { /// -------------------------------- aca estuvo junaito
         try {
             let review = {
                 userId: req.session.user._id,
