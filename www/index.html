@@ -126,13 +126,13 @@
 				<start-page-component></start-page-component>
 				<login-page-component></login-page-component>
 
-                <home-page-component :chefboolean=this.esChef v-on:cargar-plato="cargarDish"></home-page-component>
+                <home-page-component :chefboolean=this.esChef ></home-page-component>
 
                <!-- <product-page-component></product-page-component>-->
 
-				<profile-page-component  ></profile-page-component>
+				<profile-page-component></profile-page-component>
 
-				<dish-page-component :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef"    v-on:addcarrito="agregaracarrito"></dish-page-component>
+				<dish-page-component :visitante=this.idUsuario :elplatito=this.elplato :chefname="this.nombrechef"></dish-page-component>
 				<createdish-page-component o></createdish-page-component>
 
 
