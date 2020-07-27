@@ -322,14 +322,14 @@ module.exports.getPedidosParaChef = async function (id) {
         esDeSemana: true
     }, '_id name photo');
 
-    for (let plato of platos_semana) {
-        let id = plato._id
-    }
+
     platos_semana = await platos_semana.map(async plato => {
         plato = plato.toObject();
+        console.log()
         let pedidos = await Pedido.find({
-            platos: plato._id
+            "platos._id": plato._id
         }, '_id user');
+        console.log(pedidos)
 
         plato.pedidos = pedidos;
         return plato;
