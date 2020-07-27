@@ -15,7 +15,7 @@
                     <div><strong>Nombre: </strong> {{dish.name}}</div>
                     <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
                 </div>
-                <image-component :dish="dishForPhoto" :is_main_photo="true"></image-component>
+                <image-component :dish="dishForPhoto"   :is_main_photo="true"></image-component>
             </div>
 
             <div class="flex-container-buttons">

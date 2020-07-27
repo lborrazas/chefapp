@@ -5,7 +5,7 @@
             <div id="creationHolder">
 
             <div class="creational">Nombre:<input v-model="nombre" @change="check" /></div>
-            <div class="creational">Precio:<input type="number" v-model="precio" @change="check" /></div>
+            <div class="creational">Precio:<input type="number" v-model="price" @change="check" /></div>
             <div class="creational">Descripcion<input v-model="descripcion" @change="check"/></div>
                 <div>
                     Categorias Principales
@@ -61,7 +61,7 @@
                 types:[false,false,false],
                 checkedNames:[],
                 categories_selected:[],
-                precio:0,
+                price:0,
                 nombre:null,
                 descripcion:null,
                 categories:[],
@@ -79,14 +79,14 @@
 
                 var reader = new FileReader()
                 reader.nombre=this.nombre
-                reader.precio=this.precio
+                reader.price=this.price
                 reader.types=this.types
                 reader.descripcion=this.descripcion
                 reader.addcatarray=this.addcatarray
                 this.readyToUpload=false
                 this.types=[false,false,false]
                 this.checkedNames=[]
-                this.precio=0
+                this.price=0
                 this.nombre=null
                 this.descripcion=null
                 reader.readAsDataURL(this.selectedfile)
@@ -94,7 +94,7 @@
                     console.log(reader.result)
                     axios.post('/api/platos', {
                         "name":this.nombre,
-                        "precio":this.precio,
+                        "price":this.price,
                         "esDeSemana":false,
                         "paraCeliacos":this.types[0],
                         "paraVeganos":this.types[1],
@@ -111,7 +111,7 @@
                 }
             },
             check(){
-                this.readyToUpload= this.selectedfile && this.precio && this.nombre && this.descripcion && (this.precio !== "0");
+                this.readyToUpload= this.selectedfile && this.price && this.nombre && this.descripcion && (this.price !== "0");
 
             },
             savefile(event){
