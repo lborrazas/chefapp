@@ -1,5 +1,4 @@
 <template>
-    <div>
         <div class="horizontal-content">
 
             <div v-if="withChef" class="circle" @click="openChefPage(dish.chef.id)">
@@ -12,7 +11,6 @@
                 <img :src="dish.photo" alt="" style="height: 100%; width: 100%; object-fit: cover;">
             </div>
         </div>
-    </div>
 </template>
 
 <script>

@@ -6,10 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const url = process.env.DB_CONNECTION + '/' + database;
 
-
 mongoose.Promise = global.Promise;
 mongoose.connect(url);
-
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
