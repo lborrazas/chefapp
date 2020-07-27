@@ -71,7 +71,7 @@
         margin: 10px;
         border-radius: 100%;
         background-color: whitesmoke;
-        border: darkred 2px solid;
+        border: black 2px solid;
     }
 
     .for-sticky > .content-title {

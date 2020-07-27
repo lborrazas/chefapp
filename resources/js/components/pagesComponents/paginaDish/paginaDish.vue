@@ -3,48 +3,28 @@
 
         <template slot="page-title"> Pagina de Plato</template>
         <template slot="page-body">
-            <div class="info-holder" style="height:45%">
-                <div :key="componentKey2" class="profile-header flex-container" style="height: 100%">
 
-                    <span class="profile-1half">
-                        <div class="item-header-main">
-                            <div>Platos reservados:{{parseInt(dish.reservado)}} / {{parseInt(dish.cantidad)}}</div>
-                            <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px
-                        "><div style="background-color:darkred;border-radius: 10px; height:100%"
-                               :style="'width:'+pintar+'%'"></div></div>
-                        </div>
-                        <div class="item-header-main"> {{dish.name}}</div>
-                        <div class="item-header-secondary">{{dish.descipcion}}
-                    </div></span>
-                    <span class="profile-2half">
-                        <div class="flex-container profilecont" @click="irperfil"><div class="item-header-main">Perfil del chef:<div>{{this.dish.chefname}}</div></div></div>
-                        <div id="profile-photo" :style="'background-image:url('+dish.photo+')'"></div>
-                        <div id="price" class="flex-container">
-                            <div id="coinimage" class="img-container">
-                            </div>
-                            <div>
-                                {{(parseInt(this.dish.precio))}}$
-                            </div>
-
-                        </div>
-                        <div id="cart" class="flex-container">
-                            <div id="cartimage" class="img-container">
-                            </div>
-                            <div><button style="background-color: #99999924;border-radius:1%" @click="addToCarrito">
-                                Agregar al carrito
-                            </button>
-
-                            </div>
-
-                        </div>
-
-
-
-
-                    </span>
-
+            <div class="horizontal-container">
+                <div class="horizontal-max-content">
+                    <div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
+                        {{parseInt(dish.cantidad)}}
+                    </div>
+                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
+                        <div style="background-color:darkred;border-radius: 10px; height:100%"
+                             :style="'width:'+pintar+'%'"></div>
+                    </div>
+                    <div><strong>Nombre: </strong> {{dish.name}}</div>
+                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
                 </div>
+                <image-component :dish="dishForPhoto" :is_main_photo="true"></image-component>
             </div>
+
+            <div class="flex-container-buttons">
+                <div class="flex-33"> <i class="fa fa-cart-plus" @click="addToCarrito"></i> </div>
+                <div class="flex-33"> <i class="fa fa-money"></i> <strong style="color: whitesmoke">{{dish.price}}</strong>  </div>
+                <div class="flex-33"> <i :class="isFavorite ? 'fa fa-heart' : 'fa fa-heart-o'"></i></div>
+            </div>
+            
 
 
             <div id="reviews">
@@ -85,6 +65,7 @@
     import pageComponent from "../../pageComponent.vue";
     import recomendedDishes from "./recomendedDishes.vue";
     import {UiModal, UiButton} from "keen-ui";
+    import imageComponent from "../../coreComponents/imageComponent.vue";
     import 'keen-ui/dist/keen-ui.css';
     import muiChangePageEvent from "../../../functions/muiChangePageEvent";
 
@@ -96,42 +77,38 @@
             'recomended-dish': recomendedDishes,
             'modal-two': UiModal,
             'button-keen': UiButton,
+            'image-component': imageComponent,
         },
-        props: {
-        },
+        props: {},
         data() {
 
 
             return {
-
                 dish: {},
+                chef: {},
                 carga: 0, //queda
                 resenia: "",//queda
                 alreadyVoted: false, //porverse
                 reviews: null, //por
-
-
-                componentKey2: 0,
-
             }
         },
         methods: {
             openModel() {
-                    this.$refs['modal-add-reseña-plato'].open()
+                this.$refs['modal-add-reseña-plato'].open()
 
             },
             mandarResenaPlato() {
 
 
-                let contenido = {"rese":this.resenia}
+                let contenido = {"rese": this.resenia}
 
-                    this.$refs['modal-add-reseña-plato'].close()
-                    axios.put('/api/resena/plato/'+this.dish._id, contenido)
+                this.$refs['modal-add-reseña-plato'].close()
+                axios.put('/api/resena/plato/' + this.dish._id, contenido)
 
             },
             irperfil() {
-               this.$emit('irperfil', this.dish.idchef)
-                    muiChangePageEvent('profile-page')
+                this.$emit('irperfil', this.dish.idchef)
+                muiChangePageEvent('profile-page')
 
             },
             addToCarrito() {
@@ -150,22 +127,26 @@
 
         computed: {
             pintar() {
-                return this.carga = (100 * parseInt(this.dish.reserved)) / parseInt(this.dish.cantidad)
+                return this.carga = (100 * parseInt(this.dish.reservados)) / parseInt(this.dish.cantidad)
             },
-            load() {
-                this.alreadyVoted = false
-                this.reviews = null
-                this.iddelchef = this.dish.chef
+            dishForPhoto() {
+                let aux = {_id: this.dish._id, photo: this.dish.photo}
+                aux.chef = this.chef;
+                return aux;
+            },
+            isFavorite(){
+                return false;
             }
+
         },
         created() {
 
-                eventBus.$on('call-dish-page', function ($id, $user) {
-                    this.user = $user;
-                    axios.get('api/platos/' + $id).then(response => {
-                        this.dish = response.data.data;
-                        mui.viewport.showPage('dish-page')
-                    });
+            eventBus.$on('call-dish-page', function ($id, $user) {
+                this.chef = $user;
+                axios.get('api/platos/' + $id).then(response => {
+                    this.dish = response.data.data;
+                    mui.viewport.showPage('dish-page')
+                });
 
             }.bind(this));
         }
@@ -174,6 +155,51 @@
 </script>
 
 <style scoped>
+    .horizontal-container {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 195px; /* hay que agregarle el border */
+        background-color: white;
+        border-top: #e5bf32 5px solid;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .horizontal-container-small {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 60px; /* hay que agregarle el border */
+        background-color: white;
+        border-top: #e5bf32 5px solid;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .horizontal-max-content {
+        position: relative;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        flex: auto;
+    }
 
 
+    .flex-container-buttons {
+        display: flex;
+        flex-direction: row-reverse;
+        height: 40px;
+        box-shadow: 0 0 10px black;
+    }
+
+    .flex-33 {
+        height: 100%;
+        min-width: 30%;
+        width: 100%;
+        background-color: darkred;
+        text-align: center;
+        color: #e5bf32;
+        padding-top: 7px;
+
+    }
 </style>
