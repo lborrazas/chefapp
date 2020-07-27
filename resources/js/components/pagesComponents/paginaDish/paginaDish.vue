@@ -3,7 +3,6 @@
 
         <template slot="page-title"> Pagina de Plato</template>
         <template slot="page-body">
-
             <div class="horizontal-container">
                 <div class="horizontal-max-content">
                     <div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
@@ -31,9 +30,9 @@
                 <div style="text-decoration-line: underline;color:#adadad" @click="openModel"><a
                         style="font-size: smaller;">Agregar reseña</a></div>
                 <div class="mui-scroll-wrapper" style="overflow: scroll;max-height: 160px">
-                    <div v-for="reviw in this.dish.reviews" :key="reviw._id">
-                        <div>{{reviw.nombre}}</div>
-                        <div class="review">{{reviw.rese}}</div>
+                    <div v-for="review in this.dish.reviews" :key="review._id">
+                        <div>{{review.nombre}}</div>
+                        <div class="review">{{review.resena}}</div>
                     </div>
                 </div>
             </div>
@@ -92,7 +91,7 @@
                 carga: 0, //queda
                 resenia: "",//queda
                 alreadyVoted: false, //porverse
-                reviews: null, //por
+
             }
         },
         methods: {
@@ -105,8 +104,11 @@
 
                 let contenido = {"rese": this.resenia}
 
-                this.$refs['modal-add-reseña-plato'].close()
-                axios.put('/api/resena/plato/' + this.dish._id, contenido)
+                    this.$refs['modal-add-reseña-plato'].close()
+                    axios.put('/api/resena/plato/'+this.dish._id, contenido).then( response=>{
+                        console.log(response)
+                        this.dish.reviews.push(response.data)
+                    })
 
             },
             irperfil() {
@@ -147,7 +149,8 @@
             eventBus.$on('call-dish-page', function ($id, $user) {
                 this.chef = $user;
                 axios.get('api/platos/' + $id).then(response => {
-                    this.dish = response.data.data;
+                    this.dish = response.data.data.dish;
+
                     mui.viewport.showPage('dish-page')
                 });
 

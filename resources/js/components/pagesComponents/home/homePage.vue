@@ -146,11 +146,7 @@
         data() {
             return {
                 id: 'template-page',
-                array: [
-                    ['/custom/view/images/home-bg.jpg', 'nombre', "genericid"],
-                    ['/custom/view/images/home-bg.jpg', 'nombre1', "genericid1"],
-                ],
-                lists: [],
+                lists:{},
 
             }
         },
@@ -161,6 +157,7 @@
         created() {
             eventBus.$on('call-home-page', function () {
                 axios.get('api/platos/main/call/').then(response => {
+                    console.log(response)
                     this.lists = response.data.data;
                     mui.viewport.showPage('home-page')
                 })
