@@ -63,11 +63,16 @@
 
             },
             realizar_pedido(){
-                alert("compre")
-                let data = {platos: this.$store.state.carrito}
+                let today = new Date();
+                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                let dateTime = date+' '+time;
+                let data = {platos: this.$store.state.carrito,
+                fecha:dateTime}
+                this.$refs['creditoModal'].close()
                 axios.post("/api/pedido",data).then(
                     response=>{
-                        this.$refs['creditoModal'].close
+
                     }
                 )
             }

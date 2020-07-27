@@ -3,123 +3,19 @@
 
         <template slot="page-title">Actividad</template>
         <template slot="page-body">
-            <div class="horizontal-container">
+            <div  v-for="dish in dishes" class="horizontal-container">
                 <div class="horizontal-max-content" style="overflow: scroll; min-height: 33%">
-                    <div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
                     <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
                         <div style="background-color:darkred;border-radius: 10px; height:100%"
                              :style="'width:'+pintar+'%'"></div>
                     </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
+                    <div><strong>Nombre: </strong> {{dish.nombreplato}}</div>
                     <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
+                    <div><strong>Precio: </strong>{{dish.precioplato}}</div>
+                    <div><strong>Comprado por: </strong>{{dish.username}}</div>
                 </div>
-                <image-component :dish="dishForPhoto" :with-chef="false" :is_main_photo="true"></image-component>
+                <image-component :dish="{'id':dish.idplato,'photo':dish.photoplato,'chef': {'id': '1', 'photo': 'foto chef'}}" :with-chef="false" :is_main_photo="true"></image-component>
             </div>
-
-            <div class="horizontal-container">
-                <div class="horizontal-max-content" style="overflow: scroll; min-height: 33%">
-                    <div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
-                </div>
-                <image-component :dish="dishForPhoto" :with-chef="false" :is_main_photo="true"></image-component>
-            </div>
-
-            <div class="horizontal-container">
-                <div class="horizontal-max-content" style="overflow: scroll; min-height: 33%">
-                    <div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                        {{parseInt(dish.cantidad)}}
-                    </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div><div><strong>Platos reservados: </strong> {{parseInt(dish.reservados)}} /
-                    {{parseInt(dish.cantidad)}}
-                </div>
-                    <div style="border-radius: 10px; border: black; background-color: #575757; height: 10px">
-                        <div style="background-color:darkred;border-radius: 10px; height:100%"
-                             :style="'width:'+pintar+'%'"></div>
-                    </div>
-                    <div><strong>Nombre: </strong> {{dish.name}}</div>
-                    <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
-                </div>
-                <image-component :dish="dishForPhoto" :with-chef="false" :is_main_photo="true"></image-component>
-            </div>
-
 
         </template>
 

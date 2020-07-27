@@ -61,6 +61,7 @@ const PedidoSchema = new Schema({
         id: String,
         name: String
     },
+    fecha:String,
     platos: Array
 }, {
     versionKey: false
@@ -322,12 +323,44 @@ module.exports.getPedidosParaChef = async function (id) {
         esDeSemana: true
     }, '_id name photo');
 
+    let allPedidos = await Pedido.find()
+    let arrazy=[]
+    console.log(allPedidos)
+    console.log("---------------------------------------")
+    console.log(platos_semana)
+    console.log(allPedidos.length)
 
-    platos_semana = await platos_semana.map(async plato => {
+    for(let i =0;i<allPedidos.length;i++){
+        console.log("i:"+i)
+        console.log(platos_semana.length)
+        for(let j=0;j<platos_semana.length;j++){
+            console.log(allPedidos[i].platos.length)
+            console.log("j:"+j)
+            for(let k=0;k<allPedidos[i].platos.length;k++){
+                console.log("k:"+k)
+                console.log(allPedidos[i].platos[k]._id +"----"+platos_semana[j]._id)
+                if(allPedidos[i].platos[k]._id==platos_semana[j]._id){
+                        arrazy.push({
+                            nombreplato:platos_semana[j].name,
+                            idplato:platos_semana[j]._id,
+                            username:allPedidos[i].user.name,
+                            descripcion:allPedidos[i].platos[k].descripcion,
+                            precioplato:allPedidos[i].platos[k].price,
+                            photoplato:platos_semana[j].photo,
+                            fecha:allPedidos[i].fecha
+                        })
+                }
+            }
+        }
+    }
+    console.log(arrazy)
+
+   /* platos_semana = await platos_semana.map(async plato => {
         plato = plato.toObject();
         console.log()
+
         let pedidos = await Pedido.find({
-            "platos._id": plato._id
+            "platos._id":plato._id
         }, '_id user');
         console.log(pedidos)
 
@@ -343,8 +376,9 @@ module.exports.getPedidosParaChef = async function (id) {
         _id: {
             $in: id_pedidos.pedidos
         }
-    });
-    return pedidos;
+    });*/
+
+    return arrazy;
 }
 module.exports.deletePedido = async function (id, id_user) {
     await Pedido.deleteOne({ _id: id });

@@ -94,7 +94,7 @@
                 semanalbool:false,
                 subscribirse: "Subscribirse",
                 reseña: "",
-                perfilpropio:false,
+                perfilpropio:"",
 
             }
         },

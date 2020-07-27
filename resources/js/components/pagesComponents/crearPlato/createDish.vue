@@ -94,7 +94,7 @@
                     console.log(reader.result)
                     axios.post('/api/platos', {
                         "name":this.nombre,
-                        "precio":this.precio,
+                        "price":this.precio,
                         "esDeSemana":false,
                         "paraCeliacos":this.types[0],
                         "paraVeganos":this.types[1],
