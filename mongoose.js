@@ -154,6 +154,21 @@ module.exports.updatePlato = async function f(id, data) { // te habia faltado es
     return result;
 }
 
+module.exports.updatePlatosSemanales = async function (platos) {
+    await Plato.updateMany({ esDeSemana: true }, { $set: { esDeSemana: false } });
+    for (let plato of platos) {
+
+        await Plato.updateOne({
+            _id: plato._id
+        }, {
+            $set: {
+                esDeSemana: true,
+                cantidad: plato.cantidad
+            }
+        });
+    }
+}
+
 module.exports.getRecomendados = async function (plato) {
     let cat_fuertes = {
         esDeSemana: true,
