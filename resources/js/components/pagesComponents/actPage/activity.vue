@@ -13,6 +13,7 @@
                     <div><strong>Descripción: </strong>{{dish.descripcion}}</div>
                     <div><strong>Precio: </strong>{{dish.precioplato}}</div>
                     <div><strong>Comprado por: </strong>{{dish.username}}</div>
+                    <div><strong>Fecha: </strong>{{dish.fecha}}</div>
                 </div>
                 <image-component :dish="{'id':dish.idplato,'photo':dish.photoplato,'chef': {'id': '1', 'photo': 'foto chef'}}" :with-chef="false" :is_main_photo="true"></image-component>
             </div>
