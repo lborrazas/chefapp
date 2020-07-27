@@ -21,7 +21,7 @@
                 </div>
                 </div>
         </keen-modal>
-        <keen-modal ref="creditoModal">
+        <keen-modal ref="creditoModal" title="carrito">
             <div>
                 <div>Tarjeta de credito
                     <div>
@@ -44,6 +44,7 @@
 
     import {UiModal, UiButton} from "keen-ui";
     import 'keen-ui/dist/keen-ui.css';
+    import displayMessage from '../../functions/message.js'
 
     export default {
         name: "carritoComponent",
@@ -72,9 +73,10 @@
                 this.$refs['creditoModal'].close()
                 axios.post("/api/pedido",data).then(
                     response=>{
-
+                        displayMessage(response)
                     }
                 )
+
             },
             emptyCarrito(){
                 this.$store.commit('emptyCarrito')
