@@ -35,24 +35,25 @@ router.use(function timeLog(req, res, next) {
                 resena: req.body.rese,
                 nombre: req.session.user.user,
             }
-            await db.insertReviewChef(req.params.idchef,review)
-           res.send(review)
-           res.status(200).end();
-        }   catch (e) {
+            await db.insertReviewChef(req.params.idchef, review)
+            res.send(review)
+            res.status(200).end();
+        } catch (e) {
 
-           res.status(400).end();
-       }
+            res.status(400).end();
+        }
     });
     router.put('/resena/plato/:idplato', async (req, res) => { /// -------------------------------- aca estuvo junaito
-       try{ let review= {
-           userId: req.session.user._id,
-           resena: req.body.rese,
-           nombre: req.session.user.user,
+        try {
+            let review = {
+                userId: req.session.user._id,
+                resena: req.body.rese,
+                nombre: req.session.user.user,
             }
-            await db.insertReviewPlato(req.params.idplato,review)
-           res.send(review)
-           res.status(200).end();
-        }   catch (e) {
+            await db.insertReviewPlato(req.params.idplato, review)
+            res.send(review)
+            res.status(200).end();
+        } catch (e) {
 
             res.status(400).end();
         }
@@ -194,7 +195,7 @@ router.use(function timeLog(req, res, next) {
         try {
             let plato = await db.getPlato(req.params.id);
             let recomendados = await db.getRecomendados(plato);
-            res.send({ data: { dish: plato } });
+            res.send({ data: { dish: plato, recommended: recomendados } });
             res.end();
         } catch (err) {
             console.log(err);

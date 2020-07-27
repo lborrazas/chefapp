@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const database = 'chefsappv2';
 const dotenv = require('dotenv');
 dotenv.config();
-const url = process.env.DB_CONNECTION+ database;
+const url = process.env.DB_CONNECTION + database;
 
 
 mongoose.Promise = global.Promise;
@@ -168,15 +168,12 @@ module.exports.getRecomendados = async function (plato) {
         $in: categorias
     }
 
-    let recomendados = await Plato.find(cat_fuertes, '_id photo').sort({ favs: -1 }).limit(3);
+    let recomendados = await Plato.find(cat_fuertes, '_id photo').sort({ favs: -1 }).limit(5);
 
     recomendados = await recomendados.map(async plato => {
 
         plato = plato.toObject();
         let chef = await Usuario.findOne({ type: 'chef', platos: plato._id }, 'name photo');
-
-
-
         plato.chef = {
             id: chef._id,
             name: chef.name,
