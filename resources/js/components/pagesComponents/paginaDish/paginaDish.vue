@@ -20,11 +20,11 @@
             </div>
 
             <div class="flex-container-buttons">
-                <div class="flex-33"> <i class="fa fa-cart-plus" @click="addToCarrito"></i> </div>
+                <div class="flex-33"  @click="addToCarrito"> <i class="fa fa-cart-plus"></i> </div>
                 <div class="flex-33"> <i class="fa fa-money"></i> <strong style="color: whitesmoke">{{dish.price}}</strong>  </div>
                 <div class="flex-33"> <i :class="isFavorite ? 'fa fa-heart' : 'fa fa-heart-o'"></i></div>
             </div>
-            
+
 
 
             <div id="reviews">
@@ -52,7 +52,8 @@
             </modal-two>
 
 
-            <recomended-dish></recomended-dish>
+           <!-- <recomended-dish></recomended-dish>-->
+            <main-slider-component></main-slider-component>
 
 
         </template>
@@ -68,6 +69,7 @@
     import imageComponent from "../../coreComponents/imageComponent.vue";
     import 'keen-ui/dist/keen-ui.css';
     import muiChangePageEvent from "../../../functions/muiChangePageEvent";
+    import mainSlider from "../../coreComponents/mainSlider.vue";
 
     export default {
         name: "dishPage",
@@ -78,6 +80,7 @@
             'modal-two': UiModal,
             'button-keen': UiButton,
             'image-component': imageComponent,
+            'main-slider-component': mainSlider,
         },
         props: {},
         data() {
@@ -200,6 +203,9 @@
         text-align: center;
         color: #e5bf32;
         padding-top: 7px;
+    }
 
+    .flex-33:hover{
+        background-color: #a50404;
     }
 </style>
