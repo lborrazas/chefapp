@@ -10,7 +10,12 @@
             </div>
             <div class="flex-container" style="flex-direction: column; background-color: lightgoldenrodyellow; width: 34%; min-height: 45%;">
                 <div class="item-header-main" style="font-size: large; color: black; text-align: center;">{{this.chef.name}}</div>
-                <div id="profile-photo" class="d-block mx-auto" style="" :style="'background-image:url('+this.chef.photo+');'"></div>
+                <div style="height: 80px; width: 80px; margin:auto; border: black solid 2px; border-radius: 100%" >
+                    <img  :src="chef.photo" alt=""
+                         style="height: 100%; width: 100%; object-fit: cover; border-radius: 100%">
+                </div>
+
+
             </div>
             <div class="flex-container" style="padding-top: 20px; flex-direction: column; background-color: lightgoldenrodyellow; width: 33%; min-height: 45%;">
                <div class="item-header-main" style="font-size: large; color: black; text-align: center;">Subscriptores</div>
