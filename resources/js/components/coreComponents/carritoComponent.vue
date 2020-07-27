@@ -12,7 +12,7 @@
                     <div class="flex-container">
                         <div style="margin-right: 25%">Total: {{total}}$</div>
                         <button style="margin-left:25% " v-if="carrito.length>0"
-                                @click="$store.commit('emptyCarrito')">Limpiar Carrito
+                                @click="emptyCarrito">Limpiar Carrito
                         </button>
                     </div>
 
@@ -70,6 +70,9 @@
                         this.$refs['creditoModal'].close
                     }
                 )
+            },
+            emptyCarrito(){
+                this.$store.commit('emptyCarrito')
             }
         },
         computed: {

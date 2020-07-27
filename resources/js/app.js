@@ -33,7 +33,7 @@ const store = new Vuex.Store({
             state.carrito.splice(index);
         },
         emptyCarrito(state){
-            state.carrito.empty();
+            state.carrito = [];
         },
     }
 })
