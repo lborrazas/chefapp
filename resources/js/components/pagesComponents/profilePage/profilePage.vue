@@ -46,10 +46,11 @@
                 </div>
             </modal-two>
 
-            <div>
+            <div><div v-if="perfilpropio">
                 <button @click="cargarPlatos" v-if="semanalbool === false">
                     boton para ir a cambiar semanales [semanales]
                 </button>
+            </div>
                 <div onclick="acc1()" class="item-header-main according-chef3" style="font-size: large; color: black; text-align: center; background-color: #e5b31b; margin-top: 0%; ">Platillos</div>
                 <div class="for-sticky">
                     <div  class="horizontal-container">
