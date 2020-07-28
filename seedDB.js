@@ -1,6 +1,6 @@
 const db = require('./mongoose');
 
-
+// Esto sirve para cargar algunas cateogrias a la base
 
 (async function () {
 
