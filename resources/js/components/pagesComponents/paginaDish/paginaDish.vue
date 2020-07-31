@@ -18,6 +18,7 @@
                 <image-component :dish="dishForPhoto"   :is_main_photo="true"></image-component>
             </div>
 
+
             <div class="flex-container-buttons">
                 <div class="flex-33"  @click="addToCarrito"> <i class="fa fa-cart-plus"></i> </div>
                 <div class="flex-33"> <i class="fa fa-money"></i> <strong style="color: whitesmoke">{{dish.price}}</strong>  </div>

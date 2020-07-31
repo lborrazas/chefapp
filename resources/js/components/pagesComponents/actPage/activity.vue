@@ -67,10 +67,6 @@
                 this.$refs['modal-add-reseña-plato'].open()
 
             },
-            dishForPhoto(dish) {
-                let aux = {_id: dish._id, photo: dish.photo}
-                return aux;
-            },
             mandarResenaPlato() {
 
 
@@ -105,11 +101,6 @@
         computed: {
             pintar() {
                 return this.carga = (100 * parseInt(this.dish.reservados)) / parseInt(this.dish.cantidad)
-            },
-            dishForPhoto() {
-                let aux = {_id: this.dish._id, photo: this.dish.photo}
-                aux.chef = this.chef;
-                return aux;
             },
             isFavorite(){
                 return false;
