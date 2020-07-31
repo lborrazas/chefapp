@@ -2,12 +2,16 @@ window.Vue = require('vue')
 window.axios = require('axios')
 window.Noty = require('noty');
 
-import 'noty/lib/noty.css';
-import 'noty/lib/themes/mint.css';
+import 'noty/lib/noty.css'; //css manually for webpack :)
+import 'noty/lib/themes/mint.css'; // css manually for webpack :)
 
 import Vuex from 'vuex'
-
+import VueCroppie from "vue-croppie";
+import 'croppie/croppie.css' //css manually for webpack :)
 Vue.use(Vuex)
+Vue.use(VueCroppie)
+
+
 
 window.eventBus = new Vue;
 
@@ -93,7 +97,7 @@ const app = new Vue({
     mounted() {
     },
     created(){
-       /* eventBus.$on('eventBusEmission', function () {
+       /* eventBus.$on('eventBushEmission', function () {
             alert('hola');
         }.bind(this));*/
     },

@@ -27,6 +27,7 @@
     "redis": "^3.0.2",
     "vue": "^2.6.11",
     "vue-carousel": "^0.18.0",
+    "vue-croppie": "^2.0.2",
     "vue-loader": "^15.9.3",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",

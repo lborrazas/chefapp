@@ -14,12 +14,13 @@
 <script>
     import pageComponent from "../../pageComponent.vue";
     import animatedCheffLogo from "../../resourcesComponents/animatedCheffLogo.vue";
+    import croppMixin from "../../../mixins/cropp.js"
 
     export default {
         name: "startPageComponent",
         components: {
             'page-template': pageComponent,
-            'animated-logo': animatedCheffLogo
+            'animated-logo': animatedCheffLogo,
         },
         mounted() {
             delay(function () {
@@ -32,7 +33,7 @@
                     }
                 });
             }, 2000)
-        }
+        },
     }
 
     var delay = (function () {
